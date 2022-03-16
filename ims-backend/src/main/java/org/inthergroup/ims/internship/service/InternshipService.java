@@ -1,4 +1,4 @@
-package org.inthergroup.ims.service;
+package org.inthergroup.ims.internship.service;
 
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.controller.InternshipDTO;

@@ -1,7 +1,7 @@
 package org.inthergroup.ims.internship.controller;
 
 import org.inthergroup.ims.internship.model.Internship;
-import org.inthergroup.ims.service.InternshipService;
+import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +17,8 @@ public class InternshipController {
     }
 
     @GetMapping
-    public List<Internship> getAllInternships() {
-        return internshipService.getAllInternships();
+    public String getInternshipForm() {
+        return "internship form";
     }
 
     @PostMapping

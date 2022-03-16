@@ -2,12 +2,12 @@ package org.inthergroup.ims.candidate.Service;
 
 import org.inthergroup.ims.candidate.Repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-
 public class CandidateServiceImp implements CandidateService {
 
     private final CandidateRepository candidateRepository;
@@ -28,7 +28,7 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
-    public Candidate getCandidate(Long id){
+    public Candidate getCandidate(Long id) {
         return null;
     }
 }

@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,23 +21,27 @@ public class Internship {
     @Column(name = "internship_id")
     private String id;
     @Column(name = "project_name")
-    private @NotBlank String projectName;
+    private String projectName;
     @Enumerated(EnumType.STRING)
     private Category category;
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "mentors_internships",
-            joinColumns = @JoinColumn(name = "internship_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<Admins> mentors;
+    //    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(name = "mentors_internships",
+//            joinColumns = @JoinColumn(name = "internship_id"),
+//            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "mentors")
+    private String mentors;
     @Column(name = "period_from")
-    private @NotBlank Date periodFrom;
+    private Date periodFrom;
     @Column(name = "period_to")
-    private @NotBlank Date periodTo;
+    private Date periodTo;
     @Column(columnDefinition = "varchar(32) default 'NEW'")
     @Enumerated(EnumType.STRING)
     private Status internshipStatus = Status.NEW;
-    @Enumerated(EnumType.STRING)
-    private List<PreInterviewTest2> preInterviewTestList;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "internships_pre_interview_tests",
+            joinColumns = @JoinColumn(name = "internship_id"),
+            inverseJoinColumns = @JoinColumn(name = "pre_interview_test_id"))
+    private List<PreInterviewTest> preInterviewTestList;
     @Column(name = "technical_question_list")
     private String techQuesListName;
     @Column(name = "github_link")
