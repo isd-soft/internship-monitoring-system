@@ -20,7 +20,7 @@ public class RegisterRequest {
     @Size(min = 6, max = 40)
     private String password;
 
-    private String job_position;
+    private String jobPosition;
 
     public String getUsername() {
         return username;
@@ -50,12 +50,12 @@ public class RegisterRequest {
         return this.role;
     }
 
-    public String getJob_position() {
-        return job_position;
+    public String getJobPosition() {
+        return jobPosition;
     }
 
-    public void setJob_position(String job_position) {
-        this.job_position = job_position;
+    public void setJobPosition(String jobPosition) {
+        this.jobPosition = jobPosition;
     }
 
     public void setRole(Set<String> role) {
