@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidate.Service;
 
+import org.inthergroup.ims.candidate.Controller.CandidateDTO;
 import org.inthergroup.ims.candidate.Repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.stereotype.Service;
@@ -17,18 +18,30 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
-    public void save(Candidate candidate) {
-        candidateRepository.save(candidate);
+    public void save(CandidateDTO candidate) {
+        candidateRepository.save(getCandidate(candidate));
     }
 
 
     @Override
     public List<Candidate> get() {
-        return null;
+        return this.candidateRepository.findAll();
     }
 
     @Override
-    public Candidate getCandidate(Long id){
+    public Candidate getCandidate(CandidateDTO candidateDTO) {
+        return new Candidate(candidateDTO.getId(),
+                candidateDTO.getName(),
+                candidateDTO.getSurname(),
+                candidateDTO.getEmail(),
+                candidateDTO.getCv(),
+                candidateDTO.getComment(),
+                candidateDTO.getStatus(),
+                candidateDTO.getMark());
+    }
+
+    @Override
+    public Candidate addCandidate(Candidate candidate) {
         return null;
     }
 }

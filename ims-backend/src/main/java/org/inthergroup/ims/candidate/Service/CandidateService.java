@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidate.Service;
 
+import org.inthergroup.ims.candidate.Controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,10 @@ public interface CandidateService {
 
     List<Candidate> get();
 
-    void save(Candidate candidate);
+    void save(CandidateDTO candidate);
 
+    Candidate getCandidate(CandidateDTO candidateDTO);
 
-    Candidate getCandidate(Long id);
+    Candidate addCandidate(Candidate candidate);
 }
 
