@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface CandidateService {
 
-    List<Candidate> get();
+    List<Candidate> getAllCandidates();
 
     void save(Candidate candidate);
 
