@@ -11,6 +11,6 @@ public class CandidateDTO {
     private String email;
     private String cv;
     private String comment;
-    private Status status;
+    private String status;
     private double mark;
 }

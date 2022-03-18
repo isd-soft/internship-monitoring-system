@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/candidates")
 public class CandidateController {
@@ -21,14 +19,13 @@ public class CandidateController {
     }
 
     @GetMapping
-    public List<Candidate> getRegisterAllCandidate() {
-        return candidateService.getAllCandidates();
+    public String getRegisterAllCandidate() {
+        return "candidate is registered";
     }
 
     @PostMapping
     public Candidate save(@RequestBody Candidate candidate) {
         candidateService.save(candidate);
-        System.out.println("candidate was saved");
         return candidate;
     }
 
