@@ -6,9 +6,10 @@ import org.inthergroup.ims.internship.repository.InternshipRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class InternshipServiceImpl implements InternshipService{
+public class InternshipServiceImpl implements InternshipService {
 
     private final InternshipRepository internshipRepository;
     private final PreInterviewTestService preInterviewTestService;
@@ -31,13 +32,21 @@ public class InternshipServiceImpl implements InternshipService{
 
     }
 
-   @Override
+    @Override
     public Internship toInternship(InternshipDTO internshipDTO) {
-        return new Internship(internshipDTO.getId(), internshipDTO.getProjectName(), internshipDTO.getCategory(),
-                internshipDTO.getMentors(), internshipDTO.getPeriodFrom(), internshipDTO.getPeriodTo(),
-                internshipDTO.getInternshipStatus(),
-                preInterviewTestService.toPreInterviewTestList(internshipDTO.getPreInterviewTestList()),
-                internshipDTO.getTechQuesListName(), internshipDTO.getGitHubUrl(), internshipDTO.getTrelloBoardUrl(),
-                internshipDTO.getDeployedAppUrl(), internshipDTO.getPresentationUrl());
+        Internship internship = new Internship();
+        internship.setProjectName(internshipDTO.getProjectName());
+        internship.setCategory(internshipDTO.getCategory());
+        internship.setMentors(internshipDTO.getMentors());
+        internship.setPeriodFrom(internshipDTO.getPeriodFrom());
+        internship.setPeriodTo(internshipDTO.getPeriodTo());
+        internship.setInternshipStatus(internshipDTO.getInternshipStatus());
+        internship.setPreInterviewTestList(internshipDTO.getPreInterviewTestList());
+        internship.setTechQuesListName(internshipDTO.getTechQuesListName());
+        internship.setGitHubUrl(internshipDTO.getGitHubUrl());
+        internship.setTrelloBoardUrl(internshipDTO.getTrelloBoardUrl());
+        internship.setDeployedAppUrl(internshipDTO.getDeployedAppUrl());
+        internship.setPresentationUrl(internshipDTO.getPresentationUrl());
+        return internship;
     }
 }

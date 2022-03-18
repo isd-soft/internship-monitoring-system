@@ -1,4 +1,4 @@
-package org.inthergroup.ims.security.JWT;
+package org.inthergroup.ims.login.security.JWT;
 
 
 import java.io.IOException;
@@ -8,7 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.inthergroup.ims.security.Service.UserDetailsServiceImpl;
+import org.inthergroup.ims.login.security.service.UserDetailsServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,7 @@
-package org.inthergroup.ims.model;
+package org.inthergroup.ims.login.model;
 
 import lombok.Data;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -59,7 +60,7 @@ public class User{
 
     @NotBlank
     @Size(max = 120)
-    @Column(name = "jobPosition")
+    @Column(name = "job_position")
     private String jobPosition;
 
     @ManyToMany(fetch = FetchType.LAZY)

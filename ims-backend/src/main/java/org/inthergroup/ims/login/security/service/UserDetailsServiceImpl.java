@@ -1,8 +1,7 @@
-package org.inthergroup.ims.security.Service;
+package org.inthergroup.ims.login.security.service;
 
-import org.inthergroup.ims.model.User;
-import org.inthergroup.ims.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.login.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

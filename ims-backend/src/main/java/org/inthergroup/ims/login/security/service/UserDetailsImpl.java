@@ -1,4 +1,4 @@
-package org.inthergroup.ims.security.Service;
+package org.inthergroup.ims.login.security.service;
 
 import java.util.Collection;
 import java.util.List;
@@ -10,9 +10,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import org.inthergroup.ims.model.User;
+import org.inthergroup.ims.login.model.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 
 
 public class UserDetailsImpl implements UserDetails {

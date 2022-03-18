@@ -13,6 +13,7 @@ import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { InternshipComponent } from './intership/internship.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    InternshipComponent,
   ],
   imports: [
     BrowserModule,

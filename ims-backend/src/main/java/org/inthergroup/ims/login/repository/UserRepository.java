@@ -1,6 +1,6 @@
-package org.inthergroup.ims.repository;
+package org.inthergroup.ims.login.repository;
 
-import org.inthergroup.ims.model.User;
+import org.inthergroup.ims.login.model.User;
 ;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

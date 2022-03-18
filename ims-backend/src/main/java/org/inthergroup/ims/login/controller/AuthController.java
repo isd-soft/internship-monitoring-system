@@ -1,4 +1,4 @@
-package org.inthergroup.ims.controller;
+package org.inthergroup.ims.login.controller;
 
 import java.util.HashSet;
 import java.util.List;
@@ -7,17 +7,17 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
-import org.inthergroup.ims.security.Service.UserDetailsImpl;
-import org.inthergroup.ims.model.Role;
-import org.inthergroup.ims.model.URole;
-import org.inthergroup.ims.model.User;
-import org.inthergroup.ims.repository.RoleRepository;
-import org.inthergroup.ims.repository.UserRepository;
-import org.inthergroup.ims.request.LoginRequest;
-import org.inthergroup.ims.request.RegisterRequest;
-import org.inthergroup.ims.response.JwtResponse;
-import org.inthergroup.ims.response.MessageResponse;
-import org.inthergroup.ims.security.JWT.JwtUtils;
+import org.inthergroup.ims.login.model.Role;
+import org.inthergroup.ims.login.model.URole;
+import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.login.security.service.UserDetailsImpl;
+import org.inthergroup.ims.login.repository.RoleRepository;
+import org.inthergroup.ims.login.repository.UserRepository;
+import org.inthergroup.ims.login.payload.request.LoginRequest;
+import org.inthergroup.ims.login.payload.request.RegisterRequest;
+import org.inthergroup.ims.login.payload.response.JwtResponse;
+import org.inthergroup.ims.login.payload.response.MessageResponse;
+import org.inthergroup.ims.login.security.JWT.JwtUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

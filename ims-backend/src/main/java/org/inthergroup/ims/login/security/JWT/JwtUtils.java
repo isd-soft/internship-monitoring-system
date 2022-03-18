@@ -1,8 +1,8 @@
-package org.inthergroup.ims.security.JWT;
+package org.inthergroup.ims.login.security.JWT;
 
 import java.util.Date;
 
-import org.inthergroup.ims.security.Service.UserDetailsImpl;
+import org.inthergroup.ims.login.security.service.UserDetailsImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;

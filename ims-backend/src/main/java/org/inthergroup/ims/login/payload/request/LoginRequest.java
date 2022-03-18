@@ -1,4 +1,4 @@
-package org.inthergroup.ims.request;
+package org.inthergroup.ims.login.payload.request;
 
 
 import javax.validation.constraints.NotBlank;

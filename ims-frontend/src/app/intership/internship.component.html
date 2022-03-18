@@ -1,0 +1,42 @@
+<form [formGroup]="internshipForm" (ngSubmit)="onSubmit()" class="internship-form">
+  <legend><h1>Create an internship</h1></legend>
+
+  <label for="project-name">Project Name: </label>
+  <input id="project-name" type="text" formControlName="projectName" required>
+
+  <label for="category">Category: </label>
+<!--  <select name="category" class="form-control">-->
+<!--    <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>-->
+<!--  </select>-->
+  <input id="category" type="text" formControlName="category">
+
+  <label for="mentors">Category: </label>
+  <input id="mentors" type="text" formControlName="mentors">
+
+  <label for="period">Period: </label>
+  <input id="period" type="text" formControlName="period">
+
+  <label for="status">Status: </label>
+  <input id="status" type="text" formControlName="status">
+
+  <label for="pre-interview-tests">Pre-interview tests: </label>
+  <input id="pre-interview-tests" type="text" formControlName="preInterviewTests">
+
+  <label for="technical-question-list">Technical question list: </label>
+  <input id="technical-question-list" type="text" formControlName="technicalQuestionList">
+
+  <label for="link-github">Link to GitHub repository: </label>
+  <input id="link-github" type="text" formControlName="linkGithub">
+
+  <label for="link-trello">Link to Trello board: </label>
+  <input id="link-trello" type="text" formControlName="linkTrello">
+
+  <label for="link-deployed-app">Link to the deployed app: </label>
+  <input id="link-deployed-app" type="text" formControlName="linkDeployedApp">
+
+  <label for="link-presentation">PowerPoint presentation: </label>
+  <input id="link-presentation" type="text" formControlName="linkPresentation">
+
+<!--  <p>Complete the form to enable button.</p>-->
+<!--  <button type="submit" [disabled]="!internshipForm.valid">Submit</button>-->
+</form>

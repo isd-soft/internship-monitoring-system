@@ -1,7 +1,7 @@
-package org.inthergroup.ims.security;
-import org.inthergroup.ims.security.Service.UserDetailsServiceImpl;
-import org.inthergroup.ims.security.JWT.AuthEntryPointJwt;
-import org.inthergroup.ims.security.JWT.AuthTokenFilter;
+package org.inthergroup.ims.login.security;
+import org.inthergroup.ims.login.security.service.UserDetailsServiceImpl;
+import org.inthergroup.ims.login.security.JWT.AuthEntryPointJwt;
+import org.inthergroup.ims.login.security.JWT.AuthTokenFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -55,7 +55,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                .authorizeRequests().antMatchers("/api/auth/**").permitAll()
+                //TODO-to review access to endpoints after poject is finished
+                .authorizeRequests().antMatchers("/**","/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 

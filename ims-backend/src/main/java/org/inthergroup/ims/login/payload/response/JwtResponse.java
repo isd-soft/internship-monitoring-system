@@ -1,4 +1,4 @@
-package org.inthergroup.ims.response;
+package org.inthergroup.ims.login.payload.response;
 
 
 import java.util.List;

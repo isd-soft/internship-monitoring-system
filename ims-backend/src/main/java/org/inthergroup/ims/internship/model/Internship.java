@@ -1,11 +1,15 @@
 package org.inthergroup.ims.internship.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.DynamicUpdate;
+import org.inthergroup.ims.login.model.User;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -20,24 +24,25 @@ public class Internship {
     @Id
     @Column(name = "internship_id")
     private String id;
-    @Column(name = "project_name")
+    @Column(columnDefinition = "varchar(100) default 'Upcoming Internship'",name = "project_name")
     private String projectName;
     @Enumerated(EnumType.STRING)
     private Category category;
-    //    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(name = "mentors_internships",
-//            joinColumns = @JoinColumn(name = "internship_id"),
-//            inverseJoinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "mentors")
-    private String mentors;
-    @Column(name = "period_from")
-    private Date periodFrom;
-    @Column(name = "period_to")
-    private Date periodTo;
-    @Column(columnDefinition = "varchar(32) default 'NEW'")
-    @Enumerated(EnumType.STRING)
-    private Status internshipStatus = Status.NEW;
     @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
+    @JoinTable(name = "mentors_internships",
+            joinColumns = @JoinColumn(name = "internship_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> mentors;
+    @Column(columnDefinition = "date", name = "period_from")
+    private LocalDate periodFrom;
+    @Column(columnDefinition = "date", name = "period_to")
+    private LocalDate periodTo;
+    @Column(columnDefinition = "varchar(32) default 'NEW'", name = "status")
+    @Enumerated(EnumType.STRING)
+    private Status internshipStatus;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JsonIgnore
     @JoinTable(name = "internships_pre_interview_tests",
             joinColumns = @JoinColumn(name = "internship_id"),
             inverseJoinColumns = @JoinColumn(name = "pre_interview_test_id"))

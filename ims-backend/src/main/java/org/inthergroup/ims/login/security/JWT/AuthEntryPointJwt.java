@@ -1,4 +1,4 @@
-package org.inthergroup.ims.security.JWT;
+package org.inthergroup.ims.login.security.JWT;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
