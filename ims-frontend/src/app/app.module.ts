@@ -13,6 +13,9 @@ import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -21,6 +24,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    AddCandidateComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    CommonModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
