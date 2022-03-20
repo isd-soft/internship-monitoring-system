@@ -3,6 +3,7 @@ package org.inthergroup.ims.candidate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import java.util.UUID;

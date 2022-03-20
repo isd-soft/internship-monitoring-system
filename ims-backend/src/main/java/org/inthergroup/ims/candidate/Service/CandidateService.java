@@ -12,6 +12,8 @@ public interface CandidateService {
 
     void save(Candidate candidate);
 
+    void delete(Candidate candidate);
+
 
     Candidate getCandidate(Long id);
 }
