@@ -3,6 +3,7 @@ package org.inthergroup.ims.candidate.Service;
 import org.inthergroup.ims.candidate.Repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -17,6 +18,12 @@ public class CandidateServiceImp implements CandidateService {
     @Override
     public void save(Candidate candidate) {
         candidateRepository.save(candidate);
+    }
+
+
+    @Override
+    public void delete(Candidate candidate) {
+        candidateRepository.deleteById(candidate.getId());
     }
 
 
