@@ -12,9 +12,9 @@ public interface CandidateService {
 
     void save(Candidate candidate);
 
-    void delete(Candidate candidate);
+    void delete(String id);
 
 
-    Candidate getCandidate(Long id);
+    Candidate getCandidate(String id);
 }
 

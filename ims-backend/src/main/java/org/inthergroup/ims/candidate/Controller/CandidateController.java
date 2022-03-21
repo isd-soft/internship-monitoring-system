@@ -28,9 +28,9 @@ public class CandidateController {
         return candidate;
     }
 
-    @DeleteMapping
-    public Candidate deleteCandidate(@RequestBody Candidate candidate) {
-        candidateService.delete(candidate);
+    @DeleteMapping("/{id}")
+    public String  deleteCandidate(@PathVariable("id") String id) {
+        candidateService.delete(id);
         return null;
     }
 
