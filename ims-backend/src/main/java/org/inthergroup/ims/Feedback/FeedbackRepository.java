@@ -1,2 +1,9 @@
-package org.inthergroup.ims.candidate.Repository;public class FeedbackRepository {
+package org.inthergroup.ims.Feedback;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+
+@Repository
+public interface FeedbackRepository extends JpaRepository <Feedback,String> {
 }

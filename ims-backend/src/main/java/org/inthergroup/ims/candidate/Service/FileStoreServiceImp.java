@@ -2,13 +2,12 @@ package org.inthergroup.ims.candidate.Service;
 
 
 import org.apache.commons.io.FilenameUtils;
-import org.inthergroup.ims.candidate.Controller.StorageProperties;
 import org.inthergroup.ims.candidate.model.ResponseData;
 import org.inthergroup.ims.exceptions.StorageException;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -25,9 +24,17 @@ import java.util.stream.Stream;
 
 @Service
 public class FileStoreServiceImp implements FileStoreService {
-    private StorageProperties properties = new StorageProperties();
-    Path rootLocation = Paths.get(properties.getLocation());
 
+    @Value("${pdf.location}")
+    String fileLocation;
+
+    final Environment env;
+    final Path rootLocation;
+
+    public FileStoreServiceImp(Environment env) {
+        this.env = env;
+        rootLocation = Paths.get(env.getProperty("pdf.location"));
+    }
 
     public ResponseData store(MultipartFile file) {
         try {
@@ -52,7 +59,6 @@ public class FileStoreServiceImp implements FileStoreService {
                 ResponseData data = new ResponseData();
                 data.data = baseUrl + "/fileUpload/files/" + uploadedFileName;
                 return data;
-//                return baseUrl + "/fileUpload/files/" + uploadedFileName;
             }
         } catch (IOException e) {
             throw new StorageException("Failed to store file.", e);

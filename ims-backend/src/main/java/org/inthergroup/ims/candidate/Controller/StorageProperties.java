@@ -3,7 +3,7 @@ package org.inthergroup.ims.candidate.Controller;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties("storage")
+//@ConfigurationProperties("storage")
 
 public class StorageProperties {
 
