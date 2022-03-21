@@ -8,12 +8,14 @@ import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InternshipComponent } from './intership/internship.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { InternshipComponent } from './intership/internship.component';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

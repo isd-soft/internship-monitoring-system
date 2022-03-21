@@ -2,13 +2,12 @@ package org.inthergroup.ims.internship.controller;
 
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/internships")
+@RequestMapping("/api/internships")
 public class InternshipController {
 
     private final InternshipService internshipService;
@@ -30,7 +29,7 @@ public class InternshipController {
 
     @PostMapping
     void addInternship(@RequestBody InternshipDTO internship) {
-        internshipService.save(internship);
+        internshipService.createInternship(internship);
     }
 
 }

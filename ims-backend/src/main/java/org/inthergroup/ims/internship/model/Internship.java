@@ -47,6 +47,7 @@ public class Internship {
             joinColumns = @JoinColumn(name = "internship_id"),
             inverseJoinColumns = @JoinColumn(name = "pre_interview_test_id"))
     private List<PreInterviewTest> preInterviewTestList;
+    //TODO- change from string to Tehcnical list ID, OBJECT
     @Column(name = "technical_question_list")
     private String techQuesListName;
     @Column(name = "github_link")

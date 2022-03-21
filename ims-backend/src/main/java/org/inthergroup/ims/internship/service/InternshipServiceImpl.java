@@ -14,8 +14,7 @@ public class InternshipServiceImpl implements InternshipService {
     private final InternshipRepository internshipRepository;
     private final PreInterviewTestService preInterviewTestService;
 
-    public InternshipServiceImpl(InternshipRepository internshipRepository,
-                                 PreInterviewTestService preInterviewTestService) {
+    public InternshipServiceImpl(InternshipRepository internshipRepository, PreInterviewTestService preInterviewTestService) {
         this.internshipRepository = internshipRepository;
         this.preInterviewTestService = preInterviewTestService;
     }
@@ -27,9 +26,8 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public void save(InternshipDTO internship) {
+    public void createInternship(InternshipDTO internship) {
         internshipRepository.save(toInternship(internship));
-
     }
 
     @Override

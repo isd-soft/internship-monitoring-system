@@ -31,7 +31,6 @@ public class InternshipDTO {
     private String trelloBoardUrl;
     private String deployedAppUrl;
     private String presentationUrl;
-
     public InternshipDTO() {
     }
 }
