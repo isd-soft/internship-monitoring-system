@@ -22,8 +22,8 @@ public class CandidateServiceImp implements CandidateService {
 
 
     @Override
-    public void delete(Candidate candidate) {
-        candidateRepository.deleteById(candidate.getId());
+    public void delete(String id) {
+        candidateRepository.deleteById(id);
     }
 
 
@@ -33,7 +33,7 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
-    public Candidate getCandidate(Long id) {
+    public Candidate getCandidate(String id) {
         return null;
     }
 }

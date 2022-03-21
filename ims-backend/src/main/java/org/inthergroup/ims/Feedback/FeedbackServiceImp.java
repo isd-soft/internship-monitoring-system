@@ -20,8 +20,8 @@ public class FeedbackServiceImp implements FeedbackService {
 
 
     @Override
-    public void delete(Feedback feedback) {
-        feedbackRepository.deleteById(feedback.getId());
+    public void delete(String id) {
+        feedbackRepository.deleteById(id);
     }
 
 

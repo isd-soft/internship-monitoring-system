@@ -57,7 +57,7 @@ public class FileStoreServiceImp implements FileStoreService {
                         ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 
                 ResponseData data = new ResponseData();
-                data.data = baseUrl + "/fileUpload/files/" + uploadedFileName;
+                data.data =   fileLocation + uploadedFileName;
                 return data;
             }
         } catch (IOException e) {

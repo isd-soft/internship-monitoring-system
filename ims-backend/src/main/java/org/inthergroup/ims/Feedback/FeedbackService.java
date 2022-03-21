@@ -10,7 +10,7 @@ public interface FeedbackService {
 
     void save(Feedback feedback);
 
-    void delete(Feedback feedback);
+    void delete(String id);
 
 
     Feedback getFeedback(Long id);

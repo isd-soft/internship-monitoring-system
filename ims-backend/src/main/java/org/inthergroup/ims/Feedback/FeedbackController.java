@@ -34,17 +34,19 @@ public class FeedbackController {
         return feedback;
     }
 
-    @DeleteMapping
-    public Feedback deleteFeedback(@RequestBody Feedback feedback) {
-        feedbackService.delete(feedback);
+    @DeleteMapping("/{id}")
+    public String  deleteFeedback(@PathVariable("id") String id) {
+        feedbackService.delete(id);
         return null;
     }
-    @PutMapping("/feedback/{id}")
-    public Feedback updateFeedback(@PathVariable("id") long id, @RequestBody FeedbackDTO feedbackDTO) {
+
+    @PutMapping()
+    public Feedback updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         Feedback feedback1 = new Feedback();
-        feedback1.setFeedback(feedbackDTO.getId());
+        feedback1.setId(feedbackDTO.getId());
+        feedback1.setFeedback(feedbackDTO.getFeedback());
         feedbackService.save(feedback1);
-        return null;
+        return feedback1;
 
     }
 }
