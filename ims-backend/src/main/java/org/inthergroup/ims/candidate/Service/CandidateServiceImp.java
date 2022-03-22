@@ -29,7 +29,7 @@ public class CandidateServiceImp implements CandidateService {
 
     @Override
     public List<Candidate> getAllCandidates() {
-        return candidateRepository.findAll();
+        return (List<Candidate>) candidateRepository.findAll();
     }
 
     @Override
