@@ -23,6 +23,9 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CommonModule} from "@angular/common";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
 
 @NgModule({
   declarations: [
@@ -51,7 +54,10 @@ import {CommonModule} from "@angular/common";
     NgbModule,
     FormsModule,
     MatSelectModule,
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
 
   ],
   providers: [],

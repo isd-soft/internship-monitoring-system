@@ -9,4 +9,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .fa {
   margin-right: 5px;
 }
+table {
+  width: 75%;
+}
+
+.mat-form-field {
+  font-size: 15px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
+}
 

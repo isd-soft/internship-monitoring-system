@@ -8,52 +8,129 @@
       New Internship
     </button>
   </div>
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>Project Name</th>
-      <th>Category</th>
-      <!--      <th>Mentors</th>-->
-      <th>Period from</th>
-      <th>Period to</th>
-      <th>Status</th>
-      <!--      <th>Pre-interview tests</th>-->
-      <th>Technical question list</th>
-      <th>Link to GitHub repository</th>
-      <th>Link to Trello board</th>
-      <th>Link to the deployed app</th>
-      <!--      <th>PowerPoint presentation</th>-->
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let internship of internships">
-      <td><span>{{internship.projectName}}</span></td>
-      <td><span>{{internship.category}}</span></td>
-      <!--      <td><span>{{internship.mentors}}</span></td>-->
-      <td><span>{{internship.periodFrom}}</span></td>
-      <td><span>{{internship.periodTo}}</span></td>
-      <td><span>{{internship.internshipStatus}}</span></td>
-      <!--      <td><span>{{internship.preInterviewTestList}}</span></td>-->
-      <td><span>{{internship.techQuesListName}}</span></td>
-      <td><a href="{{internship.gitHubUrl}}">GitHub</a></td>
-      <td><a href="{{internship.trelloBoardUrl}}">Trello</a></td>
-      <td><a href="{{internship.deployedAppUrl}}">Open folder</a></td>
-      <!--      <td><span>{{internship.presentationUrl}}</span></td>-->
-      <td>
-        <button class="btn btn-sm btn-outline-info">
-          <i class="fa fa-search"></i>Details
-        </button>
-        <button class="btn btn-sm btn-outline-warning">
-          <i class="fa fa-edit"></i>Edit
-        </button>
-        <button class="btn btn-sm btn-outline-danger">
-          <i class="fa fa-remove"></i>Delete
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <mat-form-field appearance="outline">
+    <mat-label> Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- Np Column -->
+      <ng-container matColumnDef="position">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> No</th>
+        <td mat-cell *matCellDef="let row"> {{row.position}}</td>
+      </ng-container>
+
+      <!-- Project Name Column -->
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name</th>
+        <td mat-cell *matCellDef="let row"> {{row.projectName}}</td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+
+      <!-- Mentors Column -->
+      <ng-container matColumnDef="mentors">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mentors</th>
+        <td mat-cell *matCellDef="let row"> {{row.mentors}} </td>
+      </ng-container>
+
+      <!-- Period from Column -->
+      <ng-container matColumnDef="periodFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period from</th>
+        <td mat-cell *matCellDef="let row"> {{row.periodFrom}} </td>
+      </ng-container>
+
+      <!-- Period to Column -->
+      <ng-container matColumnDef="periodTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period to</th>
+        <td mat-cell *matCellDef="let row"> {{row.periodTo}} </td>
+      </ng-container>
+
+      <!-- Status Column-->
+      <ng-container matColumnDef="internshipStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+        <td mat-cell *matCellDef="let row"> {{row.internshipStatus}} </td>
+      </ng-container>
+
+      <!-- Pre-interview tests Column -->
+      <ng-container matColumnDef="preInterviewTestList">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Pre-interview tests</th>
+        <td mat-cell *matCellDef="let row"> {{row.preInterviewTestList}} </td>
+      </ng-container>
+
+      <!-- Technical question list Column -->
+      <ng-container matColumnDef="techQuesListName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Technical question list</th>
+        <td mat-cell *matCellDef="let row"> {{row.techQuesListName}} </td>
+      </ng-container>
+
+      <!-- Link to GitHub repository Column -->
+      <ng-container matColumnDef="gitHubUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to GitHub repository</th>
+        <td mat-cell *matCellDef="let row"> {{row.gitHubUrl}} </td>
+      </ng-container>
+
+      <!-- Link to Trello board Column -->
+      <ng-container matColumnDef="trelloBoardUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to Trello board</th>
+        <td mat-cell *matCellDef="let row"> {{row.trelloBoardUrl}} </td>
+      </ng-container>
+
+      <!-- Link to the deployed app Column -->
+      <ng-container matColumnDef="deployedAppUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to the deployed app</th>
+        <td mat-cell *matCellDef="let row"> {{row.deployedAppUrl}} </td>
+      </ng-container>
+
+      <!-- PowerPoint presentation Column -->
+      <ng-container matColumnDef="presentationUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PowerPoint presentation</th>
+        <td mat-cell *matCellDef="let row"> {{row.presentationUrl}} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <!--    <tr *ngFor="let internship of internships">-->
+  <!--      <td><span>{{internship.projectName}}</span></td>-->
+  <!--      <td><span>{{internship.category}}</span></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.mentors}}</span></td>&ndash;&gt;-->
+  <!--      <td><span>{{internship.periodFrom}}</span></td>-->
+  <!--      <td><span>{{internship.periodTo}}</span></td>-->
+  <!--      <td><span>{{internship.internshipStatus}}</span></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.preInterviewTestList}}</span></td>&ndash;&gt;-->
+  <!--      <td><span>{{internship.techQuesListName}}</span></td>-->
+  <!--      <td><a href="{{internship.gitHubUrl}}">GitHub</a></td>-->
+  <!--      <td><a href="{{internship.trelloBoardUrl}}">Trello</a></td>-->
+  <!--      <td><a href="{{internship.deployedAppUrl}}">Open folder</a></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.presentationUrl}}</span></td>&ndash;&gt;-->
+  <!--      <td>-->
+  <!--        <button class="btn btn-sm btn-outline-info">-->
+  <!--          <i class="fa fa-search"></i>Details-->
+  <!--        </button>-->
+  <!--        <button class="btn btn-sm btn-outline-warning">-->
+  <!--          <i class="fa fa-edit"></i>Edit-->
+  <!--        </button>-->
+  <!--        <button class="btn btn-sm btn-outline-danger">-->
+  <!--          <i class="fa fa-remove"></i>Delete-->
+  <!--        </button>-->
+  <!--      </td>-->
+  <!--    </tr>-->
+
 </div>
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -97,12 +174,12 @@
           <input id="status" class="form-control" type="text" formControlName="status">
         </div>
       </div>
-<!--      <div class="form-group">-->
-<!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="form-group">-->
+      <!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
+      <!--        <div class="input-group">-->
+      <!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
+      <!--        </div>-->
+      <!--      </div>-->
       <div class="form-group">
         <label for="technical-question-list">Technical question list: </label>
         <div class="input-group">
@@ -127,12 +204,12 @@
           <input id="link-deployed-app" class="form-control" type="text" formControlName="linkDeployedApp">
         </div>
       </div>
-<!--      <div class="form-group">-->
-<!--        <label for="link-presentation">Link to the deployed app: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
-<!--        </div>-->
-<!--      </div>-->
+      <!--      <div class="form-group">-->
+      <!--        <label for="link-presentation">Link to the deployed app: </label>-->
+      <!--        <div class="input-group">-->
+      <!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
+      <!--        </div>-->
+      <!--      </div>-->
 
     </form>
   </div>

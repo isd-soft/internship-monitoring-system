@@ -1,16 +1,24 @@
+import {User} from "./user";
+
 export class Internship {
   id: string;
   projectName: string;
   category: string;
+  mentors: User []; // review users class
   periodFrom: Date;
   periodTo: Date;
-  internshipStatus: string; // review Status class
+  internshipStatus: Status;
+  preInterviewTestList: string[]; // review PreinterviewTest class
   techQuesListName: string;
   gitHubUrl: string;
   trelloBoardUrl: string;
   deployedAppUrl: string; // review project download
   presentationUrl: string; // review presentation download
 }
-// mentors: string; // review users class
-// preInterviewTestList: string[]; // review PreinterviewTest class
 
+export enum Status {
+  NEW,
+  INTERVIEWING,
+  IN_PROGRESS,
+  DONE
+}

@@ -1,35 +1,51 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
 import {Internship} from "../shared/model/internship";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 @Component({
-  selector: 'app-intership',
+  selector: 'app-internship',
   templateUrl: './internship.component.html',
   styleUrls: ['./internship.component.css']
 })
-export class InternshipComponent implements OnInit {
+export class InternshipComponent implements AfterViewInit  {
   internships: Internship[];
+  displayedColumns: string[] = ['projectName', 'category', 'Mentors', 'periodFrom','periodTo','internshipStatus',
+    'preInterviewTestList', 'techQuesListName', 'gitHubUrl', 'trelloBoardUrl',
+    'deployedAppUrl', 'presentationUrl'];
+  dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  // internshipForm: FormGroup = new FormGroup({});
-  // private formBuilder: FormBuilder
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(private internshipService: InternshipService,
               private modalService: NgbModal) {
-  }
 
-  ngOnInit(): void {
+  }
+  ngAfterViewInit(): void {
     this.getAllInternships();
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   onSubmit() {
   }
-
   public getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: result => {
         console.log(result);
-        this.internships = result
+        this.dataSource = new MatTableDataSource(result);
       },
       error: err => console.log("An error has occurred;")
     });
@@ -51,18 +67,7 @@ export class InternshipComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+
 }
 
-// this.internshipForm = this.formBuilder.group({
-//   projectName: ['Upcoming Internship'],
-//   category: ['list'],
-//   mentors: ['list'],
-//   period: ['dd-mm-yyyy'],
-//   status: ['New'],
-//   preInterviewTests: ['x'],
-//   technicalQuestionList: ['y'],
-//   linkGithub: [''],
-//   linkTrello: [''],
-//   linkDeployedApp: [''],
-//   linkPresentation: [''],
-// });

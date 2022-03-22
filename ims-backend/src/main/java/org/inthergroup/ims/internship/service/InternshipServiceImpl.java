@@ -6,15 +6,14 @@ import org.inthergroup.ims.internship.repository.InternshipRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class InternshipServiceImpl implements InternshipService {
 
     private final InternshipRepository internshipRepository;
-    private final PreInterviewTestService preInterviewTestService;
+    private final PreInterviewTestEvaluationService preInterviewTestService;
 
-    public InternshipServiceImpl(InternshipRepository internshipRepository, PreInterviewTestService preInterviewTestService) {
+    public InternshipServiceImpl(InternshipRepository internshipRepository, PreInterviewTestEvaluationService preInterviewTestService) {
         this.internshipRepository = internshipRepository;
         this.preInterviewTestService = preInterviewTestService;
     }
