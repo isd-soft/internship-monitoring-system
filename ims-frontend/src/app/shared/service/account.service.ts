@@ -52,7 +52,7 @@ export class AccountService {
     return this.http.get<User>(`${environment.apiUrl}/user/${id}`);
   }
 
-  update(id: number, params: any): any {
+  update(id: string, params: any): any {
     return this.http.put(`${environment.apiUrl}/user/${id}`, params).pipe(
       map((x) => {
         // update stored user if the logged in user updated their own record
@@ -69,7 +69,7 @@ export class AccountService {
     );
   }
 
-  delete(id: number): any {
+  delete(id: string): any {
     return this.http.delete(`${environment.apiUrl}/user/${id}`).pipe(
       map((x) => {
         // auto logout if the logged in user deleted their own record

@@ -32,7 +32,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public Internship toInternship(InternshipDTO internshipDTO) {
-        Internship internship = new Internship();
+         Internship internship = new Internship();
         internship.setProjectName(internshipDTO.getProjectName());
         internship.setCategory(internshipDTO.getCategory());
         internship.setMentors(internshipDTO.getMentors());
