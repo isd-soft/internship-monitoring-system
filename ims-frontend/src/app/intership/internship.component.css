@@ -1,0 +1,18 @@
+form {
+  padding-top: 1rem;
+}
+label {
+  display: block;
+  margin: .5em 0;
+  font-weight: bold;
+}
+
+.internship-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-width: 1000px;
+  max-width: 2000px;
+}
+

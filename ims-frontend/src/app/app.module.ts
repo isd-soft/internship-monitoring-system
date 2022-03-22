@@ -8,11 +8,14 @@ import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { InternshipComponent } from './intership/internship.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
 import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
 import {MatSelectModule} from '@angular/material/select';
 import {CommonModule} from "@angular/common";
@@ -24,6 +27,7 @@ import {CommonModule} from "@angular/common";
     HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    InternshipComponent,
     AddCandidateComponent,
   ],
   imports: [
@@ -36,6 +40,8 @@ import {CommonModule} from "@angular/common";
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    NgbModule,
+    FormsModule,
     MatSelectModule,
     CommonModule
 
