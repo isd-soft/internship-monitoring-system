@@ -7,7 +7,7 @@ import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { ReactiveFormsModule } from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -17,6 +17,12 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { ReviewsComponent } from "./pages/reviews/reviews.component";
 import { MainPageModule } from "./pages/main-page/main-page.module";
 import { MainPageComponent } from "./pages/main-page/main-page.component";
+import { InternshipComponent } from './intership/internship.component';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -27,6 +33,8 @@ import { MainPageComponent } from "./pages/main-page/main-page.component";
     RegisterComponent,
     SideMenuComponent,
     ReviewsComponent,
+    InternshipComponent,
+    AddCandidateComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +48,11 @@ import { MainPageComponent } from "./pages/main-page/main-page.component";
     MatFormFieldModule,
     MatToolbarModule,
     MainPageModule,
+    NgbModule,
+    FormsModule,
+    MatSelectModule,
+    CommonModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

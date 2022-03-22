@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/internship")
+@RequestMapping("/api/internships")
 public class InternshipController {
 
     private final InternshipService internshipService;
@@ -16,14 +16,20 @@ public class InternshipController {
         this.internshipService = internshipService;
     }
 
-    @GetMapping
+    @GetMapping()
+    public List<Internship> getAllInternship() {
+        return internshipService.getAllInternships();
+    }
+
+    @GetMapping("/{id}")
     public String getInternshipForm() {
         return "internship form";
     }
 
+
     @PostMapping
     void addInternship(@RequestBody InternshipDTO internship) {
-        internshipService.save(internship);
+        internshipService.createInternship(internship);
     }
 
 }

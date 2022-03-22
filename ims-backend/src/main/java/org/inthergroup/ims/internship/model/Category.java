@@ -5,6 +5,9 @@ public enum Category {
     C_SHARP("C#"),
     PLC("PLC");
 
+    private final String category;
+
     Category(String category) {
+        this.category = category;
     }
 }

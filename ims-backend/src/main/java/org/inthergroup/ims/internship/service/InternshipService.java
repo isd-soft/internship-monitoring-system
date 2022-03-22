@@ -8,7 +8,7 @@ import java.util.List;
 public interface InternshipService {
 
     List<Internship> getAllInternships();
-    void save(InternshipDTO internship);
+    void createInternship(InternshipDTO internship);
     Internship toInternship(InternshipDTO internshipDTO);
 
 }

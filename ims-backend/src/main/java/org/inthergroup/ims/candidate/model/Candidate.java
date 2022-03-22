@@ -8,6 +8,8 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.UUID;
 
 @Entity

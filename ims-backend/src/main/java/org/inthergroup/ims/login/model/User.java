@@ -60,7 +60,7 @@ public class User{
 
     @NotBlank
     @Size(max = 120)
-    @Column(name = "jobPosition")
+    @Column(name = "job_position")
     private String jobPosition;
 
     @ManyToMany(fetch = FetchType.LAZY)

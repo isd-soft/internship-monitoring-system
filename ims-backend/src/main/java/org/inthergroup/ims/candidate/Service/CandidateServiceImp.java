@@ -2,7 +2,6 @@ package org.inthergroup.ims.candidate.Service;
 
 import org.inthergroup.ims.candidate.Repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,12 +22,18 @@ public class CandidateServiceImp implements CandidateService {
 
 
     @Override
-    public List<Candidate> get() {
-        return null;
+    public void delete(String id) {
+        candidateRepository.deleteById(id);
+    }
+
+
+    @Override
+    public List<Candidate> getAllCandidates() {
+        return candidateRepository.findAll();
     }
 
     @Override
-    public Candidate getCandidate(Long id) {
+    public Candidate getCandidate(String id) {
         return null;
     }
 }
