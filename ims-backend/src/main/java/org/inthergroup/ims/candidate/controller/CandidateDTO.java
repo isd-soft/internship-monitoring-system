@@ -5,7 +5,7 @@ import org.inthergroup.ims.candidate.model.Status;
 
 @Data
 public class CandidateDTO {
-    private Long id;
+    private String id;
     private String name;
     private String surname;
     private String email;
