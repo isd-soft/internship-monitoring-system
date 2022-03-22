@@ -1,1 +1,22 @@
-<p>side-menu works!</p>
+<div id="btn">
+  <div id="top"></div>
+  <div id="middle"></div>
+  <div id="bottom"></div>
+</div>
+<div id="box">
+  <div id="items">
+    <div [routerLink]="['']" class="item">News</div>
+    <div [routerLink]="['/login']" class="item">Offers</div>
+    <div [routerLink]="['/login']" class="item">Internship</div>
+    <div *ngIf="user" class="item">
+      <div class="styledbtn" routerLink="/profile"><span></span>Profile</div>
+    </div>
+    <div *ngIf="!user" class="item">
+      <div class="styledbtn" routerLink="/login"><span></span>Login</div>
+    </div>
+    <div *ngIf="user" class="item">
+      <div (click)="logout()" class="styledbtn"><span></span>Logout</div>
+    </div>
+    <div [routerLink]="['/login']" class="item"></div>
+  </div>
+</div>

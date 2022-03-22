@@ -1,7 +1,6 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { AppComponent } from "./app.component";
-import { HeaderComponent } from "./shared/header/header.component";
 import { FooterComponent } from "./shared/footer/footer.component";
 import { AppRoutingModule } from "./app-routing.module";
 import { LoginComponent } from "./account/login/login.component";
@@ -13,14 +12,21 @@ import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { SideMenuComponent } from "./shared/side-menu/side-menu.component";
+import { MatToolbarModule } from "@angular/material/toolbar";
+import { ReviewsComponent } from "./pages/reviews/reviews.component";
+import { MainPageModule } from "./pages/main-page/main-page.module";
+import { MainPageComponent } from "./pages/main-page/main-page.component";
 
 @NgModule({
   declarations: [
+    MainPageComponent,
     AppComponent,
     LoginComponent,
-    HeaderComponent,
     FooterComponent,
     RegisterComponent,
+    SideMenuComponent,
+    ReviewsComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +38,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatToolbarModule,
+    MainPageModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
