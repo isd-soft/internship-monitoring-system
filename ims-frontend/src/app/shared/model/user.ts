@@ -5,7 +5,7 @@ export class User {
   surname?: string;
   email: string;
   password: string;
-  job_position: Job_Position;
+  jobPosition: Job_Position;
   token?: string;
   role: Role;
 }
