@@ -18,7 +18,7 @@ public class CandidateController {
 
     @GetMapping
     public List<Candidate> getRegisterAllCandidate() {
-        return candidateService.getAllCandidates();
+        return (List<Candidate>) candidateService.getAllCandidates();
     }
 
     @PostMapping

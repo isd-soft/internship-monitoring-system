@@ -44,8 +44,9 @@
 
 .title {
   color: white;
-  margin-top: 20px;
+  /*margin-top: -15px;*/
   font-weight: 300;
+  text-align: center;
 }
 
 .requirements {
