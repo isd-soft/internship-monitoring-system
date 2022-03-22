@@ -8,11 +8,13 @@ import java.util.List;
 @Service
 public interface CandidateService {
 
-    List<Candidate> get();
+    List<Candidate> getAllCandidates();
 
     void save(Candidate candidate);
 
+    void delete(String id);
 
-    Candidate getCandidate(Long id);
+
+    Candidate getCandidate(String id);
 }
 

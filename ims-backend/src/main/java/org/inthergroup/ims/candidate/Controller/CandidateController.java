@@ -3,14 +3,12 @@ package org.inthergroup.ims.candidate.Controller;
 
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.Service.CandidateService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
-@RequestMapping("/candidates")
+@RequestMapping("/api/candidates")
 public class CandidateController {
     private final CandidateService candidateService;
 
@@ -19,14 +17,24 @@ public class CandidateController {
     }
 
     @GetMapping
-    public String getRegisterAllCandidate() {
-        return "candidate is registered";
+    public List<Candidate> getRegisterAllCandidate() {
+        return candidateService.getAllCandidates();
     }
 
     @PostMapping
     public Candidate save(@RequestBody Candidate candidate) {
         candidateService.save(candidate);
+        System.out.println("candidate was saved");
         return candidate;
     }
 
+    @DeleteMapping("/{id}")
+    public String  deleteCandidate(@PathVariable("id") String id) {
+        candidateService.delete(id);
+        return null;
+    }
+
 }
+
+
+

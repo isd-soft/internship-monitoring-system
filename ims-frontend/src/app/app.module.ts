@@ -16,6 +16,9 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InternshipComponent } from './intership/internship.component';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -25,6 +28,7 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     FooterComponent,
     RegisterComponent,
     InternshipComponent,
+    AddCandidateComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +41,10 @@ import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
     MatInputModule,
     MatFormFieldModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    MatSelectModule,
+    CommonModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
