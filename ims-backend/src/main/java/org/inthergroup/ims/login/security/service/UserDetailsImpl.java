@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import org.inthergroup.ims.login.model.JPosition;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -26,12 +27,13 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
+    private JPosition jPosition;
     @JsonIgnore
     private String password;
 
     private Collection<? extends GrantedAuthority> authorities;
 
-    public UserDetailsImpl(String id, String username,String name,String surname, String email, String password,
+    public UserDetailsImpl(String id, String username,String name,String surname, String email,JPosition jPosition ,String password,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = UUID.randomUUID().toString();
         this.username = username;
@@ -39,6 +41,7 @@ public class UserDetailsImpl implements UserDetails {
         this.surname = surname;
         this.email = email;
         this.password = password;
+        this.jPosition = jPosition;
         this.authorities = authorities;
     }
 
@@ -52,6 +55,7 @@ public class UserDetailsImpl implements UserDetails {
                 user.getName(),
                 user.getSurname(),
                 user.getEmail(),
+                user.getJobPosition(),
                 user.getPassword(),
                 authorities);
     }

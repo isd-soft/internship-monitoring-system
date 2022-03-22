@@ -1,10 +1,24 @@
 export class User {
-  id?: number;
+  id?: string;
   username?: string;
   name?: string;
   surname?: string;
   email: string;
   password: string;
+  job_position: Job_Position;
   token?: string;
-  is_staff?: boolean;
+  role: Role;
+}
+
+export enum Job_Position {
+  Java,
+  C,
+  PCL,
+  ANGULAR,
+  REACT,
+}
+
+export enum Role {
+  ADMIN,
+  HR,
 }

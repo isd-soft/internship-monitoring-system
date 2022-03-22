@@ -7,7 +7,7 @@ import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatButton, MatButtonModule } from "@angular/material/button";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
@@ -17,12 +17,14 @@ import { MatToolbarModule } from "@angular/material/toolbar";
 import { ReviewsComponent } from "./pages/reviews/reviews.component";
 import { MainPageModule } from "./pages/main-page/main-page.module";
 import { MainPageComponent } from "./pages/main-page/main-page.component";
-import { InternshipComponent } from './intership/internship.component';
-import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
+import { InternshipComponent } from "./intership/internship.component";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
-import {MatSelectModule} from '@angular/material/select';
-import {CommonModule} from "@angular/common";
+import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
+import { MatSelectModule } from "@angular/material/select";
+import { CommonModule } from "@angular/common";
+import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
+import { AuthGuard } from "./shared/common/auth.guard";
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import {CommonModule} from "@angular/common";
     ReviewsComponent,
     InternshipComponent,
     AddCandidateComponent,
+    TechquestionlistComponent,
   ],
   imports: [
     BrowserModule,
@@ -51,8 +54,7 @@ import {CommonModule} from "@angular/common";
     NgbModule,
     FormsModule,
     MatSelectModule,
-    CommonModule
-
+    CommonModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
