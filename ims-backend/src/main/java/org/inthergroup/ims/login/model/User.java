@@ -19,7 +19,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-
 @Data
 @Entity
 @Table(	name = "users",
@@ -27,8 +26,9 @@ import javax.validation.constraints.Size;
                 @UniqueConstraint(columnNames = "email")
         })
 public class User{
-    @Id
 
+    @NotBlank
+    @Id
     private String id;
 
     @NotBlank
@@ -71,10 +71,8 @@ public class User{
 
     public User() {
         id = UUID.randomUUID().toString();
-
     }
 
     public User(String username, String email, String encode) {
-
     }
 }

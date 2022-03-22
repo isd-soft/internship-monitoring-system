@@ -1,9 +1,9 @@
 package org.inthergroup.ims.login.payload.request;
 
-
 import javax.validation.constraints.NotBlank;
 
 public class LoginRequest {
+
     @NotBlank
     private String email;
 

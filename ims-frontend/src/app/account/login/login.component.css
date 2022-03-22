@@ -11,6 +11,7 @@
   flex-direction: column;
   min-width: 400px;
   max-width: 600px;
+  margin-top: 10%;
 }
 
 mat-form-field {

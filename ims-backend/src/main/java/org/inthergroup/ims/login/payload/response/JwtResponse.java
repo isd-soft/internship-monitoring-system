@@ -1,6 +1,5 @@
 package org.inthergroup.ims.login.payload.response;
 
-
 import java.util.List;
 
 public class JwtResponse {

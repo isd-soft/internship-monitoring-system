@@ -1,4 +1,5 @@
 package org.inthergroup.ims.login.security;
+import org.inthergroup.ims.login.security.JWT.JwtUtils;
 import org.inthergroup.ims.login.security.service.UserDetailsServiceImpl;
 import org.inthergroup.ims.login.security.JWT.AuthEntryPointJwt;
 import org.inthergroup.ims.login.security.JWT.AuthTokenFilter;
@@ -25,14 +26,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 
     private final AuthEntryPointJwt unauthorizedHandler;
 
-    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler) {
+    private final JwtUtils jwtUtils;
+
+    public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, JwtUtils jwtUtils) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
+        this.jwtUtils = jwtUtils;
     }
 
     @Bean
     public Filter authenticationJwtTokenFilter(){
-        return new AuthTokenFilter();
+        return new AuthTokenFilter(jwtUtils, userDetailsService);
     }
     @Override
     public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
@@ -55,8 +59,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http.cors().and().csrf().disable()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-                //TODO-to review access to endpoints after poject is finished
-                .authorizeRequests().antMatchers("/**","/api/auth/**").permitAll()
+                .authorizeRequests().antMatchers("/**","/api/auth/**").permitAll() //Need to change after testing
                 .antMatchers("/api/test/**").permitAll()
                 .anyRequest().authenticated();
 

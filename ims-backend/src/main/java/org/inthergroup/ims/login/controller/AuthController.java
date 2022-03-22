@@ -7,10 +7,10 @@ import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
+import org.inthergroup.ims.login.security.service.UserDetailsImpl;
 import org.inthergroup.ims.login.model.Role;
 import org.inthergroup.ims.login.model.URole;
 import org.inthergroup.ims.login.model.User;
-import org.inthergroup.ims.login.security.service.UserDetailsImpl;
 import org.inthergroup.ims.login.repository.RoleRepository;
 import org.inthergroup.ims.login.repository.UserRepository;
 import org.inthergroup.ims.login.payload.request.LoginRequest;
@@ -30,7 +30,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -48,7 +47,6 @@ public class AuthController {
         this.encoder = encoder;
         this.jwtUtils = jwtUtils;
     }
-
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -78,47 +76,26 @@ public class AuthController {
                     .badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-
         if (userRepository.existsByEmail(RegisterRequest.getEmail())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
-
         User user = new User(RegisterRequest.getUsername(),
                 RegisterRequest.getEmail(),
                 encoder.encode(RegisterRequest.getPassword()));
-
         Set<String> strRoles = RegisterRequest.getRole();
         Set<Role> roles = new HashSet<>();
 
         if (strRoles == null) {
-            Role userRole = roleRepository.findByName(URole.USER)
+            Role adminRole = roleRepository.findByName(URole.ADMIN)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
+            roles.add(adminRole);
         } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(URole.ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "hr":
-                        Role modRole = roleRepository.findByName(URole.HR)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(URole.USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-                }
-            });
-        }
-
+                Role hrRole = roleRepository.findByName(URole.HR)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+                        roles.add(hrRole);
+            }
         user.setRoles(roles);
         userRepository.save(user);
 

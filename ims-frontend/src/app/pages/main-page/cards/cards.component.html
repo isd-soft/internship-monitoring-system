@@ -1,0 +1,20 @@
+<div class="container">
+  <div *ngFor="let card of cards" class="card">
+    <div [routerLink]="['login']">
+      <h3 class="title">{{ card.name }}</h3>
+      <div class="requirements">
+        <p *ngFor="let req of card.requirements">{{ req }}</p>
+      </div>
+      <!--      <div class="bar">-->
+      <!--        <div class="emptybar"></div>-->
+      <!--        <div class="filledbar"></div>-->
+      <!--      </div>-->
+      <div class="circle">
+        <img id="rounded-img" src="{{ card.img }}" />
+        <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <circle class="stroke" cx="60" cy="60" r="50" />
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>

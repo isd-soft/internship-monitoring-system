@@ -1,8 +1,7 @@
 package org.inthergroup.ims.login.payload.response;
 
-
-
 public class MessageResponse {
+
     private String message;
 
     public MessageResponse(String message) {

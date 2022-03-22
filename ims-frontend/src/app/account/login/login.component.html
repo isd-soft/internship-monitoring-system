@@ -1,12 +1,12 @@
 <div class="form-container">
   <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" class="login-form">
     <legend><h1>Login</h1></legend>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Email</mat-label>
       <input formControlName="email" matInput type="text" />
     </mat-form-field>
     <br />
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Password</mat-label>
       <input formControlName="password" matInput type="password" />
     </mat-form-field>
