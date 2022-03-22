@@ -14,6 +14,9 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatInputModule } from "@angular/material/input";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { InternshipComponent } from './intership/internship.component';
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -23,6 +26,7 @@ import { InternshipComponent } from './intership/internship.component';
     FooterComponent,
     RegisterComponent,
     InternshipComponent,
+    AddCandidateComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +38,9 @@ import { InternshipComponent } from './intership/internship.component';
     ReactiveFormsModule,
     MatInputModule,
     MatFormFieldModule,
+    MatSelectModule,
+    CommonModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
