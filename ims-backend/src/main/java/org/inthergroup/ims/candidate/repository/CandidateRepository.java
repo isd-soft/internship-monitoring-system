@@ -1,4 +1,4 @@
-package org.inthergroup.ims.candidate.Repository;
+package org.inthergroup.ims.candidate.repository;
 
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;

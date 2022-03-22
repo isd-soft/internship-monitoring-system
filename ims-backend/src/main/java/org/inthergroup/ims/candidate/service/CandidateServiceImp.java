@@ -1,6 +1,6 @@
-package org.inthergroup.ims.candidate.Service;
+package org.inthergroup.ims.candidate.service;
 
-import org.inthergroup.ims.candidate.Repository.CandidateRepository;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.stereotype.Service;
 
