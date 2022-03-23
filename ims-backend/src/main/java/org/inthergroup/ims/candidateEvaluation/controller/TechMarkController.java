@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/techmark")
+@RequestMapping("/api/tm")
 public class TechMarkController {
 
     private final TechMarkService techMarkService;

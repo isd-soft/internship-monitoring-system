@@ -21,19 +21,18 @@ public class CandidateEvaluation {
 
     @NotBlank
     @Column(name = "english_mark")
-    private Double english_mark;
+    private Double english;
 
     @NotBlank
     @Column(name = "softskills_mark")
-    private Double softskills_mark;
+    private Double softskills;
 
     @NotBlank
     @Column(name = "practice_mark")
-    private Double practice_mark;
+    private Double practice;
 
-    @OneToOne
     @JoinColumn(name = "candidates_id")
-    private Candidate candidate;
+    private String candidate;
 
     public CandidateEvaluation() {
         id = UUID.randomUUID().toString();

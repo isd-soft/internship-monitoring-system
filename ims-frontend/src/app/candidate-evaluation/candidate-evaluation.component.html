@@ -1,0 +1,36 @@
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="candidateEvaluationForm"
+    class="candidate-evaluation-form"
+  >
+    <legend><h1>Add technical question</h1></legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> english</mat-label>
+      <input formControlName="english" matInput type="text" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> softskills</mat-label>
+      <input formControlName="softskills" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label> practice</mat-label>
+      <input formControlName="practice" matInput type="text" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> candidate</mat-label>
+      <input formControlName="candidate" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="!candidateEvaluationForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>

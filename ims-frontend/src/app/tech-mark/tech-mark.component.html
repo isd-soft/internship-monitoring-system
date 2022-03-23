@@ -1,0 +1,32 @@
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="techMarkForm"
+    class="tech-mark-form"
+  >
+    <legend><h1>Add technical question</h1></legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Candidate Evaluation</mat-label>
+      <input formControlName="candidateEvaluation" matInput type="text" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> technical questiont</mat-label>
+      <input formControlName="techQuestion" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label> mark</mat-label>
+      <input formControlName="mark" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="!techMarkForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>

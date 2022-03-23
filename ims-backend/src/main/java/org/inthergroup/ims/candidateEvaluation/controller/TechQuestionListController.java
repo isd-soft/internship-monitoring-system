@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/api/techquestionlist")
+@RequestMapping("/api/tql")
 public class TechQuestionListController {
 
     private final TechQuestionListService techQuestionListService;
@@ -20,7 +20,7 @@ public class TechQuestionListController {
         this.techQuestionListService = techQuestionListService;
     }
 
-    @PostMapping(value = "/add")
+    @PostMapping()
     public TechQuestionList addTechQuestionList(@RequestBody TechQuestionList techQuestionList) {
         return techQuestionListService.addQuestionList(techQuestionList);
     }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.inthergroup.ims.candidate.model.Candidate;
 
 @Getter
 @Setter
@@ -13,11 +14,14 @@ public class CandidateEvaluationDTO {
 
     private String id;
 
-    private Double english_mark;
+    private Double english;
 
-    private Double softskills_mark;
+    private Double softskills;
 
-    private Double practical_mark;
+    private Double practice;
 
     private String candidate;
+
+    public CandidateEvaluationDTO() {
+    }
 }

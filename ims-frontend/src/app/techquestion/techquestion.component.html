@@ -1,18 +1,23 @@
 <div class="form-container">
   <form
     (ngSubmit)="onSubmit()"
-    [formGroup]="techQuestionListForm"
-    class="techquestionlist-form"
+    [formGroup]="techQuestionForm"
+    class="techquestion-form"
   >
-    <legend><h1>Add technical question list</h1></legend>
+    <legend><h1>Add technical question</h1></legend>
     <br />
     <mat-form-field appearance="outline">
       <mat-label> Name</mat-label>
       <input formControlName="name" matInput type="text" />
     </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label> technical question list</mat-label>
+      <input formControlName="techQuestionList" matInput type="text" />
+    </mat-form-field>
     <br />
     <button
-      [disabled]="!techQuestionListForm.valid"
+      [disabled]="!techQuestionForm.valid"
       color="primary"
       mat-raised-button
       type="submit"

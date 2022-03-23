@@ -23,7 +23,7 @@ public class TechQuestion {
     private String name;
 
     @JoinColumn(name = "techQuestionList_id")
-    private String techQuestionList_id;
+    private String techQuestionList;
 
     public TechQuestion() {
         id = UUID.randomUUID().toString();

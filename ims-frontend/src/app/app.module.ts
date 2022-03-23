@@ -25,6 +25,9 @@ import { MatSelectModule } from "@angular/material/select";
 import { CommonModule } from "@angular/common";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
+import { TechquestionComponent } from "./techquestion/techquestion.component";
+import { TechMarkComponent } from './tech-mark/tech-mark.component';
+import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +41,9 @@ import { AuthGuard } from "./shared/common/auth.guard";
     InternshipComponent,
     AddCandidateComponent,
     TechquestionlistComponent,
+    TechquestionComponent,
+    TechMarkComponent,
+    CandidateEvaluationComponent,
   ],
   imports: [
     BrowserModule,

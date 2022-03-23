@@ -1,7 +1,6 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Internship } from "../model/internship";
 import { environment } from "../../../environments/environment";
 import { TechQuestionList } from "../model/techQuestionList";
 
@@ -15,7 +14,7 @@ export class TechQuestionListService {
     return this.http.get<TechQuestionList[]>(`${environment.apiUrl}tql`);
   }
 
-  createInternship(TechQuestionList: TechQuestionList): Observable<any> {
-    return this.http.post(`${environment.apiUrl}tql`, TechQuestionList);
+  addTechQuestionList(techQuestionList: TechQuestionList): Observable<any> {
+    return this.http.post<any>(`${environment.apiUrl}tql`, techQuestionList);
   }
 }

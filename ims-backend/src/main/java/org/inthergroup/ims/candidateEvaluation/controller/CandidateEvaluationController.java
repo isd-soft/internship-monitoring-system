@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidateEvaluation.controller;
 
+import org.inthergroup.ims.candidateEvaluation.dto.CandidateEvaluationDTO;
 import org.inthergroup.ims.candidateEvaluation.model.CandidateEvaluation;
 import org.inthergroup.ims.candidateEvaluation.service.CandidateEvaluationService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 
 @RestController
-@RequestMapping("/api/candidateevaluation")
+@RequestMapping("/api/ce")
 public class CandidateEvaluationController {
 
     final private CandidateEvaluationService candidateEvaluationService;
@@ -21,13 +24,13 @@ public class CandidateEvaluationController {
         this.candidateEvaluationService = candidateEvaluationService;
     }
 
-    @PostMapping(value="/addmarks/{id}")
-    public CandidateEvaluation addMarksToCandidateById(@RequestBody org.inthergroup.ims.candidateEvaluation.model.CandidateEvaluation candidateEvaluation, @PathVariable String id) {
-        return candidateEvaluationService.addMarksToCandidateById(candidateEvaluation,id);
+    @PostMapping(value="/addmarks")
+    public void addMarksToCandidate(@RequestBody CandidateEvaluationDTO candidateEvaluationDTO) {
+        candidateEvaluationService.addMarksToCandidate(candidateEvaluationDTO);
     }
     @GetMapping(value = "/getallmarks")
-    public String getRegisterAllCandidate() {
-        return "all marks";
+    public List<CandidateEvaluation> getAllCandidateEvaluations() {
+        return candidateEvaluationService.getAllCandidateEvaluations();
     }
 
     @GetMapping(value = "/getcandidatemarks/{id}")
