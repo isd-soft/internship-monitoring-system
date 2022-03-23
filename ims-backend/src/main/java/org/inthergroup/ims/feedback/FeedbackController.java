@@ -1,4 +1,4 @@
-package org.inthergroup.ims.Feedback;
+package org.inthergroup.ims.feedback;
 
 
 import org.springframework.web.bind.annotation.DeleteMapping;
