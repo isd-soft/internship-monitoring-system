@@ -25,6 +25,7 @@ import { MatSelectModule } from "@angular/material/select";
 import { CommonModule } from "@angular/common";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { AuthGuard } from "./shared/common/auth.guard";
     InternshipComponent,
     AddCandidateComponent,
     TechquestionlistComponent,
+    FeedbackComponent,
   ],
   imports: [
     BrowserModule,

@@ -30,4 +30,8 @@ export class CandidateService {
   updateCandidateInIntership(candidate: Candidate): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}candidates/`, candidate)
   }
+
+  getCandidates(): Observable<Candidate[]> {
+    return this.http.get<any>(`${environment.apiUrl}candidates/`);
+  }
 }

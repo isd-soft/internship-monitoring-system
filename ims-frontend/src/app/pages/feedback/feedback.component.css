@@ -20,6 +20,10 @@ mat-form-field {
 button {
   margin: 2rem;
 }
+.button-holder {
+  display: flex;
+  flex-direction: row;
+}
 
 .error-message {
   color: red;
