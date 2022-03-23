@@ -1,7 +1,7 @@
-package org.inthergroup.ims.candidate.Service;
+package org.inthergroup.ims.candidate.service;
 
 
-import org.inthergroup.ims.candidate.Controller.StorageProperties;
+import org.inthergroup.ims.candidate.controller.StorageProperties;
 import org.inthergroup.ims.candidate.model.ResponseData;
 import org.inthergroup.ims.exceptions.StorageException;
 import org.springframework.core.io.Resource;

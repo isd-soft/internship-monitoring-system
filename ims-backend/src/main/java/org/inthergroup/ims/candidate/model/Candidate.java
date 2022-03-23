@@ -32,6 +32,7 @@ public class Candidate {
     private String comment;
     @Enumerated(EnumType.STRING)
     private Status status;
+    private double mark;
 
     public Candidate() {
         id = UUID.randomUUID().toString();
