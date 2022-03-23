@@ -34,7 +34,7 @@ public class CandidateController {
         return null;
     }
 
-    @PutMapping("/{id}")
+    @PutMapping()
     public Candidate updateCandidate(@RequestBody CandidateDTO candidateDTO) {
         Candidate candidate1 = new Candidate();
         candidate1.setId(candidateDTO.getId());
