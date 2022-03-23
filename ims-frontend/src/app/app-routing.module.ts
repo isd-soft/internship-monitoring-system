@@ -7,6 +7,7 @@ import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.compo
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { Routes, CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
+import {FeedbackComponent} from "./pages/feedback/feedback.component";
 
 const routes: Routes = [
   {
@@ -20,6 +21,19 @@ const routes: Routes = [
   {
     path: "candidate-add",
     component: AddCandidateComponent,
+    data: {intent: 'add'},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "candidate-update",
+    component: AddCandidateComponent,
+    data: {intent: 'update'},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "feedback-create",
+    component: FeedbackComponent,
+    data: {intent: 'add'},
     canActivate: [AuthGuard],
   },
   { path: "login", component: LoginComponent },

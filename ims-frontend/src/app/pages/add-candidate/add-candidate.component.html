@@ -2,6 +2,11 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="candidateForm" class="candidate-form">
     <legend><h1>Add candidate to internship</h1></legend>
     <br />
+    <mat-form-field *ngIf="intent === 'update'" appearance="fill">
+      <mat-label> Id</mat-label>
+      <input formControlName="id" matInput type="text" />
+    </mat-form-field>
+    <br />
     <mat-form-field appearance="fill">
       <mat-label> Name</mat-label>
       <input formControlName="name" matInput type="text" />
@@ -18,7 +23,7 @@
     </mat-form-field>
 
     <input type="file" class="file-input"
-             (change)="onFileSelected($event)">
+           (change)="onFileSelected($event)">
     <br />
 
     <mat-form-field appearance="fill">

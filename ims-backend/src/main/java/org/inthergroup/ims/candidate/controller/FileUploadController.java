@@ -1,7 +1,7 @@
-package org.inthergroup.ims.candidate.Controller;
+package org.inthergroup.ims.candidate.controller;
 
 import org.apache.tomcat.jni.FileInfo;
-import org.inthergroup.ims.candidate.Service.FileStoreService;
+import org.inthergroup.ims.candidate.service.FileStoreService;
 import org.inthergroup.ims.candidate.model.ResponseData;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
