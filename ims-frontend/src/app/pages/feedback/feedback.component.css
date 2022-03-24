@@ -18,9 +18,11 @@ mat-form-field {
 }
 
 button {
-  margin: 0px;
-  position: absolute;
-  left: 46%;
+  margin: 2rem;
+}
+.button-holder {
+  display: flex;
+  flex-direction: row;
 }
 
 .error-message {

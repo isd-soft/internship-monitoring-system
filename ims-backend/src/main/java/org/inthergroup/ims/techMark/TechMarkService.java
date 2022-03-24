@@ -1,6 +1,6 @@
 package org.inthergroup.ims.techMark;
 
-import org.inthergroup.ims.candidate.Repository.CandidateRepository;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.techQuestion.TechQuestion;
 import org.inthergroup.ims.techQuestion.TechQuestionRepository;

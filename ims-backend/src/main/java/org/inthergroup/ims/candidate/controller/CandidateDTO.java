@@ -1,4 +1,4 @@
-package org.inthergroup.ims.candidate.Controller;
+package org.inthergroup.ims.candidate.controller;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;

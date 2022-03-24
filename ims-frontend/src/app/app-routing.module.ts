@@ -10,6 +10,7 @@ import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
+import {FeedbackComponent} from "./pages/feedback/feedback.component";
 
 const routes: Routes = [
   {
@@ -23,6 +24,19 @@ const routes: Routes = [
   {
     path: "candidate-add",
     component: AddCandidateComponent,
+    data: {intent: 'add'},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "candidate-update",
+    component: AddCandidateComponent,
+    data: {intent: 'update'},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "feedback-create",
+    component: FeedbackComponent,
+    data: {intent: 'add'},
     canActivate: [AuthGuard],
   },
   { path: "login", component: LoginComponent },

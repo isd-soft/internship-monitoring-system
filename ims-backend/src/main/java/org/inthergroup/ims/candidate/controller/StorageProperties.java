@@ -1,4 +1,4 @@
-package org.inthergroup.ims.candidate.Controller;
+package org.inthergroup.ims.candidate.controller;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;

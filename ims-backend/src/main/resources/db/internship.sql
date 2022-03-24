@@ -39,8 +39,8 @@ insert into internships values (
 
 DELETE FROM internships;
 
-insert into pre_interview_tests values
-    ('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', 'English'),
-    ('9af351cf-7edc-4e60-a4e6-1dd2f650e135', 'Logic'),
-    ('c64138cc-6279-425a-b6f6-91a0b2044654', 'Java'),
-    ('c5e161b2-4941-4edf-8ac7-af229baeeece', 'SQL');
+insert into tech_question_list values
+    ('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', 'Java technical questions 1'),
+    ('9af351cf-7edc-4e60-a4e6-1dd2f650e135', 'Java technical questions 2'),
+    ('c64138cc-6279-425a-b6f6-91a0b2044654', 'Java technical questions 3'),
+    ('c5e161b2-4941-4edf-8ac7-af229baeeece', 'Java technical questions 4');

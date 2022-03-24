@@ -20,14 +20,20 @@ import { MainPageComponent } from "./pages/main-page/main-page.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
-import { MatSelectModule } from "@angular/material/select";
-import { CommonModule } from "@angular/common";
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatIconModule} from "@angular/material/icon";
+import { AddInternshipComponent } from './intership/add-internship/add-internship.component';
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from './tech-mark/tech-mark.component';
 import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
+import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +46,9 @@ import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-e
     ReviewsComponent,
     InternshipComponent,
     AddCandidateComponent,
+    AddInternshipComponent,
     TechquestionlistComponent,
+    FeedbackComponent,
     TechquestionComponent,
     TechMarkComponent,
     CandidateEvaluationComponent,
@@ -61,6 +69,11 @@ import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-e
     FormsModule,
     MatSelectModule,
     CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -3,80 +3,164 @@
 <br>
 <div class="container">
   <div class="border">
-    <button class="btn btn-md btn-outline-warning" (click)="open({content : content})">
-      <i class="fa fa-puzzle-piece"></i>
+    <button mat-stroked-button (click)="open({content : content})">
+      <mat-icon>add</mat-icon>
       New Internship
     </button>
   </div>
-  <table class="table table-bordered table-striped">
-    <thead>
-    <tr>
-      <th>Project Name</th>
-      <th>Category</th>
-      <!--      <th>Mentors</th>-->
-      <th>Period from</th>
-      <th>Period to</th>
-      <th>Status</th>
-      <!--      <th>Pre-interview tests</th>-->
-      <th>Technical question list</th>
-      <th>Link to GitHub repository</th>
-      <th>Link to Trello board</th>
-      <th>Link to the deployed app</th>
-      <!--      <th>PowerPoint presentation</th>-->
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let internship of internships">
-      <td><span>{{internship.projectName}}</span></td>
-      <td><span>{{internship.category}}</span></td>
-      <!--      <td><span>{{internship.mentors}}</span></td>-->
-      <td><span>{{internship.periodFrom}}</span></td>
-      <td><span>{{internship.periodTo}}</span></td>
-      <td><span>{{internship.internshipStatus}}</span></td>
-      <!--      <td><span>{{internship.preInterviewTestList}}</span></td>-->
-      <td><span>{{internship.techQuesListName}}</span></td>
-      <td><a href="{{internship.gitHubUrl}}">GitHub</a></td>
-      <td><a href="{{internship.trelloBoardUrl}}">Trello</a></td>
-      <td><a href="{{internship.deployedAppUrl}}">Open folder</a></td>
-      <!--      <td><span>{{internship.presentationUrl}}</span></td>-->
-      <td>
-        <button class="btn btn-sm btn-outline-info">
-          <i class="fa fa-search"></i>Details
-        </button>
-        <button class="btn btn-sm btn-outline-warning">
-          <i class="fa fa-edit"></i>Edit
-        </button>
-        <button class="btn btn-sm btn-outline-danger">
-          <i class="fa fa-remove"></i>Delete
-        </button>
-      </td>
-    </tr>
-    </tbody>
-  </table>
+  <mat-form-field appearance="outline">
+    <mat-label> Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
+  </mat-form-field>
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <!-- No Column -->
+      <ng-container matColumnDef="position">
+        <th class="w-1" mat-header-cell *matHeaderCellDef mat-sort-header> No</th>
+        <td class="w-1"  mat-cell *matCellDef="let row; let i = index"> {{i+1}}</td>
+      </ng-container>
+
+      <!-- Project Name Column -->
+      <ng-container matColumnDef="projectName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Project Name</th>
+        <td mat-cell *matCellDef="let row"> {{row.projectName}}</td>
+      </ng-container>
+
+      <!-- Category Column -->
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
+        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+      </ng-container>
+
+      <!-- Mentors Column -->
+      <ng-container matColumnDef="mentors">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mentors</th>
+        <td mat-cell *matCellDef="let row"> {{row.mentors}} </td>
+      </ng-container>
+
+      <!-- Period from Column -->
+      <ng-container matColumnDef="periodFrom">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period from</th>
+        <td mat-cell *matCellDef="let row"> {{row.periodFrom}} </td>
+      </ng-container>
+
+      <!-- Period to Column -->
+      <ng-container matColumnDef="periodTo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period to</th>
+        <td mat-cell *matCellDef="let row"> {{row.periodTo}} </td>
+      </ng-container>
+
+      <!-- Status Column-->
+      <ng-container matColumnDef="internshipStatus">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
+        <td mat-cell *matCellDef="let row"> {{row.internshipStatus}} </td>
+      </ng-container>
+
+      <!-- Link to GitHub repository Column -->
+      <ng-container matColumnDef="gitHubUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to GitHub repository</th>
+        <td mat-cell *matCellDef="let row "><a href="{{row.gitHubUrl}}">GitHub</a></td>
+      </ng-container>
+
+      <!-- Link to Trello board Column -->
+      <ng-container matColumnDef="trelloBoardUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to Trello board</th>
+        <td mat-cell *matCellDef="let row"><a href="{{row.trelloBoardUrl}}">Trello</a></td>
+      </ng-container>
+
+      <!-- Link to the deployed app Column -->
+      <ng-container matColumnDef="deployedAppUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to the deployed app</th>
+        <td mat-cell *matCellDef="let row"><a href="{{row.deployedAppUrl}}">Deployed App</a></td>
+      </ng-container>
+
+      <!-- PowerPoint presentation Column -->
+      <ng-container matColumnDef="presentationUrl">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> PowerPoint presentation</th>
+        <td mat-cell *matCellDef="let row"><a href="{{row.presentationUrl}}">Presentation</a></td>
+      </ng-container>
+
+      <!-- Actions Column -->
+      <ng-container matColumnDef="actions">
+        <th class="w-action" mat-header-cell *matHeaderCellDef> Actions</th>
+        <td class="w-action" mat-cell *matCellDef="let row">
+          <button mat-icon-button  (click)="viewInternship(row)" title="View Internship" >
+            <mat-icon>preview</mat-icon></button>
+          <button mat-icon-button color="accent" (click)="editInternship(row)" title="Edit Internship">
+            <mat-icon>edit</mat-icon></button>
+          <button mat-icon-button color="warn" (click)="deleteInternship(row)" title="Delete Internship">
+            <mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  <!--    <tr *ngFor="let internship of internships">-->
+  <!--      <td><span>{{internship.projectName}}</span></td>-->
+  <!--      <td><span>{{internship.category}}</span></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.mentors}}</span></td>&ndash;&gt;-->
+  <!--      <td><span>{{internship.periodFrom}}</span></td>-->
+  <!--      <td><span>{{internship.periodTo}}</span></td>-->
+  <!--      <td><span>{{internship.internshipStatus}}</span></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.preInterviewTestList}}</span></td>&ndash;&gt;-->
+  <!--      <td><span>{{internship.techQuesListName}}</span></td>-->
+  <!--      <td><a href="{{internship.gitHubUrl}}">GitHub</a></td>-->
+  <!--      <td><a href="{{internship.trelloBoardUrl}}">Trello</a></td>-->
+  <!--      <td><a href="{{internship.deployedAppUrl}}">Open folder</a></td>-->
+  <!--      &lt;!&ndash;      <td><span>{{internship.presentationUrl}}</span></td>&ndash;&gt;-->
+  <!--      <td>-->
+  <!--        <button class="btn btn-sm btn-outline-info">-->
+  <!--          <i class="fa fa-search"></i>Details-->
+  <!--        </button>-->
+  <!--        <button class="btn btn-sm btn-outline-warning">-->
+  <!--          <i class="fa fa-edit"></i>Edit-->
+  <!--        </button>-->
+  <!--        <button class="btn btn-sm btn-outline-danger">-->
+  <!--          <i class="fa fa-remove"></i>Delete-->
+  <!--        </button>-->
+  <!--      </td>-->
+  <!--    </tr>-->
+
 </div>
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New internship</h4>
+    <legend><h1>New internship</h1></legend>
     <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="project-name">Project Name: </label>
-        <div class="input-group">
-          <input id="project-name" class="form-control" type="text" formControlName="projectName" required>
-        </div>
-      </div>
+    <form (ngSubmit)="onSubmit()" [formGroup]="internshipForm" class="candidate-form">
+    <mat-form-field appearance="outline">
+          <mat-label> Project Name:</mat-label>
+          <input formControlName="projectName" matInput type="text" [value]="'Upcoming Internship'"/>
+        </mat-form-field>
+      <mat-form-field appearance="outline">
+          <mat-label> Category:</mat-label>
+        <mat-select  formControlName="status">
+          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
+            {{option.name}}
+          </mat-option>
+        </mat-select>
+        </mat-form-field>
 
-      <div class="form-group">
-        <label for="category">Category: </label>
-        <div class="input-group">
-          <input id="category" class="form-control" type="text" formControlName="category" required>
-        </div>
-      </div>
+<!--      <div class="form-group">-->
+<!--        <label for="category"> </label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="category" class="form-control" type="text" formControlName="" required>-->
+<!--        </div>-->
+<!--      </div>-->
 
       <!--      <div class="form-group">-->
       <!--        <label for="mentors">Mentors: </label>-->
@@ -85,59 +169,61 @@
       <!--        </div>-->
       <!--      </div>-->
 
-      <div class="form-group">
-        <label for="period">Period: </label>
-        <div class="input-group">
-          <input id="period" class="form-control" type="text" formControlName="period">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="status">Status: </label>
-        <div class="input-group">
-          <input id="status" class="form-control" type="text" formControlName="status">
-        </div>
-      </div>
 <!--      <div class="form-group">-->
-<!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
+<!--        <label for="period">Period: </label>-->
 <!--        <div class="input-group">-->
-<!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
+<!--          <input id="period" class="form-control" type="text" formControlName="period">-->
 <!--        </div>-->
 <!--      </div>-->
-      <div class="form-group">
-        <label for="technical-question-list">Technical question list: </label>
-        <div class="input-group">
-          <input id="technical-question-list" class="form-control" type="text" formControlName="technicalQuestionList">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-github">Link to GitHub repository: </label>
-        <div class="input-group">
-          <input id="link-github" class="form-control" type="text" formControlName="linkGithub">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-trello">Link to Trello board: </label>
-        <div class="input-group">
-          <input id="link-trello" class="form-control" type="text" formControlName="linkTrello">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-deployed-app">Link to the deployed app: </label>
-        <div class="input-group">
-          <input id="link-deployed-app" class="form-control" type="text" formControlName="linkDeployedApp">
-        </div>
-      </div>
 <!--      <div class="form-group">-->
-<!--        <label for="link-presentation">Link to the deployed app: </label>-->
+<!--        <label for="status">Status: </label>-->
 <!--        <div class="input-group">-->
-<!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
+<!--          <input id="status" class="form-control" type="text" formControlName="status">-->
 <!--        </div>-->
 <!--      </div>-->
-
+      <!--      <div class="form-group">-->
+      <!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
+      <!--        <div class="input-group">-->
+      <!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
+      <!--        </div>-->
+      <!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="technical-question-list">Technical question list: </label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="technical-question-list" class="form-control" type="text" formControlName="technicalQuestionList">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="link-github">Link to GitHub repository: </label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="link-github" class="form-control" type="text" formControlName="linkGithub">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="link-trello">Link to Trello board: </label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="link-trello" class="form-control" type="text" formControlName="linkTrello">-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="form-group">-->
+<!--        <label for="link-deployed-app">Link to the deployed app: </label>-->
+<!--        <div class="input-group">-->
+<!--          <input id="link-deployed-app" class="form-control" type="text" formControlName="linkDeployedApp">-->
+<!--        </div>-->
+<!--      </div>-->
+      <!--      <div class="form-group">-->
+      <!--        <label for="link-presentation">Link to the deployed app: </label>-->
+      <!--        <div class="input-group">-->
+      <!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
+      <!--        </div>-->
+      <!--      </div>-->
+      <div class="border text-center">
+        <button data-dismiss="modal" class="btn btn-info">Submit</button>
+      </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
+    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Cancel</button>
   </div>
 </ng-template>
 <!--<form [formGroup]="internshipForm" (ngSubmit)="onSubmit()" class="internship-form">-->

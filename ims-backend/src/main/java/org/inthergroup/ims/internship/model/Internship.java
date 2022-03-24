@@ -5,12 +5,12 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.DynamicUpdate;
+import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +29,6 @@ public class Internship {
     @Enumerated(EnumType.STRING)
     private Category category;
     @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
     @JoinTable(name = "mentors_internships",
             joinColumns = @JoinColumn(name = "internship_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -41,15 +40,12 @@ public class Internship {
     @Column(columnDefinition = "varchar(32) default 'NEW'", name = "status")
     @Enumerated(EnumType.STRING)
     private Status internshipStatus;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JsonIgnore
-    @JoinTable(name = "internships_pre_interview_tests",
-            joinColumns = @JoinColumn(name = "internship_id"),
-            inverseJoinColumns = @JoinColumn(name = "pre_interview_test_id"))
+    @ElementCollection(targetClass = PreInterviewTest.class)
+    @Enumerated(EnumType.STRING)
     private List<PreInterviewTest> preInterviewTestList;
-    //TODO- change from string to Tehcnical list ID, OBJECT
-    @Column(name = "technical_question_list")
-    private String techQuesListName;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private TechQuestionList techQuesListName;
     @Column(name = "github_link")
     private String gitHubUrl;
     @Column(name = "trello_board")
@@ -58,7 +54,8 @@ public class Internship {
     private String deployedAppUrl;
     @Column(name = "powerpoint_presentation")
     private String presentationUrl;
-
+    @OneToMany(mappedBy="internship")
+    private List<Candidate> candidates;
 
     public Internship() {
         id = UUID.randomUUID().toString();

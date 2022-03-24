@@ -2,7 +2,7 @@ package org.inthergroup.ims.candidate_evaluation;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.inthergroup.ims.candidate.Repository.CandidateRepository;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

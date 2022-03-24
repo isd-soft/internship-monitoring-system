@@ -2,19 +2,13 @@ package org.inthergroup.ims.candidate.model;
 
 import java.util.Set;
 import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate_evaluation.CandidateEvaluation;
+import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.techMark.TechMark;
 
 
@@ -46,6 +40,10 @@ public class Candidate {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
+
+    @ManyToOne(targetEntity = Internship.class)
+    @JoinColumn(name="internship_id", nullable = false)
+    private Internship internship;
 
     @OneToMany(mappedBy = "candidate")
     private Set<TechMark> candidateTechMarks;

@@ -1,4 +1,4 @@
-package org.inthergroup.ims.candidate.Service;
+package org.inthergroup.ims.candidate.service;
 
 
 import org.apache.commons.io.FilenameUtils;

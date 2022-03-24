@@ -1,10 +1,10 @@
-package org.inthergroup.ims.candidate.Service;
+package org.inthergroup.ims.candidate.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.inthergroup.ims.candidate.Controller.CandidateDTO;
-import org.inthergroup.ims.candidate.Repository.CandidateRepository;
+import org.inthergroup.ims.candidate.controller.CandidateDTO;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -70,5 +70,4 @@ public class CandidateServiceImp implements CandidateService {
         candidate.setStatus(candidateDTO.getStatus());
         return candidate;
     }
-
 }
