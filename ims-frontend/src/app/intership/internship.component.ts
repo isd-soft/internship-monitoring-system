@@ -1,35 +1,63 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
-import {Internship} from "../shared/model/internship";
+import {Internship, Status} from "../shared/model/internship";
 import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {FormBuilder, FormGroup} from "@angular/forms";
 
 @Component({
-  selector: 'app-intership',
+  selector: 'app-internship',
   templateUrl: './internship.component.html',
   styleUrls: ['./internship.component.css']
 })
-export class InternshipComponent implements OnInit {
+export class InternshipComponent implements AfterViewInit  {
+  internshipForm: FormGroup = new FormGroup({});
   internships: Internship[];
+  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom','periodTo', 'mentors',
+    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl','actions'];
+  dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  // internshipForm: FormGroup = new FormGroup({});
-  // private formBuilder: FormBuilder
+  status = Status;
+  statusOptions: {name: string, value: number}[] = [];
+
+
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort: MatSort;
+
   constructor(private internshipService: InternshipService,
+              private formBuilder: FormBuilder,
               private modalService: NgbModal) {
-  }
 
-  ngOnInit(): void {
+  }
+  ngAfterViewInit(): void {
     this.getAllInternships();
-  }
+    this.statusOptions = this.buildStatusOptions()
+    setInterval( () => {
+      console.dir(this.internshipForm.controls);
+    }, 3000)
 
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+
+  }
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
   onSubmit() {
   }
-
   public getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: result => {
         console.log(result);
-        this.internships = result
+        this.dataSource = new MatTableDataSource(result);
       },
       error: err => console.log("An error has occurred;")
     });
@@ -51,18 +79,27 @@ export class InternshipComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+  private buildStatusOptions():  {name: string, value: number}[] {
+    let options = [];
+    for (const enumMember in this.status) {
+      if (parseInt(enumMember, 10) >= 0) {
+        options.push({name: this.status[enumMember], value: parseInt(enumMember, 10)})
+      }
+    }
+    return options;
+  }
+
+  viewInternship(internship : Internship) {
+
+
+  }
+
+  editInternship(row:any) {
+
+  }
+
+  deleteInternship(row:any) {
+
+  }
 }
 
-// this.internshipForm = this.formBuilder.group({
-//   projectName: ['Upcoming Internship'],
-//   category: ['list'],
-//   mentors: ['list'],
-//   period: ['dd-mm-yyyy'],
-//   status: ['New'],
-//   preInterviewTests: ['x'],
-//   technicalQuestionList: ['y'],
-//   linkGithub: [''],
-//   linkTrello: [''],
-//   linkDeployedApp: [''],
-//   linkPresentation: [''],
-// });

@@ -20,9 +20,14 @@ import { MainPageComponent } from "./pages/main-page/main-page.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
-import { MatSelectModule } from "@angular/material/select";
-import { CommonModule } from "@angular/common";
+import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
+import {MatSelectModule} from '@angular/material/select';
+import {CommonModule} from "@angular/common";
+import {MatTableModule} from "@angular/material/table";
+import {MatPaginatorModule} from "@angular/material/paginator";
+import {MatSortModule} from "@angular/material/sort";
+import {MatIconModule} from "@angular/material/icon";
+import { AddInternshipComponent } from './intership/add-internship/add-internship.component';
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
 import { FeedbackComponent } from './pages/feedback/feedback.component';
@@ -38,6 +43,7 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     ReviewsComponent,
     InternshipComponent,
     AddCandidateComponent,
+    AddInternshipComponent,
     TechquestionlistComponent,
     FeedbackComponent,
   ],
@@ -57,6 +63,11 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     FormsModule,
     MatSelectModule,
     CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

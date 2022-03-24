@@ -1,15 +1,14 @@
 package org.inthergroup.ims.internship.service;
 
-import org.inthergroup.ims.internship.controller.PreInterviewTestDTO;
-import org.inthergroup.ims.internship.model.PreInterviewTest;
+import org.inthergroup.ims.internship.controller.PreInterviewTestEvaluationDTO;
+import org.inthergroup.ims.internship.model.PreInterviewTestEvaluation;
 import org.inthergroup.ims.internship.repository.PreInterviewRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class PreInterviewTestServiceImpl implements PreInterviewTestService{
+public class PreInterviewTestServiceImpl implements PreInterviewTestEvaluationService {
 
     private final PreInterviewRepository preInterviewRepository;
 
@@ -17,22 +16,25 @@ public class PreInterviewTestServiceImpl implements PreInterviewTestService{
         this.preInterviewRepository = preInterviewRepository;
     }
 
-
     @Override
-    public void save(PreInterviewTestDTO preInterviewTestDTO) {
-        preInterviewRepository.save(toPreInterviewTest(preInterviewTestDTO));
+    public List<PreInterviewTestEvaluation> getAllPreInterviewTestEvaluation() {
+        return preInterviewRepository.findAll();
     }
 
     @Override
-    public PreInterviewTest toPreInterviewTest(PreInterviewTestDTO preInterviewTestDTO) {
-        return new PreInterviewTest(preInterviewTestDTO.getId(), preInterviewTestDTO.getPreInterviewTestName());
+    public void save(PreInterviewTestEvaluationDTO preInterviewTest) {
+        preInterviewRepository.save(toPreInterviewTestEntity(preInterviewTest));
+
     }
 
     @Override
-    public List<PreInterviewTest> toPreInterviewTestList(List<PreInterviewTestDTO> preInterviewTestDTOList) {
-        List<PreInterviewTest> preInterviewTestList = new ArrayList<>();
-        preInterviewTestDTOList.forEach(preInterviewTestDTO ->
-                preInterviewTestList.add(toPreInterviewTest(preInterviewTestDTO)));
-        return preInterviewTestList;
+    public PreInterviewTestEvaluation toPreInterviewTestEntity(PreInterviewTestEvaluationDTO preInterviewTestDTO) {
+        PreInterviewTestEvaluation preInterviewTestEvaluation = new PreInterviewTestEvaluation();
+        preInterviewTestEvaluation.setPreInterviewTestName(preInterviewTestDTO.getPreInterviewTestName());
+        preInterviewTestEvaluation.setInternship(preInterviewTestDTO.getInternship());
+        preInterviewTestEvaluation.setCandidate(preInterviewTestDTO.getCandidate());
+        preInterviewTestEvaluation.setMark(preInterviewTestDTO.getMark());
+        return null;
     }
+
 }

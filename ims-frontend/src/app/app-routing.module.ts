@@ -1,11 +1,11 @@
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
-import { Routes, CanActivate } from "@angular/router";
+import { CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
 
