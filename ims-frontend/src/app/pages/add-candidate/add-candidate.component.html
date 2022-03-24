@@ -17,22 +17,17 @@
       <input formControlName="comment" matInput />
     </mat-form-field>
 
-    <input type="file" class="file-input"
-             (change)="onFileSelected($event)">
+    <input (change)="onFileSelected($event)" class="file-input"
+           type="file">
     <br />
 
     <mat-form-field appearance="fill">
       <mat-label>Status</mat-label>
-      <mat-select  formControlName="status">
+      <mat-select formControlName="status">
         <mat-option *ngFor="let option of statusOptions" [value]="option.value">
           {{option.name}}
         </mat-option>
       </mat-select>
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label> Mark</mat-label>
-      <input  type="number" formControlName="mark" matInput />
     </mat-form-field>
     <br />
     <mat-form-field appearance="fill">

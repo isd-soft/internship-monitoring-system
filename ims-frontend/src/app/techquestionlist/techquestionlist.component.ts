@@ -1,6 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { TechQuestionList } from "../shared/model/techQuestionList";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { TechQuestionListService } from "../shared/service/tech-question-list.service";
 
@@ -11,7 +16,7 @@ import { TechQuestionListService } from "../shared/service/tech-question-list.se
 })
 export class TechquestionlistComponent implements OnInit {
   techQuestionListForm: FormGroup = new FormGroup({});
-  techQuestionLists: TechQuestionList[];
+  // techQuestionLists: TechQuestionList[];
   techQuestionListStatusError = false;
   validationErrors: {} | null = {};
   statusOptions: { name: string; value: number }[] = [];
@@ -25,8 +30,11 @@ export class TechquestionlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.techQuestionListForm = this.formBuilder.group({
-      name: [""],
+      name: [[""], Validators.required],
     });
+    // this.techQuestionListForm = new FormGroup({
+    //   listName: new FormControl("", Validators.required),
+    // });
   }
 
   onSubmit() {
@@ -45,5 +53,6 @@ export class TechquestionlistComponent implements OnInit {
           },
         });
     }
+    console.log(this.techQuestionListForm.value);
   }
 }

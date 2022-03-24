@@ -11,10 +11,10 @@ export class TechMarkService {
   constructor(private http: HttpClient) {}
 
   getAlltechMarks(): Observable<TechMark[]> {
-    return this.http.get<TechMark[]>(`${environment.apiUrl}tm`);
+    return this.http.get<TechMark[]>(`${environment.apiUrl}techMarks/getall`);
   }
 
   addTechMarks(techMark: TechMark): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}tm/add`, techMark);
+    return this.http.post<any>(`${environment.apiUrl}techMarks/add`, techMark);
   }
 }

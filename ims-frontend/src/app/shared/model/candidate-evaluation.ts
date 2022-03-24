@@ -1,7 +1,6 @@
 export class CandidateEvaluation {
-  id?: string;
-  english: number;
-  softskills: number;
-  practice: number;
+  englishMark: number;
+  softSkillMark: number;
+  practiceMark: number;
   candidate: string;
 }

@@ -12,7 +12,7 @@ export class CandidateEvaluationService {
 
   getAllCandidateEvaluations(): Observable<CandidateEvaluation[]> {
     return this.http.get<CandidateEvaluation[]>(
-      `${environment.apiUrl}ce/getallmarks`
+      `${environment.apiUrl}candidateEvaluations/getall`
     );
   }
 
@@ -20,7 +20,7 @@ export class CandidateEvaluationService {
     candidateEvaluation: CandidateEvaluation
   ): Observable<any> {
     return this.http.post(
-      `${environment.apiUrl}ce/addmarks`,
+      `${environment.apiUrl}candidateEvaluations/add`,
       candidateEvaluation
     );
   }

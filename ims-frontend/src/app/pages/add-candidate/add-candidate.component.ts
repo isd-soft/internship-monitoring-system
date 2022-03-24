@@ -1,22 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ActivatedRoute, Router} from "@angular/router";
-import {AccountService} from "../../shared/service/account.service";
-import {first} from "rxjs/operators";
-import {Candidate, Status} from "../../shared/model/candidate";
-import {CandidateService} from "../../shared/service/candidate.service";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AccountService } from "../../shared/service/account.service";
+import { first } from "rxjs/operators";
+import { Candidate, Status } from "../../shared/model/candidate";
+import { CandidateService } from "../../shared/service/candidate.service";
 
 @Component({
-  selector: 'app-add-candidate',
-  templateUrl: './add-candidate.component.html',
-  styleUrls: ['./add-candidate.component.css']
+  selector: "app-add-candidate",
+  templateUrl: "./add-candidate.component.html",
+  styleUrls: ["./add-candidate.component.css"],
 })
 export class AddCandidateComponent implements OnInit {
   candidateForm: FormGroup = new FormGroup({});
   candidateStatusError = false;
   validationErrors: {} | null = {};
-  status = Status
-  statusOptions: {name: string, value: number}[] = [];
+  status = Status;
+  statusOptions: { name: string; value: number }[] = [];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,10 +26,10 @@ export class AddCandidateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.statusOptions = this.buildStatusOptions()
-    setInterval( () => {
+    this.statusOptions = this.buildStatusOptions();
+    setInterval(() => {
       console.dir(this.candidateForm.controls);
-    }, 3000)
+    }, 3000);
 
     this.candidateForm = this.formBuilder.group({
       email: [
@@ -45,14 +45,13 @@ export class AddCandidateComponent implements OnInit {
       comment: ["", [Validators.required]],
       status: ["", [Validators.required]],
       cv: ["", [Validators.required]],
-      mark: ["", [Validators.required]],
     });
   }
 
   onSubmit() {
     if (this.candidateForm.valid) {
       this.candidateService
-        .addCandidateToIntership(this.candidateForm.value)
+        .createCandidate(this.candidateForm.value)
         .subscribe({
           next: () => {
             this.candidateStatusError = false;
@@ -67,29 +66,30 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
-  private buildStatusOptions():  {name: string, value: number}[] {
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      this.candidateService.uploadCandidatesCV(formData).subscribe((val) => {
+        this.candidateForm.controls["cv"].patchValue(val.data);
+      });
+    }
+  }
+
+  private buildStatusOptions(): { name: string; value: number }[] {
     let options = [];
     for (const enumMember in this.status) {
       if (parseInt(enumMember, 10) >= 0) {
-        options.push({name: this.status[enumMember], value: parseInt(enumMember, 10)})
+        options.push({
+          name: this.status[enumMember],
+          value: parseInt(enumMember, 10),
+        });
       }
     }
     return options;
-  }
-
-  onFileSelected(event: any) {
-
-    const file:File = event.target.files[0];
-
-    if (file) {
-
-      const formData = new FormData();
-
-      formData.append('file', file);
-
-      this.candidateService.uploadCandidatesCV(formData).subscribe(val => {
-        this.candidateForm.controls['cv'].patchValue(val.data);
-      });
-    }
   }
 }

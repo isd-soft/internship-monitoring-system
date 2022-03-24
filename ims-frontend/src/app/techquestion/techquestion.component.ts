@@ -1,9 +1,11 @@
 import { Component, OnInit } from "@angular/core";
-import { FormBuilder, FormGroup } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 import { ActivatedRoute, Router } from "@angular/router";
 import { TechQuestionService } from "../shared/service/tech-question.service";
 import { TechQuestion } from "../shared/model/techQuestion";
+import { TechQuestionList } from "../shared/model/techQuestionList";
+import { TechQuestionListService } from "../shared/service/tech-question-list.service";
 
 @Component({
   selector: "app-techquestion",
@@ -13,6 +15,7 @@ import { TechQuestion } from "../shared/model/techQuestion";
 export class TechquestionComponent implements OnInit {
   techQuestionForm: FormGroup = new FormGroup({});
   techQuestion: TechQuestion[];
+  techQuestionList: any = [];
   techQuestionStatusError = false;
   validationErrors: {} | null = {};
   statusOptions: { name: string; value: number }[] = [];
@@ -20,15 +23,24 @@ export class TechquestionComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private techQuestionService: TechQuestionService,
-    private router: Router,
-    private route: ActivatedRoute
+    private techQuestionListService: TechQuestionListService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.getQuestionList();
     this.techQuestionForm = this.formBuilder.group({
-      name: [""],
-      techQuestionList: [""],
+      name: ["", Validators.required],
+      techQuestionList: ["", Validators.required],
     });
+  }
+
+  getQuestionList() {
+    return this.techQuestionListService
+      .getAllTechQuestionList()
+      .subscribe((res) => {
+        this.techQuestionList = res;
+      });
   }
 
   onSubmit() {

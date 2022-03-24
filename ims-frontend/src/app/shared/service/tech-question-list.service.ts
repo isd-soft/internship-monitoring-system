@@ -10,11 +10,16 @@ import { TechQuestionList } from "../model/techQuestionList";
 export class TechQuestionListService {
   constructor(private http: HttpClient) {}
 
-  getAlltechQuestionList(): Observable<TechQuestionList[]> {
-    return this.http.get<TechQuestionList[]>(`${environment.apiUrl}tql`);
+  getAllTechQuestionList(): Observable<any> {
+    return this.http.get<any>(`${environment.apiUrl}techQuestionLists/getall`);
   }
 
-  addTechQuestionList(techQuestionList: TechQuestionList): Observable<any> {
-    return this.http.post<any>(`${environment.apiUrl}tql`, techQuestionList);
+  addTechQuestionList(
+    techQuestionList: TechQuestionList
+  ): Observable<TechQuestionList> {
+    return this.http.post<TechQuestionList>(
+      `${environment.apiUrl}techQuestionLists/add`,
+      techQuestionList
+    );
   }
 }
