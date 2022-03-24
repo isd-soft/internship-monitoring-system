@@ -26,6 +26,8 @@ import {CommonModule} from "@angular/common";
 import {MatTableModule} from "@angular/material/table";
 import {MatPaginatorModule} from "@angular/material/paginator";
 import {MatSortModule} from "@angular/material/sort";
+import {MatIconModule} from "@angular/material/icon";
+import { AddInternshipComponent } from './intership/add-internship/add-internship.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +40,7 @@ import {MatSortModule} from "@angular/material/sort";
     ReviewsComponent,
     InternshipComponent,
     AddCandidateComponent,
+    AddInternshipComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,7 +60,8 @@ import {MatSortModule} from "@angular/material/sort";
     CommonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatIconModule
 
   ],
   providers: [],

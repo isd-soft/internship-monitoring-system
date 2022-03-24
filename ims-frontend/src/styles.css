@@ -10,15 +10,24 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   margin-right: 5px;
 }
 table {
-  width: 75%;
+  width: 100%;
+
 }
 
 .mat-form-field {
-  font-size: 15px;
+  font-size: 14px;
   width: 100%;
 }
 
 td, th {
-  width: 25%;
+  width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
+.w-1{
+  width: 5%;
+}
+.w-action{
+  width: 100%;
+}

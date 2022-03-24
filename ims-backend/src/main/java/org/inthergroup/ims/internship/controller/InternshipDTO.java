@@ -21,7 +21,7 @@ public class InternshipDTO {
     private String id;
     private String projectName;
     private Category category;
-    private List<User> mentors;
+    private List<UserMentorDTO> mentors;
     private LocalDate periodFrom;
     private LocalDate periodTo;
     private Status internshipStatus;

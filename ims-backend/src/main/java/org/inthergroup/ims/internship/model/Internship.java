@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -42,7 +43,6 @@ public class Internship {
     @ElementCollection(targetClass = PreInterviewTest.class)
     @Enumerated(EnumType.STRING)
     private List<PreInterviewTest> preInterviewTestList;
-    //TODO- change from string to Tehcnical list ID, OBJECT
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id")
     private TechQuestionList techQuesListName;

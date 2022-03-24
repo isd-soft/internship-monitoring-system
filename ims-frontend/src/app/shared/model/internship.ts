@@ -17,8 +17,9 @@ export class Internship {
 }
 
 export enum Status {
-  NEW,
-  INTERVIEWING,
-  IN_PROGRESS,
-  DONE
+  NEW = 0,
+  INTERVIEWING = 1,
+  IN_PROGRESS = 2,
+  DONE = 3
+
 }
