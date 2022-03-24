@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.controller;
 
+import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +25,11 @@ public class InternshipController {
     @GetMapping("/{id}")
     public String getInternshipForm() {
         return "internship form";
+    }
+
+ @GetMapping("/{id}/candidates")
+    public List<Candidate> getCandidatesByInternshipId(String internshipId) {
+        return internshipService.getAllCandidatesByInternshipId(internshipId);
     }
 
 

@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.service;
 
+import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.controller.InternshipDTO;
 import org.inthergroup.ims.internship.controller.UserMentorDTO;
 import org.inthergroup.ims.internship.model.Internship;
@@ -40,7 +41,7 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public Internship toInternship(InternshipDTO internshipDTO) {
-         Internship internship = new Internship();
+        Internship internship = new Internship();
         internship.setProjectName(internshipDTO.getProjectName());
         internship.setCategory(internshipDTO.getCategory());
         internship.setMentors(toUserList(internshipDTO.getMentors()));
@@ -53,6 +54,7 @@ public class InternshipServiceImpl implements InternshipService {
         internship.setTrelloBoardUrl(internshipDTO.getTrelloBoardUrl());
         internship.setDeployedAppUrl(internshipDTO.getDeployedAppUrl());
         internship.setPresentationUrl(internshipDTO.getPresentationUrl());
+        internship.setCandidates(internshipDTO.getCandidates());
         return internship;
     }
 
@@ -66,4 +68,13 @@ public class InternshipServiceImpl implements InternshipService {
     public List<User> toUserList(List<UserMentorDTO> mentorDTOList) {
         return mentorDTOList.stream().map(this::toUser).collect(Collectors.toList());
     }
+
+    @Override
+    public List<Candidate> getAllCandidatesByInternshipId(String internshipId) {
+        Internship internship = internshipRepository.findById(internshipId)
+                .orElseThrow(() -> new IllegalArgumentException("Internship with id" + internshipId + "was not found!"));
+        return internship.getCandidates();
+    }
+
+
 }

@@ -54,10 +54,7 @@ public class Internship {
     private String deployedAppUrl;
     @Column(name = "powerpoint_presentation")
     private String presentationUrl;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "internship_candidates",
-            joinColumns = @JoinColumn(name = "internship_id"),
-            inverseJoinColumns = @JoinColumn(name = "id"))
+    @OneToMany(mappedBy="internship")
     private List<Candidate> candidates;
 
     public Internship() {

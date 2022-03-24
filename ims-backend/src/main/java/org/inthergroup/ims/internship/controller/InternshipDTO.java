@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import org.inthergroup.ims.candidate.controller.CandidateDTO;
+import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidateEvaluation.model.TechQuestionList;
 import org.inthergroup.ims.internship.model.Category;
 import org.inthergroup.ims.internship.model.PreInterviewTest;
@@ -31,6 +33,7 @@ public class InternshipDTO {
     private String trelloBoardUrl;
     private String deployedAppUrl;
     private String presentationUrl;
+    private List<Candidate> candidates;
     public InternshipDTO() {
     }
 }

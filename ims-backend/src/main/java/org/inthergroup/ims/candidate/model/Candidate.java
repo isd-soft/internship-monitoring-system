@@ -2,13 +2,9 @@ package org.inthergroup.ims.candidate.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.inthergroup.ims.internship.model.Internship;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -32,6 +28,9 @@ public class Candidate {
     @Enumerated(EnumType.STRING)
     private Status status;
     private double mark;
+    @ManyToOne(targetEntity = Internship.class)
+    @JoinColumn(name="internship_id", nullable = false)
+    private Internship internship;
 
     public Candidate() {
         id = UUID.randomUUID().toString();
