@@ -1,0 +1,40 @@
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="candidateEvaluationForm"
+    class="candidate-evaluation-form"
+  >
+    <legend><h1>Add marks for candidate</h1></legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> english</mat-label>
+      <input formControlName="englishMark" matInput type="text" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label> softskills</mat-label>
+      <input formControlName="softSkillMark" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label> practice</mat-label>
+      <input formControlName="practiceMark" matInput type="text" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Select Candidate to mark</mat-label>
+      <mat-select formControlName="candidate">
+        <mat-option *ngFor="let list of candidate" [value]="list.id">
+          {{ list.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="!candidateEvaluationForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>

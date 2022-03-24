@@ -6,8 +6,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
-import org.inthergroup.ims.candidateEvaluation.model.TechQuestionList;
 import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import javax.persistence.*;
 import java.time.LocalDate;

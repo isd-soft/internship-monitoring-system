@@ -1,217 +1,23 @@
-<br />
-<br />
-<br />
-<div class="container">
-  <div class="border">
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="techQuestionListForm"
+    class="techquestionlist-form"
+  >
+    <legend><h1>Add technical question list</h1></legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+    </mat-form-field>
+    <br />
     <button
-      (click)="open({ content: content })"
-      class="btn btn-md btn-outline-warning"
+      [disabled]="!techQuestionListForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
     >
-      <i class="fa fa-puzzle-piece"></i>
-      New Internship
+      Submit
     </button>
-  </div>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Project Name</th>
-        <th>Category</th>
-        <!--      <th>Mentors</th>-->
-        <th>Period from</th>
-        <th>Period to</th>
-        <th>Status</th>
-        <!--      <th>Pre-interview tests</th>-->
-        <th>Technical question list</th>
-        <th>Link to GitHub repository</th>
-        <th>Link to Trello board</th>
-        <th>Link to the deployed app</th>
-        <!--      <th>PowerPoint presentation</th>-->
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <!--    <tbody>-->
-    <!--      <tr *ngFor="let internship of internships">-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.projectName }}</span>-->
-    <!--        </td>-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.category }}</span>-->
-    <!--        </td>-->
-    <!--        &lt;!&ndash;      <td><span>{{internship.mentors}}</span></td>&ndash;&gt;-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.periodFrom }}</span>-->
-    <!--        </td>-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.periodTo }}</span>-->
-    <!--        </td>-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.internshipStatus }}</span>-->
-    <!--        </td>-->
-    <!--        &lt;!&ndash;      <td><span>{{internship.preInterviewTestList}}</span></td>&ndash;&gt;-->
-    <!--        <td>-->
-    <!--          <span>{{ internship.techQuesListName }}</span>-->
-    <!--        </td>-->
-    <!--        <td><a href="{{ internship.gitHubUrl }}">GitHub</a></td>-->
-    <!--        <td><a href="{{ internship.trelloBoardUrl }}">Trello</a></td>-->
-    <!--        <td><a href="{{ internship.deployedAppUrl }}">Open folder</a></td>-->
-    <!--        &lt;!&ndash;      <td><span>{{internship.presentationUrl}}</span></td>&ndash;&gt;-->
-    <!--        <td>-->
-    <!--          <button class="btn btn-sm btn-outline-info">-->
-    <!--            <i class="fa fa-search"></i>Details-->
-    <!--          </button>-->
-    <!--          <button class="btn btn-sm btn-outline-warning">-->
-    <!--            <i class="fa fa-edit"></i>Edit-->
-    <!--          </button>-->
-    <!--          <button class="btn btn-sm btn-outline-danger">-->
-    <!--            <i class="fa fa-remove"></i>Delete-->
-    <!--          </button>-->
-    <!--        </td>-->
-    <!--      </tr>-->
-    <!--    </tbody>-->
-  </table>
+  </form>
 </div>
-<ng-template #content let-modal>
-  <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">New internship</h4>
-    <button
-      (click)="modal.dismiss('Cross click')"
-      aria-label="Close"
-      class="close"
-      type="button"
-    >
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <form>
-      <div class="form-group">
-        <label for="project-name">Project Name: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="projectName"
-            id="project-name"
-            required
-            type="text"
-          />
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="category">Category: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="category"
-            id="category"
-            required
-            type="text"
-          />
-        </div>
-      </div>
-
-      <!--      <div class="form-group">-->
-      <!--        <label for="mentors">Mentors: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="mentors" class="form-control" type="text" formControlName="mentors" required>-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-      <div class="form-group">
-        <label for="period">Period: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="period"
-            id="period"
-            type="text"
-          />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="status">Status: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="status"
-            id="status"
-            type="text"
-          />
-        </div>
-      </div>
-      <!--      <div class="form-group">-->
-      <!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
-      <!--        </div>-->
-      <!--      </div>-->
-      <div class="form-group">
-        <label for="technical-question-list">Technical question list: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="technicalQuestionList"
-            id="technical-question-list"
-            type="text"
-          />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-github">Link to GitHub repository: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="linkGithub"
-            id="link-github"
-            type="text"
-          />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-trello">Link to Trello board: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="linkTrello"
-            id="link-trello"
-            type="text"
-          />
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="link-deployed-app">Link to the deployed app: </label>
-        <div class="input-group">
-          <input
-            class="form-control"
-            formControlName="linkDeployedApp"
-            id="link-deployed-app"
-            type="text"
-          />
-        </div>
-      </div>
-      <!--      <div class="form-group">-->
-      <!--        <label for="link-presentation">Link to the deployed app: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
-      <!--        </div>-->
-      <!--      </div>-->
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button
-      (click)="modal.close('Save click')"
-      class="btn btn-outline-dark"
-      type="button"
-    >
-      Save
-    </button>
-  </div>
-</ng-template>
-<!--<form [formGroup]="internshipForm" (ngSubmit)="onSubmit()" class="internship-form">-->
-<!--  <legend><h1>Create an internship</h1></legend>-->
-
-<!--  <label for=""></label>-->
-<!--&lt;!&ndash;  <select name="category" class="form-control">&ndash;&gt;-->
-<!--&lt;!&ndash;    <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>&ndash;&gt;-->
-<!--&lt;!&ndash;  </select>&ndash;&gt;-->
-<!--  <input id="category" type="text" formControlName="category">-->

@@ -1,0 +1,32 @@
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="techQuestionForm"
+    class="techquestion-form"
+  >
+    <legend><h1>Add technical question</h1></legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Select question</mat-label>
+      <mat-select formControlName="techQuestionList">
+        <mat-option *ngFor="let list of techQuestionList" [value]="list.id">
+          {{ list.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="!techQuestionForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+    >
+      Submit
+    </button>
+  </form>
+</div>
