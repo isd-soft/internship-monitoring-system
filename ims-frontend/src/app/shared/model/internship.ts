@@ -1,4 +1,5 @@
 import {User} from "./user";
+import {Candidate} from "./candidate";
 
 export class Internship {
   id: string;
@@ -14,12 +15,24 @@ export class Internship {
   trelloBoardUrl: string;
   deployedAppUrl: string; // review project download
   presentationUrl: string; // review presentation download
+  candidates: Candidate[]
 }
 
 export enum Status {
-  NEW = 0,
-  INTERVIEWING = 1,
-  IN_PROGRESS = 2,
-  DONE = 3
+  NEW = "New",
+  INTERVIEWING = "Interviewing",
+  IN_PROGRESS = "In process",
+  DONE = "Done"
+}
 
+export enum Category{
+  JAVA="Java",
+  C_SHARP = "C#",
+  PLC = "PLC"
+}
+export enum PreInterviewTest{
+  ENGLISH ="English",
+  LOGIC = "Logic",
+  JAVA = "Java",
+  SQL = "SQL"
 }

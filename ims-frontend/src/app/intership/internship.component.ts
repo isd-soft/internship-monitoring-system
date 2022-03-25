@@ -5,44 +5,39 @@ import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {AddInternshipComponent} from "./add-internship/add-internship.component";
 
 @Component({
   selector: 'app-internship',
   templateUrl: './internship.component.html',
   styleUrls: ['./internship.component.css']
 })
-export class InternshipComponent implements AfterViewInit  {
-  internshipForm: FormGroup = new FormGroup({});
+export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
-  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom','periodTo', 'mentors',
-    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl','actions'];
+  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentors',
+    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  status = Status;
-  statusOptions: {name: string, value: number}[] = [];
-
 
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private internshipService: InternshipService,
-              private formBuilder: FormBuilder,
-              private modalService: NgbModal) {
+              private modalService: NgbModal,
+              private dialog: MatDialog) {
+    this.getAllInternships();
 
   }
-  ngAfterViewInit(): void {
-    this.getAllInternships();
-    this.statusOptions = this.buildStatusOptions()
-    setInterval( () => {
-      console.dir(this.internshipForm.controls);
-    }, 3000)
 
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -51,8 +46,10 @@ export class InternshipComponent implements AfterViewInit  {
       this.dataSource.paginator.firstPage();
     }
   }
+
   onSubmit() {
   }
+
   public getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: result => {
@@ -62,13 +59,24 @@ export class InternshipComponent implements AfterViewInit  {
       error: err => console.log("An error has occurred;")
     });
   }
-  open({content}: { content: any }) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+
+  openDialog() {
+    const dialogRef = this.dialog.open(AddInternshipComponent, {
+      width: '75%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
+
+  // open({content}: { content: any }) {
+  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
+  //     this.closeResult = `Closed with: ${result}`;
+  //   }, (reason) => {
+  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  //   });
+  // }
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -79,26 +87,18 @@ export class InternshipComponent implements AfterViewInit  {
       return `with: ${reason}`;
     }
   }
-  private buildStatusOptions():  {name: string, value: number}[] {
-    let options = [];
-    for (const enumMember in this.status) {
-      if (parseInt(enumMember, 10) >= 0) {
-        options.push({name: this.status[enumMember], value: parseInt(enumMember, 10)})
-      }
-    }
-    return options;
-  }
 
-  viewInternship(internship : Internship) {
+
+  viewInternship(internship: Internship) {
 
 
   }
 
-  editInternship(row:any) {
+  editInternship(row: any) {
 
   }
 
-  deleteInternship(row:any) {
+  deleteInternship(row: any) {
 
   }
 }

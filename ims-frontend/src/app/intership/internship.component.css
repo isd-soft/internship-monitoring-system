@@ -16,3 +16,20 @@ label {
   max-width: 2000px;
 }
 
+td, th {
+  width: 20%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.w-1 {
+  width: 5%;
+}
+
+.w-action {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}

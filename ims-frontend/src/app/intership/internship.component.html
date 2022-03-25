@@ -3,7 +3,7 @@
 <br>
 <div class="container">
   <div class="border">
-    <button mat-stroked-button (click)="open({content : content})">
+    <button mat-stroked-button (click)="openDialog()">
       <mat-icon>add</mat-icon>
       New Internship
     </button>
@@ -71,7 +71,7 @@
 
       <!-- Link to the deployed app Column -->
       <ng-container matColumnDef="deployedAppUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to the deployed app</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Link to the deployed app</th>
         <td mat-cell *matCellDef="let row"><a href="{{row.deployedAppUrl}}">Deployed App</a></td>
       </ng-container>
 
@@ -103,8 +103,9 @@
       </tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[1, 5, 10, 25, 100]" showFirstLastButtons></mat-paginator>
   </div>
+</div>
 
   <!--    <tr *ngFor="let internship of internships">-->
   <!--      <td><span>{{internship.projectName}}</span></td>-->
@@ -131,8 +132,6 @@
   <!--        </button>-->
   <!--      </td>-->
   <!--    </tr>-->
-
-</div>
 <ng-template #content let-modal>
   <div class="modal-header">
     <legend><h1>New internship</h1></legend>
@@ -141,82 +140,9 @@
     </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmit()" [formGroup]="internshipForm" class="candidate-form">
-    <mat-form-field appearance="outline">
-          <mat-label> Project Name:</mat-label>
-          <input formControlName="projectName" matInput type="text" [value]="'Upcoming Internship'"/>
-        </mat-form-field>
-      <mat-form-field appearance="outline">
-          <mat-label> Category:</mat-label>
-        <mat-select  formControlName="status">
-          <mat-option *ngFor="let option of statusOptions" [value]="option.value">
-            {{option.name}}
-          </mat-option>
-        </mat-select>
-        </mat-form-field>
+    <form (ngSubmit)="onSubmit()" [formGroup]="" class="candidate-form">
 
-<!--      <div class="form-group">-->
-<!--        <label for="category"> </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="category" class="form-control" type="text" formControlName="" required>-->
-<!--        </div>-->
-<!--      </div>-->
 
-      <!--      <div class="form-group">-->
-      <!--        <label for="mentors">Mentors: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="mentors" class="form-control" type="text" formControlName="mentors" required>-->
-      <!--        </div>-->
-      <!--      </div>-->
-
-<!--      <div class="form-group">-->
-<!--        <label for="period">Period: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="period" class="form-control" type="text" formControlName="period">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="status">Status: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="status" class="form-control" type="text" formControlName="status">-->
-<!--        </div>-->
-<!--      </div>-->
-      <!--      <div class="form-group">-->
-      <!--        <label for="pre-interview-tests">Pre-interview tests: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="pre-interview-tests" class="form-control" type="text" formControlName="preInterviewTests">-->
-      <!--        </div>-->
-      <!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="technical-question-list">Technical question list: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="technical-question-list" class="form-control" type="text" formControlName="technicalQuestionList">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-github">Link to GitHub repository: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-github" class="form-control" type="text" formControlName="linkGithub">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-trello">Link to Trello board: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-trello" class="form-control" type="text" formControlName="linkTrello">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-deployed-app">Link to the deployed app: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-deployed-app" class="form-control" type="text" formControlName="linkDeployedApp">-->
-<!--        </div>-->
-<!--      </div>-->
-      <!--      <div class="form-group">-->
-      <!--        <label for="link-presentation">Link to the deployed app: </label>-->
-      <!--        <div class="input-group">-->
-      <!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
-      <!--        </div>-->
-      <!--      </div>-->
       <div class="border text-center">
         <button data-dismiss="modal" class="btn btn-info">Submit</button>
       </div>
@@ -226,15 +152,6 @@
     <button type="button" class="btn btn-outline-dark" (click)="modal.close('Cancel click')">Cancel</button>
   </div>
 </ng-template>
-<!--<form [formGroup]="internshipForm" (ngSubmit)="onSubmit()" class="internship-form">-->
-<!--  <legend><h1>Create an internship</h1></legend>-->
-
-
-<!--  <label for=""></label>-->
-<!--&lt;!&ndash;  <select name="category" class="form-control">&ndash;&gt;-->
-<!--&lt;!&ndash;    <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>&ndash;&gt;-->
-<!--&lt;!&ndash;  </select>&ndash;&gt;-->
-<!--  <input id="category" type="text" formControlName="category">-->
 
 
 
