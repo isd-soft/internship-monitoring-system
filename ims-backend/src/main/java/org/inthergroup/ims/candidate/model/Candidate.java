@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidate.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.inthergroup.ims.internship.model.Internship;
@@ -29,7 +30,8 @@ public class Candidate {
     private Status status;
     private double mark;
     @ManyToOne(targetEntity = Internship.class)
-    @JoinColumn(name="internship_id", nullable = false)
+    @JoinColumn(name="internship_id")
+    @JsonIgnore
     private Internship internship;
 
     public Candidate() {

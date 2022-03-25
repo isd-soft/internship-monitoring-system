@@ -45,11 +45,17 @@ public class CandidateController {
         candidate1.setComment(candidateDTO.getComment());
         candidate1.setStatus(candidateDTO.getStatus());
         candidate1.setMark(candidateDTO.getMark());
+        candidate1.setInternship(candidateDTO.getInternship());
         candidateService.save(candidate1);
         return candidate1;
     }
+    @GetMapping("/{id}")
+    public List<Candidate> getCandidatesByInternshipId(@PathVariable("id") String id) {
+        return candidateService.getAllCandidatesByInternshipId(id);
+    }
 
 }
+
 
 
 

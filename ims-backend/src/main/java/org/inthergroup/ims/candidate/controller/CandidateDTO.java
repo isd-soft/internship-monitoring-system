@@ -2,6 +2,7 @@ package org.inthergroup.ims.candidate.controller;
 
 import lombok.Data;
 import org.inthergroup.ims.candidate.model.Status;
+import org.inthergroup.ims.internship.model.Internship;
 
 @Data
 public class CandidateDTO {
@@ -13,4 +14,5 @@ public class CandidateDTO {
     private String comment;
     private Status status;
     private double mark;
+    private Internship internship;
 }

@@ -1,9 +1,6 @@
 package org.inthergroup.ims.internship.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidateEvaluation.model.TechQuestionList;
