@@ -8,6 +8,7 @@ import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.c
 import { CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
+import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
 
 const routes: Routes = [
   {
@@ -28,6 +29,11 @@ const routes: Routes = [
     path: "candidate-update",
     component: AddCandidateComponent,
     data: {intent: 'update'},
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "candidate-by-internship/:id",
+    component: CandidatesListComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -31,6 +31,7 @@ import { AddInternshipComponent } from './intership/add-internship/add-internshi
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
 import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { CandidatesListComponent } from './pages/candidates-list/candidates-list.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     AddInternshipComponent,
     TechquestionlistComponent,
     FeedbackComponent,
+    CandidatesListComponent,
   ],
   imports: [
     BrowserModule,
