@@ -1,23 +1,31 @@
 package org.inthergroup.ims.candidate.service;
-
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
+import org.inthergroup.ims.internship.model.Internship;
+import org.inthergroup.ims.internship.repository.InternshipRepository;
+import org.inthergroup.ims.internship.service.InternshipService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class CandidateServiceImp implements CandidateService {
 
     private final CandidateRepository candidateRepository;
+    private final InternshipService internshipService;
 
-    public CandidateServiceImp(CandidateRepository candidateRepository) {
+    public CandidateServiceImp(CandidateRepository candidateRepository, InternshipService internsipService) {
         this.candidateRepository = candidateRepository;
+        this.internshipService = internsipService;
     }
 
     public List<CandidateDTO> findAll() {
@@ -27,17 +35,18 @@ public class CandidateServiceImp implements CandidateService {
                 .collect(Collectors.toList());
     }
 
+
+    @Override
+    public void delete(final String id) {
+        candidateRepository.deleteById(id);
+    }
+
     public CandidateDTO get(final String id) {
         return candidateRepository.findById(id)
                 .map(candidate -> mapToDTO(candidate, new CandidateDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public String create(final CandidateDTO candidateDTO) {
-        final Candidate candidate = new Candidate();
-        mapToEntity(candidateDTO, candidate);
-        return candidateRepository.save(candidate).getId();
-    }
 
     public void update(final String id, final CandidateDTO candidateDTO) {
         final Candidate candidate = candidateRepository.findById(id)
@@ -46,8 +55,17 @@ public class CandidateServiceImp implements CandidateService {
         candidateRepository.save(candidate);
     }
 
-    public void delete(final String id) {
-        candidateRepository.deleteById(id);
+    public String create(final CandidateDTO candidateDTO) {
+        final Candidate candidate = new Candidate();
+        mapToEntity(candidateDTO, candidate);
+        return candidateRepository.save(candidate).getId();
+    }
+
+    @Override
+    public List<Candidate> getAllCandidatesByInternshipId(String internshipId) {
+
+        return candidateRepository.getCandidatesByInternshipId(internshipId);
+
     }
 
     private CandidateDTO mapToDTO(final Candidate candidate, final CandidateDTO candidateDTO) {
@@ -58,6 +76,11 @@ public class CandidateServiceImp implements CandidateService {
         candidateDTO.setCv(candidate.getCv());
         candidateDTO.setComment(candidate.getComment());
         candidateDTO.setStatus(candidate.getStatus());
+        candidateDTO.setMark(candidate.getMark());
+
+        candidateDTO.setInternship(internshipService.getAllInternships().get(0).getId());
+
+//        candidateDTO.setInternship(candidate.getInternship());
         return candidateDTO;
     }
 
@@ -68,6 +91,8 @@ public class CandidateServiceImp implements CandidateService {
         candidate.setCv(candidateDTO.getCv());
         candidate.setComment(candidateDTO.getComment());
         candidate.setStatus(candidateDTO.getStatus());
+        candidate.setMark(candidateDTO.getMark());
+        candidate.setInternship(internshipService.getAllInternships().get(0));
         return candidate;
     }
 }

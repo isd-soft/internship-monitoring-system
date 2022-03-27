@@ -30,10 +30,11 @@ import {MatIconModule} from "@angular/material/icon";
 import { AddInternshipComponent } from './intership/add-internship/add-internship.component';
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
 import { AuthGuard } from "./shared/common/auth.guard";
+import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { CandidatesListComponent } from './pages/candidates-list/candidates-list.component';
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from './tech-mark/tech-mark.component';
 import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
-import { FeedbackComponent } from './pages/feedback/feedback.component';
 
 @NgModule({
   declarations: [
@@ -52,6 +53,7 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     TechquestionComponent,
     TechMarkComponent,
     CandidateEvaluationComponent,
+    CandidatesListComponent
   ],
   imports: [
     BrowserModule,

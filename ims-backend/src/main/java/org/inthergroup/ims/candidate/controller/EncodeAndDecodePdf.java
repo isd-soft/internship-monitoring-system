@@ -1,4 +1,4 @@
-package org.inthergroup.ims.candidate.Controller;
+package org.inthergroup.ims.candidate.controller;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

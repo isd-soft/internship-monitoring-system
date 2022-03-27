@@ -1,6 +1,12 @@
 package org.inthergroup.ims.candidate.model;
 
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import org.inthergroup.ims.internship.model.Internship;
+
+import javax.persistence.*;
 import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -40,9 +46,10 @@ public class Candidate {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-
+    private double mark;
     @ManyToOne(targetEntity = Internship.class)
-    @JoinColumn(name="internship_id", nullable = false)
+    @JoinColumn(name="internship_id")
+    @JsonIgnore
     private Internship internship;
 
     @OneToMany(mappedBy = "candidate")
@@ -53,5 +60,6 @@ public class Candidate {
 
     public Candidate(){
         id = UUID.randomUUID().toString();
+
     }
 }

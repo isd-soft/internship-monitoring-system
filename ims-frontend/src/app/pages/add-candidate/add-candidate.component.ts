@@ -35,24 +35,6 @@ export class AddCandidateComponent implements OnInit {
       if (this.intent === "update") {
         this.candidateForm.controls["id"].setValidators([Validators.required]);
       }
-      if (this.intent === "add") {
-        this.candidateForm.controls["email"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["name"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["surname"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["comment"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["status"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["cv"].setValidators([Validators.required]);
-      }
     });
     this.subscription.add(sub);
 
@@ -71,6 +53,8 @@ export class AddCandidateComponent implements OnInit {
       comment: ["", [Validators.required]],
       status: ["", [Validators.required]],
       cv: ["", [Validators.required]],
+      mark: ["", [Validators.required]],
+      internship: ["", [Validators.required]],
     });
   }
 

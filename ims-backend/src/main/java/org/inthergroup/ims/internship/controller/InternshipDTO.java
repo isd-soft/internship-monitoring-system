@@ -1,5 +1,7 @@
 package org.inthergroup.ims.internship.controller;
 
+import lombok.*;
+import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
