@@ -1,7 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import { TechQuestionList } from "../shared/model/techQuestionList";
-import { TechQuestionListService } from "../shared/service/techQuestionList.service";
-import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { TechQuestionListService } from "../shared/service/tech-question-list.service";
 
 @Component({
   selector: "app-techquestionlist",
@@ -9,48 +15,44 @@ import { ModalDismissReasons, NgbModal } from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ["./techquestionlist.component.css"],
 })
 export class TechquestionlistComponent implements OnInit {
-  techquestionlist: TechQuestionList[];
-  closeResult: string;
+  techQuestionListForm: FormGroup = new FormGroup({});
+  // techQuestionLists: TechQuestionList[];
+  techQuestionListStatusError = false;
+  validationErrors: {} | null = {};
+  statusOptions: { name: string; value: number }[] = [];
 
   constructor(
+    private formBuilder: FormBuilder,
     private techQuestionListService: TechQuestionListService,
-    private modalService: NgbModal
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
-
-  onSubmit() {}
-
-  public getAllTechQuestionLists() {
-    this.techQuestionListService.getAlltechQuestionList().subscribe({
-      next: (result) => {
-        console.log(result);
-        this.techquestionlist = result;
-      },
-      error: (err) => console.log("Error"),
+  ngOnInit(): void {
+    this.techQuestionListForm = this.formBuilder.group({
+      name: [[""], Validators.required],
     });
+    // this.techQuestionListForm = new FormGroup({
+    //   listName: new FormControl("", Validators.required),
+    // });
   }
 
-  open({ content }: { content: any }) {
-    this.modalService
-      .open(content, { ariaLabelledBy: "modal-basic-title" })
-      .result.then(
-        (result) => {
-          this.closeResult = `Closed with: ${result}`;
-        },
-        (reason) => {
-          this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-        }
-      );
-  }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return "by pressing ESC";
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return "by clicking on a backdrop";
-    } else {
-      return `with: ${reason}`;
+  onSubmit() {
+    if (this.techQuestionListForm.valid) {
+      this.techQuestionListService
+        .addTechQuestionList(this.techQuestionListForm.value)
+        .subscribe({
+          next: () => {
+            this.techQuestionListStatusError = false;
+            this.router.navigate(["/"]);
+          },
+          error: (error) => {
+            console.log(error);
+            this.techQuestionListStatusError = true;
+            this.validationErrors = error?.error?.message;
+          },
+        });
     }
+    console.log(this.techQuestionListForm.value);
   }
 }

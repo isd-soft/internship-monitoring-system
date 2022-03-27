@@ -1,52 +1,59 @@
 package org.inthergroup.ims.candidate.controller;
 
-
-import org.inthergroup.ims.candidate.model.Candidate;
-import org.inthergroup.ims.candidate.service.CandidateService;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
+import javax.validation.Valid;
+
+import org.inthergroup.ims.candidate.service.CandidateService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
-@RequestMapping("/api/candidates")
+@RequestMapping(value = "/api/candidates", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CandidateController {
+
     private final CandidateService candidateService;
 
-    CandidateController(CandidateService candidateService) {
+    public CandidateController(final CandidateService candidateService) {
         this.candidateService = candidateService;
     }
 
-    @GetMapping
-    public List<Candidate> getRegisterAllCandidate() {
-        return (List<Candidate>) candidateService.getAllCandidates();
+    @GetMapping("/getall")
+    public ResponseEntity<List<CandidateDTO>> getAllCandidates() {
+        return ResponseEntity.ok(candidateService.findAll());
     }
 
-    @PostMapping
-    public Candidate save(@RequestBody Candidate candidate) {
-        candidateService.save(candidate);
-        System.out.println("candidate was saved");
-        return candidate;
+    @GetMapping("/{id}")
+    public ResponseEntity<CandidateDTO> getCandidate(@PathVariable final String id) {
+        return ResponseEntity.ok(candidateService.get(id));
+    }
+
+    @PostMapping()
+    public ResponseEntity<String> createCandidate(
+            @RequestBody @Valid final CandidateDTO candidateDTO) {
+        return new ResponseEntity<>(candidateService.create(candidateDTO), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateCandidate(@PathVariable final String id,
+                                                @RequestBody @Valid final CandidateDTO candidateDTO) {
+        candidateService.update(id, candidateDTO);
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public String deleteCandidate(@PathVariable("id") String id) {
+    public ResponseEntity<Void> deleteCandidate(@PathVariable final String id) {
         candidateService.delete(id);
-        return null;
-    }
-
-    @PutMapping()
-    public Candidate updateCandidate(@RequestBody CandidateDTO candidateDTO) {
-        Candidate candidate1 = new Candidate();
-        candidate1.setId(candidateDTO.getId());
-        candidate1.setName(candidateDTO.getName());
-        candidate1.setSurname(candidateDTO.getSurname());
-        candidate1.setEmail(candidateDTO.getEmail());
-        candidate1.setCv(candidateDTO.getCv());
-        candidate1.setComment(candidateDTO.getComment());
-        candidate1.setStatus(candidateDTO.getStatus());
-        candidate1.setMark(candidateDTO.getMark());
-        candidateService.save(candidate1);
-        return candidate1;
+        return ResponseEntity.noContent().build();
     }
 
 }

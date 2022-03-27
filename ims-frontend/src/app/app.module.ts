@@ -35,6 +35,9 @@ import {AddInternshipComponent} from './intership/add-internship/add-internship.
 import {TechquestionlistComponent} from "./techquestionlist/techquestionlist.component";
 import {AuthGuard} from "./shared/common/auth.guard";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
+import { TechquestionComponent } from "./techquestion/techquestion.component";
+import { TechMarkComponent } from './tech-mark/tech-mark.component';
+import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
 
 @NgModule({
   declarations: [
@@ -50,6 +53,9 @@ import {FeedbackComponent} from "./pages/feedback/feedback.component";
     AddInternshipComponent,
     TechquestionlistComponent,
     FeedbackComponent,
+    TechquestionComponent,
+    TechMarkComponent,
+    CandidateEvaluationComponent,
   ],
   imports: [
     BrowserModule,
@@ -81,5 +87,4 @@ import {FeedbackComponent} from "./pages/feedback/feedback.component";
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

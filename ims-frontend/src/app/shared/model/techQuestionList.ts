@@ -1,4 +1,3 @@
-export class TechQuestionList {
-  id?: string;
+export interface TechQuestionList {
   name: string;
 }
