@@ -1,52 +1,62 @@
 <div class="form-container">
-  <form (ngSubmit)="onSubmit()" [formGroup]="candidateForm" class="candidate-form">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="candidateForm"
+    class="candidate-form"
+  >
     <legend><h1>Add candidate to internship</h1></legend>
     <br />
-    <mat-form-field *ngIf="intent === 'update'" appearance="fill">
+    <mat-form-field *ngIf="intent === 'update'" appearance="outline">
       <mat-label> Id</mat-label>
       <input formControlName="id" matInput type="text" />
     </mat-form-field>
     <br />
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Name</mat-label>
       <input formControlName="name" matInput type="text" />
     </mat-form-field>
     <br />
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Surname</mat-label>
       <input formControlName="surname" matInput type="text" />
     </mat-form-field>
     <br />
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Comment</mat-label>
       <input formControlName="comment" matInput />
     </mat-form-field>
-
-    <input type="file" class="file-input"
-           (change)="onFileSelected($event)">
     <br />
-
-    <mat-form-field appearance="fill">
+    <br />
+    <input (change)="onFileSelected($event)" class="file-input" type="file" />
+    <br />
+    <br />
+    <mat-form-field appearance="outline">
       <mat-label>Status</mat-label>
-      <mat-select  formControlName="status">
+      <mat-select formControlName="status">
         <mat-option *ngFor="let option of statusOptions" [value]="option.value">
-          {{option.name}}
+          {{ option.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <br />
-    <mat-form-field appearance="fill">
-      <mat-label> Mark</mat-label>
-      <input  type="number" formControlName="mark" matInput />
-    </mat-form-field>
-    <br />
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="outline">
       <mat-label> Email</mat-label>
       <input formControlName="email" matInput />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Mark</mat-label>
+      <input formControlName="mark" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> internship Id</mat-label>
+      <input formControlName="internship" matInput type="text" />
     </mat-form-field>
     <ng-container *ngIf="candidateStatusError">
       <h4 class="error-message">{{ validationErrors }}</h4>
     </ng-container>
+    <br />
     <button
       [disabled]="!candidateForm.valid"
       color="primary"

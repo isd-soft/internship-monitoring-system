@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidate.model;
 
+import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,25 +8,42 @@ import org.inthergroup.ims.internship.model.Internship;
 
 import javax.persistence.*;
 import java.util.UUID;
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+
+import lombok.Getter;
+import lombok.Setter;
+import org.inthergroup.ims.candidate_evaluation.CandidateEvaluation;
+import org.inthergroup.ims.internship.model.Internship;
+import org.inthergroup.ims.techMark.TechMark;
+
 
 @Entity
-@Data
-@AllArgsConstructor
-@Table(name = "candidates")
+@Getter
+@Setter
 public class Candidate {
+
     @Id
-    @Column(name = "id", nullable = false)
+    @NotBlank
+    @Column(name = "id")
     private String id;
-    @Column(name = "name")
+
+    @Column(nullable = false)
     private String name;
-    @Column(name = "surname")
+
+    @Column(nullable = false)
     private String surname;
-    @Column(name = "email")
+
+    @Column(nullable = false, unique = true)
     private String email;
-    @Column(name = "cv")
+
+    @Column(nullable = false)
     private String cv;
-    @Column(name = "comment")
+
+    @Column
     private String comment;
+
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
     private double mark;
@@ -34,7 +52,13 @@ public class Candidate {
     @JsonIgnore
     private Internship internship;
 
-    public Candidate() {
+    @OneToMany(mappedBy = "candidate")
+    private Set<TechMark> candidateTechMarks;
+
+    @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
+    private CandidateEvaluation candidate;
+
+    public Candidate(){
         id = UUID.randomUUID().toString();
 
     }

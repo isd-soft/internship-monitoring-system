@@ -5,17 +5,17 @@ export class User {
   surname?: string;
   email: string;
   password: string;
-  jobPosition: Job_Position;
+  jobPosition: JPosition;
   token?: string;
   role: Role;
 }
 
-export enum Job_Position {
-  Java,
-  C,
-  PCL,
-  ANGULAR,
-  REACT,
+export enum JPosition {
+  JAVA = "Java",
+  C_SHARP = "C#",
+  PCL = "PLC",
+  ANGULAR = "ANGULAR",
+  REACT = "REACT",
 }
 
 export enum Role {

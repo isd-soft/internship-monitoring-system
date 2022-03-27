@@ -18,7 +18,9 @@ mat-form-field {
 }
 
 button {
-  margin: 2rem;
+  margin: 0px;
+  position: absolute;
+  left: 46%;
 }
 
 .error-message {

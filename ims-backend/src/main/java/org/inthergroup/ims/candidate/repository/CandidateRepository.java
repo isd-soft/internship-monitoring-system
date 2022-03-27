@@ -1,5 +1,4 @@
 package org.inthergroup.ims.candidate.repository;
-
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,9 +13,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, String> {
 //    Candidate findByEmailAndEnabled(String email, short enabled);
 //
 //    Candidate findByEmail(String email);
-
-    @Query(value = "SELECT * FROM candidates WHERE internship_id = :internship_id", nativeQuery = true)
-    List<Candidate> getCandidatesByInternshipId(@Param("internship_id") String internshipsId);
-
-
+@Query(value = "SELECT * FROM candidates WHERE internship_id = :internship_id", nativeQuery = true)
+List<Candidate> getCandidatesByInternshipId(@Param("internship_id") String internshipsId);
 }

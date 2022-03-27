@@ -1,12 +1,15 @@
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./account/login/login.component";
 import { RegisterComponent } from "./account/register/register.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
-import { CanActivate } from "@angular/router";
+import { Routes, CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
+import { TechquestionComponent } from "./techquestion/techquestion.component";
+import { TechMarkComponent } from "./tech-mark/tech-mark.component";
+import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
 import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
 
@@ -48,7 +51,26 @@ const routes: Routes = [
     component: InternshipComponent,
     canActivate: [AuthGuard],
   },
-  { path: "tql", component: TechquestionlistComponent },
+  {
+    path: "tql",
+    component: TechquestionlistComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "tq",
+    component: TechquestionComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "tm",
+    component: TechMarkComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "ce",
+    component: CandidateEvaluationComponent,
+    canActivate: [AuthGuard],
+  },
   { path: "**", redirectTo: "login" },
 ];
 

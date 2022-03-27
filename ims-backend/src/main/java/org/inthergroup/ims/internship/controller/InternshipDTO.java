@@ -2,12 +2,15 @@ package org.inthergroup.ims.internship.controller;
 
 import lombok.*;
 import org.inthergroup.ims.candidate.controller.CandidateDTO;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
-import org.inthergroup.ims.candidateEvaluation.model.TechQuestionList;
 import org.inthergroup.ims.internship.model.Category;
 import org.inthergroup.ims.internship.model.PreInterviewTest;
 import org.inthergroup.ims.internship.model.Status;
-import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import java.time.LocalDate;
 import java.util.List;
