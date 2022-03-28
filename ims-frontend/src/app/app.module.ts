@@ -35,6 +35,8 @@ import { CandidatesListComponent } from './pages/candidates-list/candidates-list
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from './tech-mark/tech-mark.component';
 import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDialogModule} from '@angular/material/dialog';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,9 @@ import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-e
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatIconModule
+    MatIconModule,
+    MatMenuModule,
+    MatDialogModule
 
   ],
   providers: [],

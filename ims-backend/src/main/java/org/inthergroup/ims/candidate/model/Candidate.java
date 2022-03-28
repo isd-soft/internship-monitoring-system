@@ -51,10 +51,10 @@ public class Candidate {
     @JoinColumn(name="internship_id")
     @JsonIgnore
     private Internship internship;
-
-    @OneToMany(mappedBy = "candidate")
+    @JsonIgnore
+    @OneToMany(mappedBy = "candidate",  fetch = FetchType.LAZY)
     private Set<TechMark> candidateTechMarks;
-
+    @JsonIgnore
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
 

@@ -4,9 +4,10 @@
     [formGroup]="candidateForm"
     class="candidate-form"
   >
-    <legend><h1>Add candidate to internship</h1></legend>
+    <legend *ngIf="data.intent =='add'"><h1>Add candidate to internship</h1></legend>
+    <legend *ngIf="data.intent =='update'"><h1>Update candidate in internship</h1></legend>
     <br />
-    <mat-form-field *ngIf="intent === 'update'" appearance="outline">
+    <mat-form-field *ngIf="data.intent === 'update'" appearance="outline">
       <mat-label> Id</mat-label>
       <input formControlName="id" matInput type="text" />
     </mat-form-field>

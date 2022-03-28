@@ -40,6 +40,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
+    path: "all-candidates",
+    component: CandidatesListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: "feedback-create",
     component: FeedbackComponent,
     data: {intent: 'add'},
