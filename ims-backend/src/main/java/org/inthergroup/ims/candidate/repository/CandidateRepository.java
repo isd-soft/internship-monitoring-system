@@ -13,6 +13,6 @@ public interface CandidateRepository extends JpaRepository<Candidate, String> {
 //    Candidate findByEmailAndEnabled(String email, short enabled);
 //
 //    Candidate findByEmail(String email);
-@Query(value = "SELECT * FROM candidates WHERE internship_id = :internship_id", nativeQuery = true)
+@Query(value = "SELECT * FROM candidate WHERE internship_id = :internship_id", nativeQuery = true)
 List<Candidate> getCandidatesByInternshipId(@Param("internship_id") String internshipsId);
 }

@@ -48,7 +48,8 @@ public class CandidateController {
     @PostMapping()
     public ResponseEntity<String> createCandidate(
             @RequestBody @Valid final CandidateDTO candidateDTO) {
-        return new ResponseEntity<>(candidateService.create(candidateDTO), HttpStatus.CREATED);
+                candidateService.create(candidateDTO);
+                return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

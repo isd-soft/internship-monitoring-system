@@ -63,8 +63,8 @@ public class CandidateServiceImp implements CandidateService {
 
     @Override
     public List<Candidate> getAllCandidatesByInternshipId(String internshipId) {
-
-        return candidateRepository.getCandidatesByInternshipId(internshipId);
+        List<Candidate> candidates = candidateRepository.getCandidatesByInternshipId(internshipId);
+        return candidates;
 
     }
 
