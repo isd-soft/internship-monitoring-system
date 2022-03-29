@@ -1,35 +1,37 @@
 package org.inthergroup.ims.internship.service;
 
-import org.hibernate.Hibernate;
-import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.internship.controller.InternshipDTO;
-import org.inthergroup.ims.internship.controller.UserMentorDTO;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.repository.InternshipRepository;
 import org.inthergroup.ims.login.model.User;
 import org.inthergroup.ims.login.repository.UserRepository;
-import org.springframework.http.HttpStatus;
+import org.inthergroup.ims.techQuestionList.TechQuestionList;
+import org.inthergroup.ims.techQuestionList.TechQuestionListRepository;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
+import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Objects;
 
 @Service
 public class InternshipServiceImpl implements InternshipService {
 
     private final InternshipRepository internshipRepository;
-    private final PreInterviewTestEvaluationService preInterviewTestService;
     private final UserRepository userRepository;
+    private final CandidateRepository candidateRepository;
+    private final TechQuestionListRepository techQuestionListRepository;
 
     public InternshipServiceImpl(InternshipRepository internshipRepository,
-                                 PreInterviewTestEvaluationService preInterviewTestService,
-                                 UserRepository userRepository) {
+                                 UserRepository userRepository, CandidateRepository candidateRepository,
+                                 TechQuestionListRepository techQuestionListRepository) {
         this.internshipRepository = internshipRepository;
-        this.preInterviewTestService = preInterviewTestService;
         this.userRepository = userRepository;
+        this.candidateRepository = candidateRepository;
+        this.techQuestionListRepository = techQuestionListRepository;
     }
 
 
@@ -39,38 +41,44 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
     @Override
-    public void createInternship(InternshipDTO internship) {
-        internshipRepository.save(toInternship(internship));
+    public String createInternship(final InternshipDTO internship) {
+        return internshipRepository.save(mapToInternship(internship)).getId();
     }
 
     @Override
-    public Internship toInternship(InternshipDTO internshipDTO) {
+    public Internship mapToInternship(InternshipDTO internshipDTO) {
         Internship internship = new Internship();
         internship.setProjectName(internshipDTO.getProjectName());
         internship.setCategory(internshipDTO.getCategory());
-        internship.setMentors(toUserList(internshipDTO.getMentors()));
-        internship.setPeriodFrom(internshipDTO.getPeriodFrom());
-        internship.setPeriodTo(internshipDTO.getPeriodTo());
+        internship.setMentors(getUserListByIds(internshipDTO.getMentorsId()));
+        internship.setPeriodFrom(LocalDate.parse(internshipDTO.getPeriodFrom().toString()));
+        internship.setPeriodTo(LocalDate.parse(internshipDTO.getPeriodTo().toString()));
         internship.setInternshipStatus(internshipDTO.getInternshipStatus());
         internship.setPreInterviewTestList(internshipDTO.getPreInterviewTestList());
-        internship.setTechQuesListName(internshipDTO.getTechQuesListName());
+        internship.setTechQuesListId(getTechQuestionListById(internshipDTO.getTechQuesListId()));
         internship.setGitHubUrl(internshipDTO.getGitHubUrl());
         internship.setTrelloBoardUrl(internshipDTO.getTrelloBoardUrl());
         internship.setDeployedAppUrl(internshipDTO.getDeployedAppUrl());
         internship.setPresentationUrl(internshipDTO.getPresentationUrl());
-        internship.setCandidates(internshipDTO.getCandidates());
+        internship.setCandidates(getCandidateListByIds(internshipDTO.getCandidatesId()));
         return internship;
     }
 
     @Override
-    public User toUser(UserMentorDTO mentorDTO) {
-        return userRepository.findById(mentorDTO.getId())
-                .orElseThrow(() -> new UsernameNotFoundException("Mentor" + mentorDTO.getName() + "was not found!"));
+    public User getUserById(String mentorId) {
+        if (Objects.isNull(mentorId) || Objects.equals(mentorId, "")) {
+            return null;
+        }
+        return userRepository.findById(mentorId)
+                .orElseThrow(() -> new UsernameNotFoundException("Mentor with id = " + mentorId + " was not found!"));
     }
 
     @Override
-    public List<User> toUserList(List<UserMentorDTO> mentorDTOList) {
-        return mentorDTOList.stream().map(this::toUser).collect(Collectors.toList());
+    public List<User> getUserListByIds(List<String> mentorIdList) {
+        if (Objects.isNull(mentorIdList) || mentorIdList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return userRepository.findAllById(mentorIdList);
     }
 
     @Override
@@ -80,16 +88,36 @@ public class InternshipServiceImpl implements InternshipService {
         return internship.getCandidates();
     }
 
+    @Override
+    public Candidate getCandidateById(String candidateId) {
+        if (Objects.isNull(candidateId) || Objects.equals(candidateId, "")) {
+            return new Candidate();
+        }
+        return candidateRepository.findById(candidateId)
+                .orElseThrow(() -> new UsernameNotFoundException("Candidate with id = " + candidateId + " was not found!"));
+    }
+
+    @Override
+    public List<Candidate> getCandidateListByIds(List<String> candidateIdList) {
+        if (Objects.isNull(candidateIdList) || candidateIdList.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return candidateRepository.findAllById(candidateIdList);
+    }
+
+    @Override
+    public TechQuestionList getTechQuestionListById(String tqlId) {
+        if (Objects.isNull(tqlId) || Objects.equals(tqlId, "")) {
+            return new TechQuestionList();
+        }
+        return techQuestionListRepository.findById(tqlId)
+                .orElseThrow(() -> new IllegalArgumentException("TechQuestion list with id = " + tqlId + " was not found!"));
+    }
+
 
     @Override
     public Internship getInternship(final  String id) {
         Internship internship = internshipRepository.findById(id).get();
         return internship;
     }
-
-
-
-
-
-
 }

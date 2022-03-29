@@ -2,6 +2,7 @@ package org.inthergroup.ims.techQuestionList;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.techQuestion.TechQuestion;
 
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -20,7 +22,6 @@ public class TechQuestionList {
 
     @Id
     @NotBlank
-    @Column(name = "id")
     private String id;
 
     @Column
@@ -29,7 +30,10 @@ public class TechQuestionList {
     @OneToMany(mappedBy = "techQuestionList")
     private Set<TechQuestion> techQuestionListTechQuestions;
 
-    public TechQuestionList(){
+    @OneToMany(mappedBy = "techQuesListId")
+    private List<Internship> internships;
+
+    public TechQuestionList() {
         id = UUID.randomUUID().toString();
     }
 }

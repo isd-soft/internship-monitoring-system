@@ -14,6 +14,7 @@ import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -23,17 +24,17 @@ public class InternshipDTO {
     private String id;
     private String projectName;
     private Category category;
-    private List<UserMentorDTO> mentors;
+    private List<String> mentorsId;
     private LocalDate periodFrom;
     private LocalDate periodTo;
     private Status internshipStatus;
     private List<PreInterviewTest> preInterviewTestList;
-    private TechQuestionList techQuesListName;
+    private String techQuesListId;
     private String gitHubUrl;
     private String trelloBoardUrl;
     private String deployedAppUrl;
     private String presentationUrl;
-    private List<Candidate> candidates;
+    private List<String> candidatesId;
     public InternshipDTO() {
     }
 }

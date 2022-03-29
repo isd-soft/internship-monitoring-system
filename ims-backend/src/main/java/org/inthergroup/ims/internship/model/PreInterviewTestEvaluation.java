@@ -11,23 +11,22 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Table(name = "pre_interview_tests")
+@Table(name = "pre_interview_tests_evaluation")
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 public class PreInterviewTestEvaluation {
     @Id
-    @Column(name = "pre_interview_test_id")
     private String id;
-    @Column(name = "pre_interview_test_name")
+    @Column(name = "test_name")
     @Enumerated(EnumType.STRING)
     private PreInterviewTest preInterviewTestName;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "internship_id")
     private Internship internship;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "candidate_id")
     private Candidate candidate;
     @Column(name = "mark")
     private double mark;
