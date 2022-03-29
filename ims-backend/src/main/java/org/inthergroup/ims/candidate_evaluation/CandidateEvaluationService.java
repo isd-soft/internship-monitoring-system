@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-
 @Service
 public class CandidateEvaluationService {
 
@@ -45,6 +44,23 @@ public class CandidateEvaluationService {
                 .build();
     }
 
+    public CandidateEvaluationResponseDTO getByCandidateId(final String id) {
+
+        CandidateEvaluationDTO candidateEvaluationDTO = candidateEvaluationRepository.getCandidateEvaluationByCandidateId(id)
+                .map(candidateEvaluation -> mapToDTO(candidateEvaluation, new CandidateEvaluationDTO()))
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+
+        return CandidateEvaluationResponseDTO.builder()
+                .id(candidateEvaluationDTO.getId())
+                .englishMark(candidateEvaluationDTO.getEnglishMark())
+                .softSkillMark(candidateEvaluationDTO.getSoftSkillMark())
+                .practiceMark(candidateEvaluationDTO.getPracticeMark())
+                .candidate(candidateEvaluationDTO.getCandidate())
+                .averageMark(candidateEvaluationRepository.avg(candidateEvaluationDTO.getCandidate()))
+                .build();
+    }
+
+
     public String create(final CandidateEvaluationDTO candidateEvaluationDTO) {
         final CandidateEvaluation candidateEvaluation = new CandidateEvaluation();
         mapToEntity(candidateEvaluationDTO, candidateEvaluation);
@@ -68,7 +84,8 @@ public class CandidateEvaluationService {
         candidateEvaluationDTO.setEnglishMark(candidateEvaluation.getEnglishMark());
         candidateEvaluationDTO.setSoftSkillMark(candidateEvaluation.getSoftSkillMark());
         candidateEvaluationDTO.setPracticeMark(candidateEvaluation.getPracticeMark());
-        candidateEvaluationDTO.setCandidate(candidateEvaluation.getCandidate() == null ? null : candidateEvaluation.getCandidate().getId());
+        candidateEvaluationDTO.setCandidate(candidateEvaluation.getCandidate() == null ? null :
+                candidateEvaluation.getCandidate().getId());
         return candidateEvaluationDTO;
     }
 
@@ -77,7 +94,8 @@ public class CandidateEvaluationService {
         candidateEvaluation.setEnglishMark(candidateEvaluationDTO.getEnglishMark());
         candidateEvaluation.setSoftSkillMark(candidateEvaluationDTO.getSoftSkillMark());
         candidateEvaluation.setPracticeMark(candidateEvaluationDTO.getPracticeMark());
-        if (candidateEvaluationDTO.getCandidate() != null && (candidateEvaluation.getCandidate() == null || !candidateEvaluation.getCandidate().getId().equals(candidateEvaluationDTO.getCandidate()))) {
+        if (candidateEvaluationDTO.getCandidate() != null && (candidateEvaluation.getCandidate() == null
+                || !candidateEvaluation.getCandidate().getId().equals(candidateEvaluationDTO.getCandidate()))) {
             final Candidate candidate = candidateRepository.findById(candidateEvaluationDTO.getCandidate())
                     .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "candidate not found"));
             candidateEvaluation.setCandidate(candidate);

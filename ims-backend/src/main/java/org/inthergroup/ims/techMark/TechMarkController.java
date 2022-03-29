@@ -28,6 +28,10 @@ public class TechMarkController {
     public ResponseEntity<TechMarkDTO> getTechMark(@PathVariable final String id) {
         return ResponseEntity.ok(techMarkService.get(id));
     }
+    @GetMapping("/candidate/{id}")
+    public ResponseEntity<List<TechMarkDTO>> getTechMarkByCandidateId(@PathVariable final String id) {
+        return ResponseEntity.ok(techMarkService.getByCandidateId(id));
+    }
 
     @PostMapping("add")
     public ResponseEntity<String> createTechMark(@RequestBody @Valid final TechMarkDTO techMarkDTO) {

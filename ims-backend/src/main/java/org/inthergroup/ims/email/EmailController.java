@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+
+
 public class EmailController {
 
     private EmailService emailService;
@@ -20,6 +22,4 @@ public class EmailController {
         return "Message sent";
 
     }
-
-
 }

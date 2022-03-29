@@ -1,10 +1,8 @@
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpHeaders, HttpResponse } from "@angular/common/http";
-import { User } from "../model/user";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from "../../../environments/environment";
 import { Observable } from "rxjs";
 import { Candidate } from "../model/candidate";
-import { CandidateEvaluation } from "../model/candidate-evaluation";
 
 @Injectable({
   providedIn: "root",
@@ -17,7 +15,7 @@ export class CandidateService {
   }
 
   getAllCandidates(): Observable<Candidate[]> {
-    return this.http.get<Candidate[]>(`${environment.apiUrl}candidates/getall`);
+    return this.http.get<Candidate[]>(`${environment.apiUrl}candidates`);
   }
 
   uploadCandidatesCV(file: FormData): Observable<any> {
@@ -36,7 +34,7 @@ export class CandidateService {
     return this.http.put<any>(`${environment.apiUrl}candidates/`, candidate);
   }
 
-  getCandidates(): Observable<Candidate[]> {
-    return this.http.get<any>(`${environment.apiUrl}candidates/`);
+  getCandidates(id: string): Observable<Candidate[]> {
+    return this.http.get<any>(`${environment.apiUrl}candidates/${id}`);
   }
 }

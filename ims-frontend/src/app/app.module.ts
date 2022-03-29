@@ -20,20 +20,23 @@ import { MainPageComponent } from "./pages/main-page/main-page.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
-import { AddCandidateComponent } from './pages/add-candidate/add-candidate.component';
-import {MatSelectModule} from '@angular/material/select';
-import {CommonModule} from "@angular/common";
-import {MatTableModule} from "@angular/material/table";
-import {MatPaginatorModule} from "@angular/material/paginator";
-import {MatSortModule} from "@angular/material/sort";
-import {MatIconModule} from "@angular/material/icon";
-import { AddInternshipComponent } from './intership/add-internship/add-internship.component';
+import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
+import { MatSelectModule } from "@angular/material/select";
+import { CommonModule } from "@angular/common";
+import { MatTableModule } from "@angular/material/table";
+import { MatPaginatorModule } from "@angular/material/paginator";
+import { MatSortModule } from "@angular/material/sort";
+import { MatIconModule } from "@angular/material/icon";
+import { AddInternshipComponent } from "./intership/add-internship/add-internship.component";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
-import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
-import { TechMarkComponent } from './tech-mark/tech-mark.component';
-import { CandidateEvaluationComponent } from './candidate-evaluation/candidate-evaluation.component';
-import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { TechMarkComponent } from "./tech-mark/tech-mark.component";
+import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
+import { FeedbackComponent } from "./pages/feedback/feedback.component";
+import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
+import { MarksModalComponent } from "./candidates-table/marks-modal/marks-modal.component";
+import { MatDialogModule } from "@angular/material/dialog";
+import { MatDividerModule } from "@angular/material/divider";
 
 @NgModule({
   declarations: [
@@ -52,6 +55,8 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     TechquestionComponent,
     TechMarkComponent,
     CandidateEvaluationComponent,
+    CandidatesTableComponent,
+    MarksModalComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,8 +77,9 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
-    MatIconModule
-
+    MatIconModule,
+    MatDialogModule,
+    MatDividerModule,
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
