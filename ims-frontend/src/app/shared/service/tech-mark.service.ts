@@ -14,6 +14,19 @@ export class TechMarkService {
     return this.http.get<TechMark[]>(`${environment.apiUrl}techMarks/getall`);
   }
 
+  getTechMarksByCandidateId(id: string): Observable<TechMark[]> {
+    return this.http.get<TechMark[]>(
+      `${environment.apiUrl}techMarks/candidate/${id}`
+    );
+  }
+
+  editTechMarkById(id: string, techMarks: TechMark): Observable<TechMark> {
+    return this.http.put<TechMark>(
+      `${environment.apiUrl}techMarks/${id}`,
+      techMarks
+    );
+  }
+
   addTechMarks(techMark: TechMark): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}techMarks/add`, techMark);
   }

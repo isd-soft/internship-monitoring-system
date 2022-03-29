@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {CandidateService} from "./candidate.service";
-import {Observable} from "rxjs";
-import {Candidate} from "../model/candidate";
-import {Feedback} from "../model/feedback";
-import {environment} from "../../../environments/environment";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { CandidateService } from "./candidate.service";
+import { Observable } from "rxjs";
+import { Candidate } from "../model/candidate";
+import { Feedback } from "../model/feedback";
+import { environment } from "../../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class FeedbackService {
+  constructor(
+    private http: HttpClient,
+    private candidateService: CandidateService
+  ) {}
 
-  constructor(private http: HttpClient, private candidateService: CandidateService) {
-  }
-
-  getAllCandidates(): Observable<Candidate[]>{
-    return this.candidateService.getCandidates();
+  getAllCandidates(): Observable<Candidate[]> {
+    return this.candidateService.getAllCandidates();
   }
 
   saveFeedback(feedBack: Feedback) {
@@ -23,6 +24,6 @@ export class FeedbackService {
   }
 
   submitFeedback(id: string) {
-    return this.http.post<any>(`${environment.apiUrl}message`, {id});
+    return this.http.post<any>(`${environment.apiUrl}message`, { id });
   }
 }

@@ -10,8 +10,9 @@ import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
-import {FeedbackComponent} from "./pages/feedback/feedback.component";
+import { FeedbackComponent } from "./pages/feedback/feedback.component";
 import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
+import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
 
 const routes: Routes = [
   {
@@ -25,13 +26,13 @@ const routes: Routes = [
   {
     path: "candidate-add",
     component: AddCandidateComponent,
-    data: {intent: 'add'},
+    data: { intent: "add" },
     canActivate: [AuthGuard],
   },
   {
     path: "candidate-update",
     component: AddCandidateComponent,
-    data: {intent: 'update'},
+    data: { intent: "update" },
     canActivate: [AuthGuard],
   },
   {
@@ -47,7 +48,7 @@ const routes: Routes = [
   {
     path: "feedback-create",
     component: FeedbackComponent,
-    data: {intent: 'add'},
+    data: { intent: "add" },
     canActivate: [AuthGuard],
   },
   { path: "login", component: LoginComponent },
@@ -74,6 +75,11 @@ const routes: Routes = [
   {
     path: "ce",
     component: CandidateEvaluationComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "table",
+    component: CandidatesTableComponent,
     canActivate: [AuthGuard],
   },
   { path: "**", redirectTo: "login" },

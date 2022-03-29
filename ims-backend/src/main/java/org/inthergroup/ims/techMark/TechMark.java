@@ -1,11 +1,6 @@
 package org.inthergroup.ims.techMark;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
@@ -31,7 +26,7 @@ public class TechMark {
     @Column(nullable = false)
     private Double mark;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "tech_question_id", nullable = false)
     private TechQuestion techQuestion;
 

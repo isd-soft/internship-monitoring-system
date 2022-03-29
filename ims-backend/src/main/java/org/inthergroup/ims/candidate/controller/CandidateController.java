@@ -35,7 +35,7 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping("")
     public ResponseEntity<List<CandidateDTO>> getAllCandidates() {
         return ResponseEntity.ok(candidateService.findAll());
     }

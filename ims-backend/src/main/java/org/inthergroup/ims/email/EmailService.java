@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
-@Service
 
+@Service
 public class EmailService {
 
     JavaMailSender emailSender;
