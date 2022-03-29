@@ -1,6 +1,5 @@
 package org.inthergroup.ims.internship.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -15,14 +14,14 @@ import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "internships")
+@Table(name = "internships", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "id")})
 @Getter
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
 public class Internship {
     @Id
-    @Column(name = "internship_id")
     private String id;
     @Column(columnDefinition = "varchar(100) default 'Upcoming Internship'",name = "project_name")
     private String projectName;
@@ -30,8 +29,11 @@ public class Internship {
     private Category category;
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "mentors_internships",
-            joinColumns = @JoinColumn(name = "internship_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+            joinColumns = @JoinColumn(name = "internship_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "mentor_id", referencedColumnName = "id"),
+            uniqueConstraints = @UniqueConstraint(columnNames = {"internship_id",
+                    "mentor_id"},
+                    name = "mentor_internship_constraint"))
     private List<User> mentors;
     @Column(columnDefinition = "date", name = "period_from")
     private LocalDate periodFrom;
@@ -44,8 +46,8 @@ public class Internship {
     @Enumerated(EnumType.STRING)
     private List<PreInterviewTest> preInterviewTestList;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
-    private TechQuestionList techQuesListName;
+    @JoinColumn(name = "tech_question_list_id")
+    private TechQuestionList techQuesListId;
     @Column(name = "github_link")
     private String gitHubUrl;
     @Column(name = "trello_board")

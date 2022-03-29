@@ -1,8 +1,10 @@
 package org.inthergroup.ims.login.model;
 
 import lombok.Data;
+import org.inthergroup.ims.internship.model.Internship;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -61,6 +63,7 @@ public class User{
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
 
     public User() {
         id = UUID.randomUUID().toString();

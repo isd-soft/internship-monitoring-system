@@ -4,6 +4,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.inthergroup.ims.feedback.Feedback;
 import org.inthergroup.ims.internship.model.Internship;
 
 import javax.persistence.*;
@@ -46,7 +47,7 @@ public class Candidate {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-
+   // private double mark;
     @ManyToOne(targetEntity = Internship.class)
     @JoinColumn(name="internship_id")
     @JsonIgnore
@@ -57,6 +58,9 @@ public class Candidate {
     @JsonIgnore
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
+    @OneToOne(mappedBy = "candidate",fetch = FetchType.LAZY)
+    @JoinColumn(name = "feedback_id")
+    private Feedback feedback;
 
     public Candidate(){
         id = UUID.randomUUID().toString();

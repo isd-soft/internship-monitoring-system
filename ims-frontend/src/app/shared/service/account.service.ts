@@ -45,7 +45,7 @@ export class AccountService {
   }
 
   getAll(): any {
-    return this.http.get<User[]>(`${environment.apiUrl}/user`);
+    return this.http.get<User[]>(`${environment.apiUrl}user`);
   }
 
   getById(id: string): any {

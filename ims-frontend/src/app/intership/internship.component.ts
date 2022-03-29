@@ -1,48 +1,44 @@
 import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
 import {Internship, Status} from "../shared/model/internship";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
+import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {AddInternshipComponent} from "./add-internship/add-internship.component";
+import {User} from "../shared/model/user";
+import {AccountService} from "../shared/service/account.service";
 
 @Component({
   selector: 'app-internship',
   templateUrl: './internship.component.html',
   styleUrls: ['./internship.component.css']
 })
-export class InternshipComponent implements AfterViewInit  {
-  internshipForm: FormGroup = new FormGroup({});
+export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
-  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom','periodTo', 'mentors',
-    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl','actions'];
+  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentorsId',
+    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  status = Status;
-  statusOptions: {name: string, value: number}[] = [];
-
-
+  mentors: User[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private internshipService: InternshipService,
-              private formBuilder: FormBuilder,
-              private modalService: NgbModal) {
+              private userService : AccountService,
+              private dialog: MatDialog) {
+    this.getAllInternships();
 
   }
-  ngAfterViewInit(): void {
-    this.getAllInternships();
-    this.statusOptions = this.buildStatusOptions()
-    setInterval( () => {
-      console.dir(this.internshipForm.controls);
-    }, 3000)
 
+  ngAfterViewInit(): void {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
 
   }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -51,8 +47,10 @@ export class InternshipComponent implements AfterViewInit  {
       this.dataSource.paginator.firstPage();
     }
   }
+
   onSubmit() {
   }
+
   public getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: result => {
@@ -62,43 +60,33 @@ export class InternshipComponent implements AfterViewInit  {
       error: err => console.log("An error has occurred;")
     });
   }
-  open({content}: { content: any }) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+  public getMentorsByInternship() {
+    this.userService
+      .getAll()
+      .subscribe((res: User[]) => {
+        this.mentors = res;
+      });
+  }
+  openDialog() {
+    const dialogRef = this.dialog.open(AddInternshipComponent, {
+      width: '75%'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
     });
   }
 
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-  private buildStatusOptions():  {name: string, value: number}[] {
-    let options = [];
-    for (const enumMember in this.status) {
-      if (parseInt(enumMember, 10) >= 0) {
-        options.push({name: this.status[enumMember], value: parseInt(enumMember, 10)})
-      }
-    }
-    return options;
-  }
-
-  viewInternship(internship : Internship) {
+  viewInternship(internship: Internship) {
 
 
   }
 
-  editInternship(row:any) {
+  editInternship(row: any) {
 
   }
 
-  deleteInternship(row:any) {
+  deleteInternship(row: any) {
 
   }
 }

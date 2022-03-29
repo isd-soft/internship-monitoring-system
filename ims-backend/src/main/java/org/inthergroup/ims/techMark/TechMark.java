@@ -20,7 +20,6 @@ public class TechMark {
 
     @Id
     @NotBlank
-    @Column(name = "id")
     private String id;
 
     @Column(nullable = false)
