@@ -39,6 +39,12 @@ public class TechMarkService {
                 .map(techMark -> mapToDTO(techMark, new TechMarkDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+    public List<TechMarkDTO> getByCandidateId(final String id) {
+        return techMarkRepository.getTechMarkByCandidateId(id)
+                .stream()
+                .map(techMark -> mapToDTO(techMark, new TechMarkDTO()))
+                .collect(Collectors.toList());
+    }
 
     public String create(final TechMarkDTO techMarkDTO) {
         final TechMark techMark = new TechMark();

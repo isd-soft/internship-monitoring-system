@@ -28,8 +28,8 @@ public class TechQuestion {
     @JoinColumn(name = "tech_question_list_id", nullable = false)
     private TechQuestionList techQuestionList;
 
-    @OneToMany(mappedBy = "techQuestion")
-    private Set<TechMark> techQuestionTechMarks;
+    @OneToOne(mappedBy = "techQuestion", fetch = FetchType.LAZY)
+    private TechMark techQuestion;
 
     public TechQuestion(){
         id = UUID.randomUUID().toString();

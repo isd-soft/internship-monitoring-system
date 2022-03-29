@@ -12,7 +12,23 @@ export class CandidateEvaluationService {
 
   getAllCandidateEvaluations(): Observable<CandidateEvaluation[]> {
     return this.http.get<CandidateEvaluation[]>(
-      `${environment.apiUrl}candidateEvaluations/getall`
+      `${environment.apiUrl}candidateEvaluations`
+    );
+  }
+
+  getCandidateEvaluationById(id: string): Observable<CandidateEvaluation[]> {
+    return this.http.get<CandidateEvaluation[]>(
+      `${environment.apiUrl}candidateEvaluations/candidate/${id}`
+    );
+  }
+
+  editCandidateEvaluationById(
+    id: string,
+    candidateMarks: CandidateEvaluation
+  ): Observable<CandidateEvaluation> {
+    return this.http.put<CandidateEvaluation>(
+      `${environment.apiUrl}candidateEvaluations/${id}`,
+      candidateMarks
     );
   }
 

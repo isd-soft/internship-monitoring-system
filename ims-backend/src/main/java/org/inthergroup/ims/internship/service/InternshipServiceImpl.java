@@ -75,7 +75,6 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public List<User> getUserListByIds(List<String> mentorIdList) {
-//        return mentorIdList.stream().map(this::getUserById).collect(Collectors.toList());
         if (Objects.isNull(mentorIdList) || mentorIdList.isEmpty()) {
             return Collections.emptyList();
         }
@@ -116,4 +115,9 @@ public class InternshipServiceImpl implements InternshipService {
     }
 
 
+    @Override
+    public Internship getInternship(final  String id) {
+        Internship internship = internshipRepository.findById(id).get();
+        return internship;
+    }
 }

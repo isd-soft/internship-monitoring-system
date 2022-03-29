@@ -27,8 +27,9 @@ public class InternshipController {
     }
 
     @GetMapping("/{id}")
-    public String getInternshipForm() {
-        return "internship form";
+    public Internship getInternship(@PathVariable final String id) {
+        Internship internship = internshipService.getInternship(id);
+        return internship;
     }
 
     @GetMapping("/{id}/candidates")

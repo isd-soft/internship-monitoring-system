@@ -7,7 +7,6 @@ import org.inthergroup.ims.login.model.User;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import java.util.List;
-import java.util.Set;
 
 public interface InternshipService {
 
@@ -20,5 +19,5 @@ public interface InternshipService {
     Candidate getCandidateById(String candidateId);
     List<Candidate> getCandidateListByIds(List<String> candidateIdList);
     TechQuestionList getTechQuestionListById(String tqlId);
-
+    Internship getInternship(String id);
 }

@@ -1,5 +1,5 @@
-export class Candidate{
-  id?: number ;
+export class Candidate {
+  id?: string;
   name: string;
   surname: string;
   email: string;
@@ -7,10 +7,12 @@ export class Candidate{
   comment: string;
   status: Status;
   mark: number;
+  internship?: string
 }
- export enum Status {
+
+export enum Status {
   NEW,
   ACCEPTED,
   ON_HOLD,
-  REJECTED
+  REJECTED,
 }

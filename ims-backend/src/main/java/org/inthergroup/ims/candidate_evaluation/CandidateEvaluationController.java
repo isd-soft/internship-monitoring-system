@@ -26,7 +26,7 @@ public class CandidateEvaluationController {
         this.candidateEvaluationService = candidateEvaluationService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping("")
     public ResponseEntity<List<CandidateEvaluationDTO>> getAllCandidateEvaluations() {
         return ResponseEntity.ok(candidateEvaluationService.findAll());
     }
@@ -37,7 +37,13 @@ public class CandidateEvaluationController {
         return ResponseEntity.ok(candidateEvaluationService.get(id));
     }
 
-    @PostMapping("/add")
+    @GetMapping("/candidate/{id}")
+    public ResponseEntity<CandidateEvaluationResponseDTO> getCandidateEvaluationByCandidateId(
+            @PathVariable final String id) {
+        return ResponseEntity.ok(candidateEvaluationService.getByCandidateId(id));
+    }
+
+    @PostMapping("")
     public ResponseEntity<String> createCandidateEvaluation(
             @RequestBody @Valid final CandidateEvaluationDTO candidateEvaluationDTO) {
         return new ResponseEntity<>(candidateEvaluationService.create(candidateEvaluationDTO), HttpStatus.CREATED);
@@ -45,10 +51,12 @@ public class CandidateEvaluationController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCandidateEvaluation(@PathVariable final String id,
-                                                          @RequestBody @Valid final CandidateEvaluationDTO candidateEvaluationDTO) {
+     @RequestBody @Valid final CandidateEvaluationDTO candidateEvaluationDTO) {
         candidateEvaluationService.update(id, candidateEvaluationDTO);
         return ResponseEntity.ok().build();
     }
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCandidateEvaluation(@PathVariable final String id) {
