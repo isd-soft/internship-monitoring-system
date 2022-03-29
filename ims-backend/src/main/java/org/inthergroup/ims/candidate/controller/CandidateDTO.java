@@ -37,7 +37,7 @@ public class CandidateDTO {
     @NotNull
     private Status status;
 
-    private double mark;
+  //  private double mark;
 
     private String internship;
 }

@@ -4,11 +4,9 @@ package org.inthergroup.ims.feedback;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.inthergroup.ims.candidate.model.Candidate;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
@@ -26,6 +24,10 @@ public class Feedback {
 
     @Column(name = "toCandidate")
     private String toCandidate;
+
+    @OneToOne
+    @JoinColumn(name = "candidate_id")
+    private Candidate candidate;
 
 
     public Feedback() {
