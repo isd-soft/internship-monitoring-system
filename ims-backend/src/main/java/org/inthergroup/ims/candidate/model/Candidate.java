@@ -46,7 +46,7 @@ public class Candidate {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private Status status;
-    private double mark;
+
     @ManyToOne(targetEntity = Internship.class)
     @JoinColumn(name="internship_id")
     @JsonIgnore

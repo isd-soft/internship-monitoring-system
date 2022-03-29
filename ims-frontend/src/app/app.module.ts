@@ -40,6 +40,7 @@ import { MarksModalComponent } from "./candidates-table/marks-modal/marks-modal.
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
 import {MatMenuModule} from '@angular/material/menu';
+import { QuestionComponent } from './question/question.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import {MatMenuModule} from '@angular/material/menu';
     CandidateEvaluationComponent,
     CandidatesTableComponent,
     MarksModalComponent,
-    CandidatesListComponent
+    CandidatesListComponent,
+    QuestionComponent
   ],
   imports: [
     BrowserModule,
