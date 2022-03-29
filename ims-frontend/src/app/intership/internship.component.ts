@@ -1,7 +1,6 @@
 import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
 import {Internship, Status} from "../shared/model/internship";
-import {ModalDismissReasons, NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -29,7 +28,6 @@ export class InternshipComponent implements AfterViewInit {
 
   constructor(private internshipService: InternshipService,
               private userService : AccountService,
-              private modalService: NgbModal,
               private dialog: MatDialog) {
     this.getAllInternships();
 
@@ -78,25 +76,6 @@ export class InternshipComponent implements AfterViewInit {
       console.log(`Dialog result: ${result}`);
     });
   }
-
-  // open({content}: { content: any }) {
-  //   this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-  //     this.closeResult = `Closed with: ${result}`;
-  //   }, (reason) => {
-  //     this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-  //   });
-  // }
-
-  private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
-  }
-
 
   viewInternship(internship: Internship) {
 
