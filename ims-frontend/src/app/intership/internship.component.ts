@@ -8,6 +8,8 @@ import {MatSort} from "@angular/material/sort";
 import {MatDialog} from '@angular/material/dialog';
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {AddInternshipComponent} from "./add-internship/add-internship.component";
+import {User} from "../shared/model/user";
+import {AccountService} from "../shared/service/account.service";
 
 @Component({
   selector: 'app-internship',
@@ -16,16 +18,17 @@ import {AddInternshipComponent} from "./add-internship/add-internship.component"
 })
 export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
-  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentors',
+  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentorsId',
     'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-
+  mentors: User[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   constructor(private internshipService: InternshipService,
+              private userService : AccountService,
               private modalService: NgbModal,
               private dialog: MatDialog) {
     this.getAllInternships();
@@ -59,7 +62,13 @@ export class InternshipComponent implements AfterViewInit {
       error: err => console.log("An error has occurred;")
     });
   }
-
+  public getMentorsByInternship() {
+    this.userService
+      .getAll()
+      .subscribe((res: User[]) => {
+        this.mentors = res;
+      });
+  }
   openDialog() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {
       width: '75%'

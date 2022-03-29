@@ -44,6 +44,16 @@
       <mat-label> Email</mat-label>
       <input formControlName="email" matInput />
     </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Mark</mat-label>
+      <input formControlName="mark" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> internship Id</mat-label>
+      <input formControlName="internship" matInput type="text" />
+    </mat-form-field>
     <ng-container *ngIf="candidateStatusError">
       <h4 class="error-message">{{ validationErrors }}</h4>
     </ng-container>

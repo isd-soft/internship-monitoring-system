@@ -57,4 +57,4 @@ insert into users (id, job_position, name, surname) values
 
 insert into mentors_internships values
 ('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', '9989468f-e724-457c-b21b-cdb358d55fbd'),
-('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', '9989468f-e724-457c-b21b-cdb358d55fbd');
+('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', '518446b5-965e-41cc-b5de-8d9fb720c84f');
