@@ -32,11 +32,15 @@ import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.c
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
+import { AuthGuard } from "./shared/common/auth.guard";
 import { FeedbackComponent } from "./pages/feedback/feedback.component";
+import { CandidatesListComponent } from './pages/candidates-list/candidates-list.component';
 import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
 import { MarksModalComponent } from "./candidates-table/marks-modal/marks-modal.component";
 import { MatDialogModule } from "@angular/material/dialog";
 import { MatDividerModule } from "@angular/material/divider";
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -57,6 +61,7 @@ import { MatDividerModule } from "@angular/material/divider";
     CandidateEvaluationComponent,
     CandidatesTableComponent,
     MarksModalComponent,
+    CandidatesListComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +85,8 @@ import { MatDividerModule } from "@angular/material/divider";
     MatIconModule,
     MatDialogModule,
     MatDividerModule,
+    MatMenuModule,
+
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

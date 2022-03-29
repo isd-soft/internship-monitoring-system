@@ -24,17 +24,19 @@ export class CandidateService {
     });
   }
 
-  deleteCandidateFromIntership(candidate: Candidate): Observable<any> {
-    return this.http.delete<any>(`${environment.apiUrl}candidates/`, {
-      body: candidate,
-    });
+  deleteCandidateFromIntership(candidateId: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}candidates/${candidateId}`);
   }
 
   updateCandidateInIntership(candidate: Candidate): Observable<any> {
-    return this.http.put<any>(`${environment.apiUrl}candidates/`, candidate);
+    return this.http.put<any>(`${environment.apiUrl}candidates/${candidate.id}`, candidate);
   }
 
   getCandidates(id: string): Observable<Candidate[]> {
     return this.http.get<any>(`${environment.apiUrl}candidates/${id}`);
+  }
+
+  getCandidatesByInternship(internshipId: string): Observable<Candidate[]> {
+    return this.http.get<any>(`${environment.apiUrl}candidates/internship/${internshipId}/`);
   }
 }

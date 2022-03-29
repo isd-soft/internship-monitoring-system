@@ -1,5 +1,7 @@
 package org.inthergroup.ims.internship.service;
 
+import org.hibernate.Hibernate;
+import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.controller.InternshipDTO;
 import org.inthergroup.ims.internship.controller.UserMentorDTO;
@@ -7,8 +9,10 @@ import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.repository.InternshipRepository;
 import org.inthergroup.ims.login.model.User;
 import org.inthergroup.ims.login.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -75,6 +79,17 @@ public class InternshipServiceImpl implements InternshipService {
                 .orElseThrow(() -> new IllegalArgumentException("Internship with id" + internshipId + "was not found!"));
         return internship.getCandidates();
     }
+
+
+    @Override
+    public Internship getInternship(final  String id) {
+        Internship internship = internshipRepository.findById(id).get();
+        return internship;
+    }
+
+
+
+
 
 
 }

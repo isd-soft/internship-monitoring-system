@@ -2,9 +2,11 @@ package org.inthergroup.ims.candidate.controller;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Status;
+import org.inthergroup.ims.internship.model.Internship;
 
 
 @Getter
@@ -35,4 +37,7 @@ public class CandidateDTO {
     @NotNull
     private Status status;
 
+    private double mark;
+
+    private String internship;
 }

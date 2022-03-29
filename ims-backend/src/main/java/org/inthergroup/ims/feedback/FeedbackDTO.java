@@ -7,4 +7,5 @@ import lombok.Data;
 public class FeedbackDTO {
     private String id;
     private String feedback;
+    private String toCandidate;
 }

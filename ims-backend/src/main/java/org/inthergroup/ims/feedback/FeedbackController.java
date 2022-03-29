@@ -45,6 +45,7 @@ public class FeedbackController {
         Feedback feedback1 = new Feedback();
         feedback1.setId(feedbackDTO.getId());
         feedback1.setFeedback(feedbackDTO.getFeedback());
+        feedback1.setToCandidate(feedbackDTO.getToCandidate());
         feedbackService.save(feedback1);
         return feedback1;
 

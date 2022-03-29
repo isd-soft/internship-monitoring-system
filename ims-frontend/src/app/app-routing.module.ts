@@ -11,6 +11,7 @@ import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
 import { FeedbackComponent } from "./pages/feedback/feedback.component";
+import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
 import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
 
 const routes: Routes = [
@@ -32,6 +33,16 @@ const routes: Routes = [
     path: "candidate-update",
     component: AddCandidateComponent,
     data: { intent: "update" },
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "candidate-by-internship/:id",
+    component: CandidatesListComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "all-candidates",
+    component: CandidatesListComponent,
     canActivate: [AuthGuard],
   },
   {

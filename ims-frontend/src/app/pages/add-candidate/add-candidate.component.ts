@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AccountService } from "../../shared/service/account.service";
@@ -6,6 +6,7 @@ import { first } from "rxjs/operators";
 import { Subscription } from "rxjs/internal/Subscription";
 import { Candidate, Status } from "../../shared/model/candidate";
 import { CandidateService } from "../../shared/service/candidate.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: "app-add-candidate",
@@ -13,7 +14,6 @@ import { CandidateService } from "../../shared/service/candidate.service";
   styleUrls: ["./add-candidate.component.css"],
 })
 export class AddCandidateComponent implements OnInit {
-  intent: "add" | "update";
   candidateForm: FormGroup = new FormGroup({});
   candidateStatusError = false;
   validationErrors: {} | null = {};
@@ -25,37 +25,13 @@ export class AddCandidateComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private candidateService: CandidateService
+    private candidateService: CandidateService,
+    @Inject(MAT_DIALOG_DATA) public data: { intent:"add" | "update", candidate?: Candidate },
+    private dialogRef: MatDialogRef<AddCandidateComponent>
   ) {}
 
   ngOnInit(): void {
     this.statusOptions = this.buildStatusOptions();
-    const sub = this.route.data.subscribe((data) => {
-      this.intent = data["intent"];
-      if (this.intent === "update") {
-        this.candidateForm.controls["id"].setValidators([Validators.required]);
-      }
-      if (this.intent === "add") {
-        this.candidateForm.controls["email"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["name"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["surname"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["comment"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["status"].setValidators([
-          Validators.required,
-        ]);
-        this.candidateForm.controls["cv"].setValidators([Validators.required]);
-      }
-    });
-    this.subscription.add(sub);
-
     this.candidateForm = this.formBuilder.group({
       id: [""],
       email: [
@@ -71,46 +47,74 @@ export class AddCandidateComponent implements OnInit {
       comment: ["", [Validators.required]],
       status: ["", [Validators.required]],
       cv: ["", [Validators.required]],
+      mark: ["", [Validators.required]],
+      internship: ["", [Validators.required]],
     });
+    if (this.data.intent === "update") {
+      this.candidateForm.controls["id"].setValidators([Validators.required]);
+    }
+
+    if(this.data.candidate) {
+      this.candidateForm.patchValue(this.data.candidate);
+      const status = this.statusOptions.find(
+        (option) => {
+          const status = this.data?.candidate?.status as unknown as string;
+          return option.name === status;
+      })
+      this.candidateForm.controls['status'].patchValue(status.value);
+    }
   }
 
   onSubmit() {
     if (!this.candidateForm.valid) {
       return;
     }
-    if (this.intent === "update") {
+    if (this.data.intent === "update") {
       this.candidateService
         .updateCandidateInIntership(this.candidateForm.value)
-        .subscribe({
-          next: () => {
-            this.candidateStatusError = false;
-            this.router.navigate(["/"]);
-          },
-          error: (error) => {
-            console.log(error);
-            this.candidateStatusError = true;
-            this.validationErrors = error?.error?.message;
-          },
-        });
+        .subscribe(() => {this.dialogRef.close('updated candidate!')})
+        // .subscribe({
+        //   next: () => {
+        //     this.candidateStatusError = false;
+        //     this.dialogRef.close('updated candidate!')
+        //   },
+        //   error: (error) => {
+        //     console.log(error);
+        //     this.candidateStatusError = true;
+        //     this.validationErrors = error?.error?.message;
+        //   },
+        //   complete: () => {
+        //     this.candidateStatusError = false;
+        //     this.dialogRef.close('updated candidate!')
+        //   },
+        // });
     }
 
-    if (this.intent === "add") {
+    if (this.data.intent === "add") {
       const objToSend = this.candidateForm.value;
       delete objToSend.id;
 
       this.candidateService
         .createCandidate(this.candidateForm.value)
-        .subscribe({
-          next: () => {
-            this.candidateStatusError = false;
-            this.router.navigate(["/"]);
-          },
-          error: (error) => {
-            console.log(error);
-            this.candidateStatusError = true;
-            this.validationErrors = error?.error?.message;
-          },
-        });
+        .subscribe(() => {
+            this.dialogRef.close('updated candidate!');
+          }
+        // .subscribe({
+        //   next: () => {
+        //     this.candidateStatusError = false;
+        //     this.dialogRef.close('created candidate!')
+        //   },
+        //   error: (error) => {
+        //     console.log(error);
+        //     this.candidateStatusError = true;
+        //     this.validationErrors = error?.error?.message;
+        //   },
+        //   complete: () => {
+        //     this.candidateStatusError = false;
+        //     this.dialogRef.close('created candidate!')
+        //   }
+        //   }
+        );
     }
   }
 

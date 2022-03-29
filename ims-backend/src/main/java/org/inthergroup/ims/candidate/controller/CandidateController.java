@@ -1,5 +1,13 @@
 package org.inthergroup.ims.candidate.controller;
 
+
+import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.candidate.service.CandidateService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 import java.util.List;
 import javax.validation.Valid;
 
@@ -40,7 +48,8 @@ public class CandidateController {
     @PostMapping()
     public ResponseEntity<String> createCandidate(
             @RequestBody @Valid final CandidateDTO candidateDTO) {
-        return new ResponseEntity<>(candidateService.create(candidateDTO), HttpStatus.CREATED);
+                candidateService.create(candidateDTO);
+                return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
@@ -54,6 +63,11 @@ public class CandidateController {
     public ResponseEntity<Void> deleteCandidate(@PathVariable final String id) {
         candidateService.delete(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/internship/{id}")
+    public List<Candidate> getCandidatesByInternshipId(@PathVariable("id") String id) {
+        return candidateService.getAllCandidatesByInternshipId(id);
     }
 
 }

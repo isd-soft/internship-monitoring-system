@@ -1,13 +1,11 @@
 package org.inthergroup.ims.internship.controller;
 
-import lombok.AllArgsConstructor;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @EqualsAndHashCode
+@NoArgsConstructor
 @AllArgsConstructor
 public class UserMentorDTO {
     private String id;
