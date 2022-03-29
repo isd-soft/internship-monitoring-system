@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>Add New Internship Form</h1>
+<h1 mat-dialog-title [align]="'center'">Add New Internship Form</h1>
 <div mat-dialog-content>
   <form [formGroup]="internshipForm">
     <mat-grid-list cols="2" rowHeight="500px">
@@ -7,26 +7,28 @@
           <!-- Project Name -->
           <mat-form-field appearance="outline">
             <mat-label> Project Name:</mat-label>
-            <input formControlName="projectName" matInput type="text" [value]="'Upcoming Internship'"/>
+            <input formControlName="projectName" matInput type="text"/>
           </mat-form-field>
           <br/>
           <!-- Category -->
           <mat-form-field appearance="outline">
             <mat-label> Category :</mat-label>
             <mat-select formControlName="category">
-              <mat-option *ngFor="let category of categories" [value]="category">
-                {{category}}
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let category of categories" [value]="category.name">
+                {{category.value}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <br/>
           <!-- Mentors -->
           <mat-form-field appearance="outline">
-            <mat-label> Mentors:</mat-label>
-            <input formControlName="mentors" matInput/>
+            <mat-label>Mentors:</mat-label>
+            <mat-select formControlName="mentorsId" multiple>
+              <mat-option *ngFor="let mentor of mentors"
+                          [value]="mentor.id">{{mentor.name + " " + mentor.surname}}</mat-option>
+            </mat-select>
           </mat-form-field>
-          <br/>
-
           <!-- Period -->
           <mat-form-field appearance="outline">
             <mat-label>Period</mat-label>
@@ -42,88 +44,67 @@
           <mat-form-field appearance="outline">
             <mat-label> Status:</mat-label>
             <mat-select formControlName="internshipStatus">
-              <mat-option *ngFor="let status of statuses" [value]="status">
-                {{status}}
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let status of statuses" [value]="status.name">
+                {{status.value}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br/>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile>
+        <div class="controles-container">
+          <!-- Pre-interview tests: -->
+          <mat-form-field appearance="outline">
+            <mat-label>Pre-interview tests:</mat-label>
+            <mat-select formControlName="preInterviewTestList" multiple>
+              <mat-option *ngFor="let test of preInterviewTestList" [value]="test.name">{{test.value}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <!--Technical question list: -->
+          <mat-form-field appearance="outline">
+            <mat-label> Technical question list:</mat-label>
+            <mat-select formControlName="techQuesListId">
+              <mat-option>--</mat-option>
+              <mat-option *ngFor="let techQuestionList of techQuestionsList" [value]="techQuestionList.id">
+                {{techQuestionList.name}}
               </mat-option>
             </mat-select>
           </mat-form-field>
           <br/>
 
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="controles-container">
+          <!--Link to GitHub repository: -->
+          <mat-form-field appearance="outline">
+            <mat-label> Link to repository:</mat-label>
+            <input formControlName="gitHubUrl" matInput type="text" placeholder="https://github.com"/>
+          </mat-form-field>
+          <!--Link to Trello board: -->
+          <mat-form-field appearance="outline">
+            <mat-label>Link to Trello board:</mat-label>
+            <input formControlName="trelloBoardUrl" matInput type="text" placeholder="https://trello.com"/>
+          </mat-form-field>
+          <br/>
 
-        <!-- Pre-interview tests: -->
-        <mat-form-field appearance="outline">
-          <mat-label>Pre-interview tests:</mat-label>
-          <mat-select formControlName="preInterviewTestList" multiple>
-            <mat-option *ngFor="let test of preInterviewTestList" [value]="test">{{test}}</mat-option>
-          </mat-select>
-        </mat-form-field>
-
-        <!--           Technical question list: -->
-        <mat-form-field appearance="outline">
-          <mat-label> Technical question list:</mat-label>
-          <mat-select formControlName="techQuesListName">
-            <mat-option *ngFor="let techQuestionList of techQuestionslist" [value]="techQuestionList.id">
-              {{techQuestionList.name}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-        <br/>
+          <!--Link to the deployed app: -->
+          <mat-form-field appearance="outline">
+            <mat-label>Link to the deployed app:</mat-label>
+            <input formControlName="deployedAppUrl" matInput type="text"/>
+          </mat-form-field>
+          <br/>
+          <!--Powerpoint presentation: -->
+          <!--          <mat-label>Powerpoint presentation:</mat-label>-->
+          <!--          <br/>-->
+          <!--          <input (change)="onFileSelected($event)" class="file-input" type="file"/>-->
+          <!--          <br/>-->
         </div>
       </mat-grid-tile>
     </mat-grid-list>
   </form>
 </div>
+<div mat-dialog-actions [align]="'end'">
+  <button mat-raised-button color="warn" mat-dialog-close>Close</button>
+  <button mat-raised-button color="primary" (click)="createInternship()">Save</button>
+</div>
 
-
-<!--      <div class="form-group">-->
-<!--        <label for="mentors">Mentors: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="mentors" class="form-control" type="text" formControlName="mentors" required>-->
-<!--        </div>-->
-<!--      </div>-->
-
-
-<!--      <div class="form-group">-->
-<!--        <label for="technical-question-list">Technical question list: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="technical-question-list" class="form-control" type="text" formControlName="technicalQuestionList">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-github">Link to GitHub repository: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-github" class="form-control" type="text" formControlName="linkGithub">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-trello">Link to Trello board: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-trello" class="form-control" type="text" formControlName="linkTrello">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-deployed-app">Link to the deployed app: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-deployed-app" class="form-control" type="text" formControlName="linkDeployedApp">-->
-<!--        </div>-->
-<!--      </div>-->
-<!--      <div class="form-group">-->
-<!--        <label for="link-presentation">Link to the deployed app: </label>-->
-<!--        <div class="input-group">-->
-<!--          <input id="link-presentation" class="form-control" type="text" formControlName="linkPresentation">-->
-<!--        </div>-->
-<!--      </div>-->
-
-<!--<form [formGroup]="internshipForm" (ngSubmit)="onSubmit()" class="internship-form">-->
-<!--  <legend><h1>Create an internship</h1></legend>-->
-
-
-<!--  <label for=""></label>-->
-<!--&lt;!&ndash;  <select name="category" class="form-control">&ndash;&gt;-->
-<!--&lt;!&ndash;    <option *ngFor="let category of categoryList" [value]="category">{{category}}</option>&ndash;&gt;-->
-<!--&lt;!&ndash;  </select>&ndash;&gt;-->
-<!--  <input id="category" type="text" formControlName="category">-->

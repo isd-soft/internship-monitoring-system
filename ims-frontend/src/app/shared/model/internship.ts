@@ -5,17 +5,17 @@ export class Internship {
   id: string;
   projectName: string;
   category: string;
-  mentors: User []; // review users class
+  mentorsId: string []; // mentors id
   periodFrom: Date;
   periodTo: Date;
   internshipStatus: Status;
   preInterviewTestList: string[]; // review PreinterviewTest class
-  techQuesListName: string;
+  techQuesListId: string;
   gitHubUrl: string;
   trelloBoardUrl: string;
   deployedAppUrl: string; // review project download
   presentationUrl: string; // review presentation download
-  candidates: Candidate[]
+  candidatesId: string []
 }
 
 export enum Status {

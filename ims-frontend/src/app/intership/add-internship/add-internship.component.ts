@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {Category, PreInterviewTest, Status} from "../../shared/model/internship";
 import {User} from "../../shared/model/user";
-import {TechQuestionListService} from "../../shared/service/techQuestionList.service";
 import {TechQuestionList} from "../../shared/model/techQuestionList";
-import {TechquestionlistComponent} from "../../techquestionlist/techquestionlist.component";
+import {TechQuestionListService} from "../../shared/service/tech-question-list.service";
+import {InternshipService} from "../../shared/service/internship.service";
+import {AccountService} from "../../shared/service/account.service";
 
 @Component({
   selector: 'app-add-internship',
@@ -15,45 +16,100 @@ import {TechquestionlistComponent} from "../../techquestionlist/techquestionlist
 export class AddInternshipComponent implements OnInit {
   internshipForm: FormGroup = new FormGroup({});
   status = Status;
-  statuses: string[] = Object.values(this.status);
-  defaultStatus = 'New';
+  statuses: { name: string; value: string }[];
+  defaultStatus = {name: Status.NEW, value: 'New'};
   category = Category;
-  categories: string[] = Object.values(this.category);
+  categories: { name: string; value: string }[];
+  mentors: User[];
   preInterviewTest = PreInterviewTest;
-  preInterviewTestList: string[] = Object.values(this.preInterviewTest);
-  techQuestionslist: TechQuestionList[];
+  preInterviewTestList: { name: string; value: string }[];
+  techQuestionsList: TechQuestionList[];
+  validationErrors: {} | null = {};
+  techQuestionListStatusError = false;
 
   constructor(public dialog: MatDialog,
               private formBuilder: FormBuilder,
-              private techQuestionListService: TechQuestionListService,) {
-    this.internshipForm = formBuilder.group({
-      projectName: [''],
-      category: [''],
-      mentors: [''],
+              private techQuestionListService: TechQuestionListService,
+              private internshipService: InternshipService,
+              private userService: AccountService,
+              private dialogRef: MatDialogRef<AddInternshipComponent>) {
+    this.internshipForm = this.formBuilder.group({
+      projectName: ['Upcoming Internship'],
+      category: ['', Validators.required],
+      mentorsId: [''],
       periodFrom: [''],
       periodTo: [''],
-      internshipStatus: [null, Validators.required],
+      internshipStatus: ['', Validators.required],
       preInterviewTestList: [''],
-      techQuesListName: [''],
+      techQuesListId: [''],
       gitHubUrl: [''],
       trelloBoardUrl: [''],
       deployedAppUrl: [''],
       presentationUrl: ['']
     });
-    this.internshipForm.get('internshipStatus').setValue(this.defaultStatus);
-    this.getAllTechQuestionLists()
+    this.internshipForm.get('internshipStatus').setValue(this.defaultStatus.name);
+    this.categories = Object.entries(this.category).map(([key, value]) => ({name: key, value: value}));
+    this.statuses = Object.entries(this.status).map(([key, value]) => ({name: key, value: value}));
+    this.preInterviewTestList = Object.entries(this.preInterviewTest).map(([key, value]) =>
+      ({name: key, value: value}));
+    this.getAllTechQuestionLists();
+    this.getAllMentors()
   }
 
   ngOnInit() {
 
   }
+
   public getAllTechQuestionLists() {
-    this.techQuestionListService.getAlltechQuestionList().subscribe({
-      next: (result) => {
-        console.log(result);
-        this.techQuestionslist = result;
-      },
-      error: (err) => console.log("Error"),
-    });
+    this.techQuestionListService
+      .getAllTechQuestionList()
+      .subscribe((res) => {
+        this.techQuestionsList = res;
+      });
   }
+
+  public getAllMentors() {
+    this.userService
+      .getAll()
+      .subscribe((res: User[]) => {
+        this.mentors = res;
+      });
+  }
+
+  get form() {
+    return this.internshipForm.controls;
+  }
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      const formData = new FormData();
+
+      formData.append("file", file);
+
+      this.internshipService.uploadPresentation(formData).subscribe((val) => {
+        this.internshipForm.controls["presentationUrl"].patchValue(val.data);
+      });
+    }
+  }
+
+
+  createInternship() {
+    console.log(this.internshipForm.value)
+    if (this.internshipForm.valid) {
+      this.internshipService.createInternship(this.internshipForm.value).subscribe({
+        next: () => {
+          alert("Internship created successfully");
+          this.internshipForm.reset();
+          this.dialogRef.close('save');
+        },
+        error: () => {
+          alert("Error while creating internship")
+        }
+      })
+    }
+  }
+
+
 }

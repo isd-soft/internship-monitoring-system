@@ -3,12 +3,16 @@ package org.inthergroup.ims.internship.controller;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/internships")
+@RequestMapping(value = "/api/internships", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InternshipController {
 
     private final InternshipService internshipService;
@@ -27,15 +31,15 @@ public class InternshipController {
         return "internship form";
     }
 
- @GetMapping("/{id}/candidates")
+    @GetMapping("/{id}/candidates")
     public List<Candidate> getCandidatesByInternshipId(String internshipId) {
         return internshipService.getAllCandidatesByInternshipId(internshipId);
     }
 
 
     @PostMapping
-    void addInternship(@RequestBody InternshipDTO internship) {
-        internshipService.createInternship(internship);
+    public ResponseEntity<String> createInternship(@RequestBody @Valid final InternshipDTO internship) {
+        return new ResponseEntity<>(internshipService.createInternship(internship), HttpStatus.CREATED);
     }
 
 }
