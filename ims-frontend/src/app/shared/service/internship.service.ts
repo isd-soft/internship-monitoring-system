@@ -13,13 +13,22 @@ export class InternshipService {
   constructor(private http: HttpClient) {
   }
 
-  getAllInternships() : Observable<Internship[]> {
+  getAllInternships(): Observable<Internship[]> {
     return this.http.get<Internship[]>(`${environment.apiUrl}internships`);
   }
 
-  createInternship(internship: Internship): Observable<any>{
+  createInternship(internship: Internship): Observable<any> {
     return this.http.post(`${environment.apiUrl}internships`, internship);
   }
+
+  updateInternship(id: string, internship: Internship) {
+    return this.http.put<Internship>(`${environment.apiUrl}internships/${id}`, internship);
+  }
+
+  deleteInternship(id: string){
+    return this.http.delete<Internship>(`${environment.apiUrl}internships/${id}`);
+  }
+
   uploadPresentation(file: FormData): Observable<any> {
     return this.http.post<any>(`${environment.apiUrl}fileUpload/`, file, {
       headers: new HttpHeaders({}),

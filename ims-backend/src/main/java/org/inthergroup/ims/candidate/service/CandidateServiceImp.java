@@ -92,7 +92,7 @@ public class CandidateServiceImp implements CandidateService {
         candidate.setComment(candidateDTO.getComment());
         candidate.setStatus(candidateDTO.getStatus());
         candidate.setMark(candidateDTO.getMark());
-        candidate.setInternship(internshipService.getAllInternships().get(0));
+//        candidate.setInternship(internshipService.getAllInternships().get(0));
         return candidate;
     }
 }

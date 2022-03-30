@@ -13,6 +13,7 @@ import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-e
 import { FeedbackComponent } from "./pages/feedback/feedback.component";
 import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
 import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
+import {AddInternshipComponent} from "./intership/add-internship/add-internship.component";
 
 const routes: Routes = [
   {
@@ -55,6 +56,11 @@ const routes: Routes = [
   {
     path: "internships",
     component: InternshipComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "add-internship",
+    component: AddInternshipComponent,
     canActivate: [AuthGuard],
   },
   {

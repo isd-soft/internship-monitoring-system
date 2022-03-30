@@ -30,7 +30,7 @@ public class TechQuestionList {
     @OneToMany(mappedBy = "techQuestionList")
     private Set<TechQuestion> techQuestionListTechQuestions;
 
-    @OneToMany(mappedBy = "techQuesListId")
+    @OneToMany(mappedBy = "techQuesList")
     private List<Internship> internships;
 
     public TechQuestionList() {
