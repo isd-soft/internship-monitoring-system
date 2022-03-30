@@ -1,10 +1,12 @@
 package org.inthergroup.ims.feedback;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.login.model.User;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -21,13 +23,14 @@ public class Feedback {
     private String id;
     @Column(name = "feedback")
     private String feedback;
-
-    @Column(name = "to_candidate")
-    private String toCandidate;
-
-    @OneToOne
+    @JsonIgnore
+    @ManyToOne
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
     public Feedback() {

@@ -1,9 +1,10 @@
-import { Component, OnInit } from "@angular/core";
+import {Component, Inject, OnInit} from "@angular/core";
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Status } from "../../shared/model/candidate";
+import {Candidate, Status} from "../../shared/model/candidate";
 import { Subscription } from "rxjs/internal/Subscription";
 import { FeedbackService } from "../../shared/service/feedback.service";
+import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 
 @Component({
   selector: "app-feedback",
@@ -23,13 +24,12 @@ export class FeedbackComponent implements OnInit {
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private feedbackService: FeedbackService
+    private feedbackService: FeedbackService,
+    @Inject(MAT_DIALOG_DATA) public data: { candidateId: string },
+    private dialogRef: MatDialogRef<FeedbackComponent>
   ) {}
 
   ngOnInit(): void {
-    const sub = this.route.data.subscribe((data) => {
-      this.intent = data["intent"];
-    });
 
     this.feedbackForm = this.formBuilder.group({
       id: [""],
@@ -37,44 +37,41 @@ export class FeedbackComponent implements OnInit {
       forCandidate: [""],
     });
 
-    this.feedbackService.getAllCandidates().subscribe((candidates) => {
-      console.log(candidates);
-      this.candidatesOptions = candidates.map((candidate) => {
-        return {
-          value: candidate.id,
-          name: `${candidate.name} ${candidate.surname}`,
-        };
-      });
+    this.feedbackService.getFeedbackById(this.data.candidateId).subscribe((feedbacks) => {
+      console.log(feedbacks);
+    //  TODO fill the array of feedbacks
     });
+
+
   }
 
   onSubmit() {
     if (!this.feedbackForm.valid) {
       return;
     }
-    // if (this.intent === 'update') {
-    //   this.candidateService
-    //     .updateCandidateInIntership(this.feedbackForm.value)
-    //     .subscribe({
-    //       next: () => {
-    //         this.candidateStatusError = false;
-    //         this.router.navigate(["/"]);
-    //       },
-    //       error: (error) => {
-    //         console.log(error);
-    //         this.candidateStatusError = true;
-    //         this.validationErrors = error?.error?.message;
-    //       },
-    //     });
-    // }
-    //
-    if (this.intent === "add") {
+    if (this.data.candidateId) {
+      // this.candidateService
+      //   .updateCandidateInIntership(this.feedbackForm.value)
+      //   .subscribe({
+      //     next: () => {
+      //       this.candidateStatusError = false;
+      //       this.router.navigate(["/"]);
+      //     },
+      //     error: (error) => {
+      //       console.log(error);
+      //       this.candidateStatusError = true;
+      //       this.validationErrors = error?.error?.message;
+      //     },
+      //   });
+    }
+
+    if (!this.data.candidateId) {
       const objToSend = this.feedbackForm.value;
 
-      this.feedbackService.submitFeedback(objToSend.id).subscribe({
+      this.feedbackService.submitFeedback(objToSend).subscribe({
         next: () => {
           this.candidateStatusError = false;
-          this.router.navigate(["/"]);
+          this.dialogRef.close();
         },
         error: (error) => {
           console.log(error);

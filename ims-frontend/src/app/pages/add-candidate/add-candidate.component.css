@@ -17,13 +17,19 @@ mat-form-field {
   width: 250px;
 }
 
-button {
-  margin: 0px;
-  position: absolute;
-  left: 46%;
-}
+/*button {*/
+/*  margin: 0px;*/
+/*  position: absolute;*/
+/*  left: 46%;*/
+/*}*/
 
 .error-message {
   color: red;
   font-weight: bold;
+}
+
+.buttons-holder{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }
