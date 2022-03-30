@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.controller;
 
+import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
@@ -22,7 +23,7 @@ public class InternshipController {
     }
 
     @GetMapping()
-    public List<Internship> getAllInternship() {
+    public List<InternshipDTO> getAllInternship() {
         return internshipService.getAllInternships();
     }
 
@@ -39,8 +40,21 @@ public class InternshipController {
 
 
     @PostMapping
-    public ResponseEntity<String> createInternship(@RequestBody @Valid final InternshipDTO internship) {
-        return new ResponseEntity<>(internshipService.createInternship(internship), HttpStatus.CREATED);
+    public ResponseEntity<Void> createInternship(@RequestBody @Valid final InternshipDTO internship) {
+        internshipService.createInternship(internship);
+        return ResponseEntity.ok().build();
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> updateInternship(@PathVariable("id") final String id,
+                                                 @RequestBody @Valid final InternshipDTO internshipDTO) {
+        internshipService.update(id, internshipDTO);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteInternship(@PathVariable("id") final String id) {
+        internshipService.delete(id);
+        return ResponseEntity.noContent().build();
+    }
 }

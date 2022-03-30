@@ -1,17 +1,20 @@
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./account/login/login.component";
+import { RegisterComponent } from "./account/register/register.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
+import { Routes, CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
 import { FeedbackComponent } from "./pages/feedback/feedback.component";
-import { CandidatesListComponent } from "./pages/candidates-list/candidates-list.component";
+import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
 import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
 import { QuestionComponent } from "./question/question.component";
+import {AddInternshipComponent} from "./intership/add-internship/add-internship.component";
 
 const routes: Routes = [
   {
@@ -54,6 +57,11 @@ const routes: Routes = [
   {
     path: "internships",
     component: InternshipComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: "add-internship",
+    component: AddInternshipComponent,
     canActivate: [AuthGuard],
   },
   {

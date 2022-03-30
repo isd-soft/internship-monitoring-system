@@ -1,14 +1,14 @@
 import {Component, AfterViewInit, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
-import {Internship, Status} from "../shared/model/internship";
+import {Category, Internship, Status} from "../shared/model/internship";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
 import {MatDialog} from '@angular/material/dialog';
-import {FormBuilder, FormGroup} from "@angular/forms";
 import {AddInternshipComponent} from "./add-internship/add-internship.component";
 import {User} from "../shared/model/user";
 import {AccountService} from "../shared/service/account.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'app-internship',
@@ -18,24 +18,29 @@ import {AccountService} from "../shared/service/account.service";
 export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
   displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentorsId',
-    'internshipStatus', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
+    'internshipStatus', 'candidates', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
   mentors: User[];
+  status = Status;
+  statuses: { name: string; value: string }[];
+  category = Category;
+  categories: { name: string; value: string }[];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private internshipService: InternshipService,
-              private userService : AccountService,
+  constructor(
+    private _snackBar: MatSnackBar,
+    private internshipService: InternshipService,
+              private userService: AccountService,
               private dialog: MatDialog) {
-    this.getAllInternships();
-
   }
 
   ngAfterViewInit(): void {
-    this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    this.getAllInternships();
+    this.categories = Object.entries(this.category).map(([key, value]) => ({name: key, value: value}));
+    this.statuses = Object.entries(this.status).map(([key, value]) => ({name: key, value: value}));
 
   }
 
@@ -48,18 +53,18 @@ export class InternshipComponent implements AfterViewInit {
     }
   }
 
-  onSubmit() {
-  }
-
   public getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: result => {
         console.log(result);
         this.dataSource = new MatTableDataSource(result);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      error: err => console.log("An error has occurred;")
+      error: () => console.log("An error has occurred while fetching data from database")
     });
   }
+
   public getMentorsByInternship() {
     this.userService
       .getAll()
@@ -67,6 +72,7 @@ export class InternshipComponent implements AfterViewInit {
         this.mentors = res;
       });
   }
+
   openDialog() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {
       width: '75%'
@@ -74,20 +80,42 @@ export class InternshipComponent implements AfterViewInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
+      if (result === 'save') {
+        this.getAllInternships();
+      }
     });
   }
 
-  viewInternship(internship: Internship) {
-
-
-  }
-
   editInternship(row: any) {
+    this.dialog.open(AddInternshipComponent, {
+      width: '75%',
+      data: row
+    }).afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result === 'update') {
+        this.getAllInternships();
+        // TODO - custom notification message
+        this._snackBar.open("Edited successfully", "OK");
+      }
+    });
 
   }
 
-  deleteInternship(row: any) {
+  deleteInternship(id: string) {
+    console.log(id);
+    this.internshipService.deleteInternship(id).subscribe({
+      next: (res) => {
+        // TODO - custom notification message
+        this._snackBar.open("Deleted successfully", "OK");
+        this.getAllInternships();
+      },
+      error: () => {
+        alert("Error while deleting internship");
+      }
+    });
+  }
 
+  openPresentation() {
   }
 }
 

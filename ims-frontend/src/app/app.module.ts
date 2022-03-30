@@ -42,6 +42,8 @@ import { MatDividerModule } from "@angular/material/divider";
 import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { QuestionComponent } from './question/question.component';
+import {AuthGuard} from "./shared/common/auth.guard";
+
 
 @NgModule({
   declarations: [
