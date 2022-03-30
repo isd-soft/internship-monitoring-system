@@ -8,6 +8,7 @@ import { TechMarkService } from "../../shared/service/tech-mark.service";
 import { Subscription } from "rxjs/internal/Subscription";
 import { TechMark } from "../../shared/model/tech-mark";
 import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-marks-modal",
@@ -16,12 +17,14 @@ import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
 })
 export class MarksModalComponent implements OnInit {
   candidates: any = [];
+  // candidateEvaluation: any = [];
   techQuestions: any = [];
   marksForm: FormGroup = new FormGroup({});
   marksArray: TechMark[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CandidateEvaluation,
+    private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
     private candidateEvaluationSv: CandidateEvaluationService,
     private techQuestionService: TechQuestionService,
@@ -30,6 +33,7 @@ export class MarksModalComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    // this.getCandidateEvaluationByCandidateId();
     this.getTechQuestions();
     this.getCandidates();
     this.getTechMarksByCandidateId();
@@ -71,6 +75,14 @@ export class MarksModalComponent implements OnInit {
       });
   }
 
+  // getCandidateEvaluationByCandidateId(): Subscription {
+  //   return this.candidateEvaluationSv
+  //     .getCandidateEvaluationById(this.data.candidate)
+  //     .subscribe((res) => {
+  //       this.candidateEvaluation = res;
+  //     });
+  // }
+
   submit(): void {
     this.candidateEvaluationSv
       .editCandidateEvaluationById(this.data.id, this.marksForm.value)
@@ -89,5 +101,7 @@ export class MarksModalComponent implements OnInit {
           marks = res;
         });
     });
+
+    this._snackBar.open("Saved successfully", "Ok!");
   }
 }

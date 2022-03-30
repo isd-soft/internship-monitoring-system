@@ -5,8 +5,10 @@ import { Candidate } from "../../shared/model/candidate";
 import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import { take } from "rxjs";
-import { MatDialog } from "@angular/material/dialog";
+import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { AddCandidateComponent } from "../add-candidate/add-candidate.component";
+import { MarksModalComponent } from "../../candidates-table/marks-modal/marks-modal.component";
+import { CandidateEvaluationService } from "../../shared/service/candidate-evaluation.service";
 
 @Component({
   selector: "app-candidates-list",
@@ -32,6 +34,7 @@ export class CandidatesListComponent implements OnInit {
   internshipId: string;
 
   constructor(
+    private CandidateEvaluationSv: CandidateEvaluationService,
     private candidateService: CandidateService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -64,6 +67,21 @@ export class CandidatesListComponent implements OnInit {
 
   selectCandidate(elem: Candidate) {
     this.lastTouchedCandidate = elem;
+  }
+
+  openMarksDialog() {
+    const dialogConfig = new MatDialogConfig();
+
+    this.CandidateEvaluationSv.getCandidateEvaluationById(
+      this.lastTouchedCandidate.id.toString()
+    ).subscribe(
+      (res) => {
+        //console.log(res);
+        dialogConfig.data = res;
+        this.dialog.open(MarksModalComponent, dialogConfig);
+      },
+      (err) => {}
+    );
   }
 
   updateCandidateModal() {
