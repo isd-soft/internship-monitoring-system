@@ -9,6 +9,8 @@ import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.inthergroup.ims.candidate.model.Candidate;
 
 import java.util.UUID;
@@ -35,6 +37,7 @@ public class CandidateEvaluation {
 
     @OneToOne
     @JoinColumn(name = "candidate_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Candidate candidate;
 
     public CandidateEvaluation(){
