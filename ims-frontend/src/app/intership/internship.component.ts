@@ -117,6 +117,5 @@ export class InternshipComponent implements AfterViewInit {
 
   openPresentation() {
   }
-
 }
 
