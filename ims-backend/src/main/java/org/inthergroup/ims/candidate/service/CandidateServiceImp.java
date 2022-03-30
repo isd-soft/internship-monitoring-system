@@ -77,14 +77,13 @@ public class CandidateServiceImp implements CandidateService {
         candidateDTO.setComment(candidate.getComment());
         candidateDTO.setStatus(candidate.getStatus());
 //        candidateDTO.setMark(candidate.getMark());
-
         candidateDTO.setInternship(internshipService.getAllInternships().get(0).getId());
-
 //        candidateDTO.setInternship(candidate.getInternship());
         return candidateDTO;
     }
 
-    private Candidate mapToEntity(final CandidateDTO candidateDTO, final Candidate candidate) {
+    public Candidate mapToEntity(final CandidateDTO candidateDTO, final Candidate candidate) {
+        candidate.setId(candidateDTO.getId());
         candidate.setName(candidateDTO.getName());
         candidate.setSurname(candidateDTO.getSurname());
         candidate.setEmail(candidateDTO.getEmail());

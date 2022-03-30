@@ -7,11 +7,6 @@
     <legend *ngIf="data.intent =='add'"><h1>Add candidate to internship</h1></legend>
     <legend *ngIf="data.intent =='update'"><h1>Update candidate in internship</h1></legend>
     <br />
-    <mat-form-field *ngIf="data.intent === 'update'" appearance="outline">
-      <mat-label> Id</mat-label>
-      <input formControlName="id" matInput type="text" />
-    </mat-form-field>
-    <br />
     <mat-form-field appearance="outline">
       <mat-label> Name</mat-label>
       <input formControlName="name" matInput type="text" />
@@ -58,6 +53,14 @@
       <h4 class="error-message">{{ validationErrors }}</h4>
     </ng-container>
     <br />
+    <div class="buttons-holder">
+    <button
+      (click)="closeModal()"
+      color="warn"
+      mat-raised-button
+    >
+      Cancel
+    </button>
     <button
       [disabled]="!candidateForm.valid"
       color="primary"
@@ -66,5 +69,6 @@
     >
       Submit
     </button>
+    </div>
   </form>
 </div>

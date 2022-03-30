@@ -132,6 +132,10 @@ export class AddCandidateComponent implements OnInit {
     }
   }
 
+  closeModal() {
+    this.dialogRef.close();
+  }
+
   ngOnDestroy(): void {
     //Called once, before the instance is destroyed.
     //Add 'implements OnDestroy' to the class.

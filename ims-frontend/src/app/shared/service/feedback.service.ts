@@ -15,15 +15,15 @@ export class FeedbackService {
     private candidateService: CandidateService
   ) {}
 
-  getAllCandidates(): Observable<Candidate[]> {
-    return this.candidateService.getAllCandidates();
+  getFeedbackById(id: string): Observable<Feedback[]> {
+    return this.http.get<any>(`${environment.apiUrl}feedback-by-candidate-id/${id}`);
   }
 
   saveFeedback(feedBack: Feedback) {
     return this.http.post<any>(`${environment.apiUrl}feedback`, feedBack);
   }
 
-  submitFeedback(id: string) {
-    return this.http.post<any>(`${environment.apiUrl}message`, { id });
+  submitFeedback(feedback: Feedback) {
+    return this.http.post<any>(`${environment.apiUrl}feedback`, feedback);
   }
 }
