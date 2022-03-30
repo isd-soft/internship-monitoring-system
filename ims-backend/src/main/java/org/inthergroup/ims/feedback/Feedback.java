@@ -22,7 +22,7 @@ public class Feedback {
     @Column(name = "feedback")
     private String feedback;
 
-    @Column(name = "toCandidate")
+    @Column(name = "to_candidate")
     private String toCandidate;
 
     @OneToOne
