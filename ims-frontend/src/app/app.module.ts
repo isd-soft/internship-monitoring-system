@@ -41,6 +41,7 @@ import {MarksModalComponent} from "./candidates-table/marks-modal/marks-modal.co
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
 import {MatMenuModule} from '@angular/material/menu';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -87,11 +88,11 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDatepickerModule,
     MatNativeDateModule,
     MatDividerModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}

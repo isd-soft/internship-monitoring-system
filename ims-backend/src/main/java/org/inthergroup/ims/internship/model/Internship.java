@@ -47,7 +47,7 @@ public class Internship {
     private List<PreInterviewTest> preInterviewTestList;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tech_question_list_id")
-    private TechQuestionList techQuesListId;
+    private TechQuestionList techQuesList;
     @Column(name = "github_link")
     private String gitHubUrl;
     @Column(name = "trello_board")

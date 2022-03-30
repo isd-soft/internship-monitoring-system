@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.controller;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import lombok.AllArgsConstructor;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -34,7 +36,8 @@ public class InternshipDTO {
     private String trelloBoardUrl;
     private String deployedAppUrl;
     private String presentationUrl;
-    private List<String> candidatesId;
+    //TODO- review after intergration with candidates list selected by internshipId
+//    private List<String> candidatesId;
     public InternshipDTO() {
     }
 }
