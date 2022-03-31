@@ -5,7 +5,9 @@ import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.login.security.service.UserDetailsServiceImpl;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,14 +26,16 @@ public class FeedbackController {
 
     private final FeedbackService feedbackService;
     private final CandidateService candidateService;
+    private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-    public FeedbackController(FeedbackService feedbackService, CandidateService candidateService) {
+    public FeedbackController(FeedbackService feedbackService, CandidateService candidateService, UserDetailsServiceImpl userDetailsServiceImpl) {
         this.feedbackService = feedbackService;
         this.candidateService = candidateService;
+        this.userDetailsServiceImpl = userDetailsServiceImpl;
     }
 
     @GetMapping("/candidate/{id}")
-    public List<FeedbackDTO> getFeedbacksByCandidateId(@PathVariable final String id) {
+    public List<FeedbackDTO> getFeedbacksByCandidateId(@PathVariable("id") final String id) {
         return feedbackService.getFeedbacksByCandidateId(id);
     }
 
@@ -46,7 +50,7 @@ public class FeedbackController {
         User user = feedbackService.getUserById(feedbackDTO.getUserId());
         feedBack.setUser(user);
         feedBack.setFeedback(feedbackDTO.getFeedback());
-        CandidateDTO candidateDTO = candidateService.get(feedbackDTO.getToCandidate());
+        CandidateDTO candidateDTO = candidateService.get(feedbackDTO.getCandidateId());
         Candidate candidate = new Candidate();
         candidateService.mapToEntity(candidateDTO, candidate);
         feedBack.setCandidate(candidate);
@@ -67,7 +71,10 @@ public class FeedbackController {
         Feedback feedback1 = new Feedback();
         feedback1.setId(feedbackDTO.getId());
         feedback1.setFeedback(feedbackDTO.getFeedback());
-        //feedback1.s(feedbackDTO.getToCandidate());
+        feedback1.setUser(this.userDetailsServiceImpl.findById(feedbackDTO.getUserId()).get());
+        CandidateDTO candidateDTO = this.candidateService.get(feedbackDTO.getCandidateId());
+        Candidate candidate = this.candidateService.mapToEntity(candidateDTO, new Candidate());
+        feedback1.setCandidate(candidate);
         feedbackService.save(feedback1);
         return feedback1;
 

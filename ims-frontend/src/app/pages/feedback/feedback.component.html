@@ -13,6 +13,14 @@
     </ng-container>
     <div class="button-holder">
       <button
+        *ngIf="this.feedbackForm.controls['id'].value !== ''"
+        color="warn"
+        mat-raised-button
+        (click)="deleteFeedback()"
+      >
+        Delete
+      </button>
+      <button
         [disabled]="!feedbackForm.valid"
         color="primary"
         mat-raised-button
@@ -33,4 +41,22 @@
   </form>
 </div>
 
+<div class="other-reviews">
+  <h2>Other Feedbacks:</h2>
+<!--  <div *ngFor="let notMineFeedBack of notMineFeedBacks"> {{notMineFeedBack.feedback}} </div>-->
+</div>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
+  <ng-container matColumnDef="userName">
+    <th mat-header-cell *matHeaderCellDef> User name </th>
+    <td mat-cell *matCellDef="let element"> Kolea </td>
+  </ng-container>
+  <!-- Position Column -->
+  <ng-container matColumnDef="feedback">
+    <th mat-header-cell *matHeaderCellDef> Feedback </th>
+    <td mat-cell *matCellDef="let element"> {{element.feedback}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

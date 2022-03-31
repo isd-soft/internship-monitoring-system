@@ -5,6 +5,9 @@ import {Candidate, Status} from "../../shared/model/candidate";
 import { Subscription } from "rxjs/internal/Subscription";
 import { FeedbackService } from "../../shared/service/feedback.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
+import {Feedback} from "../../shared/model/feedback";
+import {MatTableDataSource} from "@angular/material/table";
+import {DataSource} from "@angular/cdk/collections";
 
 @Component({
   selector: "app-feedback",
@@ -18,7 +21,12 @@ export class FeedbackComponent implements OnInit {
   validationErrors: {} | null = {};
   status = Status;
   candidatesOptions: { name: string; value: string }[] = [];
+
+  myFeedback: Feedback;
+  notMineFeedBacks: Feedback[] = []
+  dataSource:DataSource<Feedback>;
   subscription = new Subscription();
+  displayedColumns: string[] = ['userName', 'feedback'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -34,41 +42,55 @@ export class FeedbackComponent implements OnInit {
     this.feedbackForm = this.formBuilder.group({
       id: [""],
       feedback: [""],
-      forCandidate: [""],
+      candidateId: [""],
+      userId: [""],
     });
 
     this.feedbackService.getFeedbackById(this.data.candidateId).subscribe((feedbacks) => {
-      console.log(feedbacks);
-    //  TODO fill the array of feedbacks
+
+      const myId = JSON.parse(localStorage.getItem('user')).id;
+      this.feedbackForm.controls['candidateId'].patchValue(this.data.candidateId);
+      this.feedbackForm.controls['userId'].patchValue(myId);
+      feedbacks.forEach(feedback => {
+        if (feedback.userId === myId) {
+          // TODO
+          this.feedbackForm.controls['feedback'].patchValue(feedback.feedback);
+          this.feedbackForm.controls['id'].patchValue(feedback.id);
+          return;
+        }
+        this.notMineFeedBacks.push(feedback);
+      })
+      this.dataSource = new MatTableDataSource(this.notMineFeedBacks);
+
     });
 
 
   }
 
-  onSubmit() {
+  save() {
     if (!this.feedbackForm.valid) {
       return;
     }
-    if (this.data.candidateId) {
-      // this.candidateService
-      //   .updateCandidateInIntership(this.feedbackForm.value)
-      //   .subscribe({
-      //     next: () => {
-      //       this.candidateStatusError = false;
-      //       this.router.navigate(["/"]);
-      //     },
-      //     error: (error) => {
-      //       console.log(error);
-      //       this.candidateStatusError = true;
-      //       this.validationErrors = error?.error?.message;
-      //     },
-      //   });
+    if (this.feedbackForm.controls['id'].value) {
+      this.feedbackService
+        .updateFeedback(this.feedbackForm.value)
+        .subscribe({
+          next: () => {
+            this.candidateStatusError = false;
+            this.dialogRef.close();
+          },
+          error: (error) => {
+            console.log(error);
+            this.candidateStatusError = true;
+            this.validationErrors = error?.error?.message;
+          },
+        });
     }
 
-    if (!this.data.candidateId) {
+    if (!this.feedbackForm.controls['id'].value) {
       const objToSend = this.feedbackForm.value;
 
-      this.feedbackService.submitFeedback(objToSend).subscribe({
+      this.feedbackService.createFeedback(objToSend).subscribe({
         next: () => {
           this.candidateStatusError = false;
           this.dialogRef.close();
@@ -82,19 +104,26 @@ export class FeedbackComponent implements OnInit {
     }
   }
 
-  save() {
+  onSubmit() {
     if (!this.feedbackForm.valid) {
       return;
     }
-    const objToSend = {
+    const objToSend: Feedback = {
       feedback: this.feedbackForm.value.feedback,
-      forCandidate: this.feedbackForm.value.forCandidate,
+      candidateId: this.feedbackForm.value.candidateId,
+      userId: this.feedbackForm.value.userId
     };
     this.feedbackService
       .saveFeedback(objToSend)
       .subscribe((feedback) =>
         this.feedbackForm.controls["id"].patchValue(feedback.id)
       );
+  }
+
+  deleteFeedback(){
+    this.feedbackService.deleteFeedback(this.feedbackForm.controls['id'].value).subscribe(() => {
+      this.dialogRef.close();
+    });
   }
 
   ngOnDestroy(): void {

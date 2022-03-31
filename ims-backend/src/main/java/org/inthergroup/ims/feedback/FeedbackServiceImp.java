@@ -58,7 +58,7 @@ public class FeedbackServiceImp implements FeedbackService {
     private FeedbackDTO mapToDTO(final Feedback feedback, final FeedbackDTO feedbackDTO) {
         feedbackDTO.setId(feedback.getId());
         feedbackDTO.setFeedback(feedback.getFeedback());
-        feedbackDTO.setToCandidate(feedback.getCandidate().getId());
+        feedbackDTO.setCandidateId(feedback.getCandidate().getId());
         feedbackDTO.setUserId(feedback.getUser().getId());
         return feedbackDTO;
     }
