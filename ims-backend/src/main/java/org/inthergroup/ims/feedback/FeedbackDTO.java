@@ -9,6 +9,6 @@ import org.inthergroup.ims.login.model.User;
 public class FeedbackDTO {
     private String id;
     private String feedback;
-    private String toCandidate;
+    private String candidateId;
     private String userId;
 }

@@ -77,13 +77,14 @@ public class CandidateServiceImp implements CandidateService {
         candidateDTO.setComment(candidate.getComment());
         candidateDTO.setStatus(candidate.getStatus());
 //        candidateDTO.setMark(candidate.getMark());
-        candidateDTO.setInternship(internshipService.getAllInternships().get(0).getId());
-//        candidateDTO.setInternship(candidate.getInternship());
+        candidateDTO.setInternship(candidate.getInternship().getId());
         return candidateDTO;
     }
 
     public Candidate mapToEntity(final CandidateDTO candidateDTO, final Candidate candidate) {
-        candidate.setId(candidateDTO.getId());
+        if (candidateDTO.getId() != null) {
+            candidate.setId(candidateDTO.getId());
+        }
         candidate.setName(candidateDTO.getName());
         candidate.setSurname(candidateDTO.getSurname());
         candidate.setEmail(candidateDTO.getEmail());
@@ -91,7 +92,7 @@ public class CandidateServiceImp implements CandidateService {
         candidate.setComment(candidateDTO.getComment());
         candidate.setStatus(candidateDTO.getStatus());
 //        candidate.setMark(candidateDTO.getMark());
-//        candidate.setInternship(internshipService.getAllInternships().get(0));
+        candidate.setInternship(internshipService.getInternship(candidateDTO.getInternship()));
         return candidate;
     }
 }

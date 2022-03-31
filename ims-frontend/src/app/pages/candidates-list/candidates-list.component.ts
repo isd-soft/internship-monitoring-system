@@ -38,14 +38,14 @@ export class CandidatesListComponent implements OnInit {
   }
 
   updateCandidateModal(candidate: Candidate) {
-    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'update', candidate: candidate}});
+    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'update', candidate: candidate, internship: this.internshipId}});
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
   }
 
   addCandidateModal() {
-    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'add'}});
+    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'add', internship: this.internshipId}});
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
@@ -53,7 +53,7 @@ export class CandidatesListComponent implements OnInit {
 
   showFeedbackModal(candidate: Candidate) {
   // this.router.navigate(['/candidate-update'])
-    const dialogRef = this.dialog.open(FeedbackComponent, {data: {intent: 'add'}});
+    const dialogRef = this.dialog.open(FeedbackComponent, {data: {candidateId: candidate.id}});
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
@@ -65,6 +65,10 @@ export class CandidatesListComponent implements OnInit {
     this.candidateService.deleteCandidateFromIntership(candidate.id.toString()).subscribe(() => {
       this.updateTableData();
     })
+  }
+
+  downloadCV(cv: string){
+    this.candidateService.downloadCandidatesCV(cv);
   }
 
   private updateTableData() {

@@ -60,9 +60,9 @@
       <!-- Cantidate Column-->
       <ng-container matColumnDef="candidates">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Candidates </th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let element">
           <!--      TODO - to change endpoint to candidates selected by internship id -->
-          <a mat-stroked-button [routerLink]="['/candidates/internship/{id}']" target="_blank">Candidates</a>
+          <a mat-stroked-button [routerLink]="['/internship/'+ element.id + '/candidates']">Candidates</a>
         </td>
       </ng-container>
 

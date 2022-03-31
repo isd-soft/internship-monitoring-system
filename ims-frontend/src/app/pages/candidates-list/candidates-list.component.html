@@ -1,5 +1,5 @@
 <div class="table-holder">
-  <button (click)="addCandidateModal()" mat-raised-button >Add candidate</button>
+  <button *ngIf="this.displayMode === 'byInternship'" (click)="addCandidateModal()" mat-raised-button >Add candidate</button>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -31,7 +31,8 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="cv">
       <th mat-header-cell *matHeaderCellDef> CV </th>
-      <td mat-cell *matCellDef="let element"> {{element.cv}} </td>
+      <td mat-cell *matCellDef="let element"> <button (click)="downloadCV(element.cv)" mat-button> {{element.cv}}</button> </td>
+
     </ng-container>
 
     <ng-container matColumnDef="comment">
