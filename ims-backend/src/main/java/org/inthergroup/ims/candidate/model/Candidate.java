@@ -5,6 +5,8 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.inthergroup.ims.feedback.Feedback;
 import org.inthergroup.ims.internship.model.Internship;
 
@@ -51,14 +53,16 @@ public class Candidate {
    // private double mark;
     @ManyToOne(targetEntity = Internship.class)
     @JoinColumn(name="internship_id")
-    @JsonIgnore
     private Internship internship;
-    @JsonIgnore
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToMany(mappedBy = "candidate",  fetch = FetchType.LAZY)
     private Set<TechMark> candidateTechMarks;
-    @JsonIgnore
+
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
+
     @OneToMany(mappedBy = "candidate",fetch = FetchType.LAZY)
     private Set<Feedback> feedback;
 

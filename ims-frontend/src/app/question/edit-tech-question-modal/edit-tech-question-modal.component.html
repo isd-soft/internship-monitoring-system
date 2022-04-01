@@ -1,0 +1,27 @@
+<div mat-dialog-content xmlns="http://www.w3.org/1999/html">
+  <div class="form-container">
+    <form
+      (ngSubmit)="onSubmit()"
+      [formGroup]="techQuestionForm"
+      class="techquestion-form"
+    >
+      <legend>
+        <h1>Edit technical question</h1>
+      </legend>
+      <br />
+      <mat-form-field appearance="outline">
+        <mat-label> Name</mat-label>
+        <input formControlName="name" matInput type="text" />
+      </mat-form-field>
+      <br />
+      <button
+        [disabled]="!techQuestionForm.valid"
+        color="primary"
+        mat-raised-button
+        type="submit"
+      >
+        Edit
+      </button>
+    </form>
+  </div>
+</div>

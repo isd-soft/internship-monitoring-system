@@ -36,7 +36,7 @@ export class CandidateEvaluationService {
     candidateEvaluation: CandidateEvaluation
   ): Observable<any> {
     return this.http.post(
-      `${environment.apiUrl}candidateEvaluations/add`,
+      `${environment.apiUrl}candidateEvaluations`,
       candidateEvaluation
     );
   }

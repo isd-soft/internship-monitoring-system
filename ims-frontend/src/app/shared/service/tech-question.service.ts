@@ -11,14 +11,29 @@ export class TechQuestionService {
   constructor(private http: HttpClient) {}
 
   getAllTechQuestion(): Observable<TechQuestion[]> {
+    return this.http.get<TechQuestion[]>(`${environment.apiUrl}techQuestions`);
+  }
+
+  getTechQuestionByQuestionListId(id: string): Observable<TechQuestion[]> {
     return this.http.get<TechQuestion[]>(
-      `${environment.apiUrl}techQuestions/getall`
+      `${environment.apiUrl}techQuestions/techQuestionList/${id}`
     );
+  }
+
+  updateTechQuestion(id: string, techQuestion: TechQuestion) {
+    return this.http.put<TechQuestion>(
+      `${environment.apiUrl}techQuestions/${id}`,
+      techQuestion
+    );
+  }
+
+  deteleTechQuestionById(id: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiUrl}techQuestions/${id}`);
   }
 
   addTechQuestion(techQuestion: TechQuestion): Observable<any> {
     return this.http.post<any>(
-      `${environment.apiUrl}techQuestions/add`,
+      `${environment.apiUrl}techQuestions`,
       techQuestion
     );
   }

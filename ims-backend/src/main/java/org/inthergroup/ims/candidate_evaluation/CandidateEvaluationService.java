@@ -60,7 +60,6 @@ public class CandidateEvaluationService {
                 .build();
     }
 
-
     public String create(final CandidateEvaluationDTO candidateEvaluationDTO) {
         final CandidateEvaluation candidateEvaluation = new CandidateEvaluation();
         mapToEntity(candidateEvaluationDTO, candidateEvaluation);
@@ -102,5 +101,4 @@ public class CandidateEvaluationService {
         }
         return candidateEvaluation;
     }
-
 }

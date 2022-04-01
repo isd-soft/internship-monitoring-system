@@ -1,5 +1,5 @@
 export interface TechQuestion {
-  id: string;
+  id?: string;
   name: string;
-  techQuestionListId: string;
+  techQuestionList: string;
 }
