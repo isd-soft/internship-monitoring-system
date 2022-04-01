@@ -36,7 +36,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "internships/:id/candidates",
+    path: "internship/:id/candidates",
     component: CandidatesListComponent,
     canActivate: [AuthGuard],
   },
