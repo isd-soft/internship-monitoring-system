@@ -1,9 +1,8 @@
-package org.inthergroup.ims.candidate.service;
+package org.inthergroup.ims.file.service;
 
 
 import org.apache.commons.io.FilenameUtils;
 import org.inthergroup.ims.candidate.model.ResponseData;
-import org.inthergroup.ims.exceptions.StorageException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.Resource;

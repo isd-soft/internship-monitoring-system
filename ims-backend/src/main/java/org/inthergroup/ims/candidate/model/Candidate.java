@@ -1,10 +1,7 @@
 package org.inthergroup.ims.candidate.model;
 
-import java.util.List;
 import java.util.Set;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.inthergroup.ims.feedback.Feedback;
@@ -12,15 +9,11 @@ import org.inthergroup.ims.internship.model.Internship;
 
 import javax.persistence.*;
 import java.util.UUID;
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate_evaluation.CandidateEvaluation;
-import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.techMark.TechMark;
-
 
 @Entity
 @Getter
@@ -28,7 +21,6 @@ import org.inthergroup.ims.techMark.TechMark;
 public class Candidate {
 
     @Id
-    @NotBlank
     @Column(name = "id")
     private String id;
 
@@ -49,25 +41,42 @@ public class Candidate {
 
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
-    private Status status;
-   // private double mark;
+    private CandidateStatus status;
+
     @ManyToOne(targetEntity = Internship.class)
-    @JoinColumn(name="internship_id")
+    @JoinColumn(name = "internship_id")
     private Internship internship;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
-    @OneToMany(mappedBy = "candidate",  fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     private Set<TechMark> candidateTechMarks;
 
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
 
-    @OneToMany(mappedBy = "candidate",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     private Set<Feedback> feedback;
 
-    public Candidate(){
+    public Candidate() {
         id = UUID.randomUUID().toString();
+        status = CandidateStatus.NEW;
+    }
 
+    @Override
+    public String toString() {
+        return "Candidate{" +
+                "id='" + id + '\'' +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", cv='" + cv + '\'' +
+                ", comment='" + comment + '\'' +
+                ", status=" + status +
+                ", internship=" + internship +
+                ", candidateTechMarks=" + candidateTechMarks +
+                ", candidate=" + candidate +
+                ", feedback=" + feedback +
+                '}';
     }
 }
