@@ -19,9 +19,7 @@ import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component"
 export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
   displayedColumns: string[] = ['position', 'projectName', 'category', 'period', 'mentorsId',
-    'internshipStatus', 'candidates',
-    'actions', 'links'];
-  // 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl',
+    'internshipStatus', 'candidates', 'results', 'actions', 'links'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
   mentors: User[];
@@ -30,10 +28,12 @@ export class InternshipComponent implements AfterViewInit {
   category = Category;
   categories: { name: string; value: string }[];
   lastTouchedInternship: Internship;
+  selectedRowPosition: -1;
+  myInternships: boolean;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  selectedRowPosition: -1;
+
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -140,8 +140,26 @@ export class InternshipComponent implements AfterViewInit {
   openPresentation() {
   }
 
-  filterLoggedUserInternships() {
-    this.dataSource.filter = JSON.parse(localStorage.getItem('user')).id;
+  filterLoggedUserInternships(myInternships: boolean) {
+    if (!myInternships) {
+      this.getAllInternships();
+    } else {
+      this.dataSource.filter = JSON.parse(localStorage.getItem('user')).id;
+    }
+  }
+
+  getInternshipResults(row: Internship) {
+    this.dialog.open(AddInternshipComponent, {
+      width: '75%',
+      data: row
+    }).afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      if (result === 'update') {
+        this.getAllInternships();
+        // TODO - custom notification message
+        this._snackBar.open("Edited successfully", "OK");
+      }
+    });
   }
 }
 

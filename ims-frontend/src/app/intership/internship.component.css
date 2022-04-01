@@ -74,6 +74,16 @@ td, th {
   white-space: normal;
   word-wrap: break-word;
 }
+.mat-stroked-button mat-checkbox{
+  margin-left: 15px;
+  margin-right: 15px;
+  justify-content: space-between;
+}
+.mat-checkbox {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
 /*.mat-column-mentorsId {*/
 /*  padding: 10px 10px;*/
 /*  max-width: 150px;*/

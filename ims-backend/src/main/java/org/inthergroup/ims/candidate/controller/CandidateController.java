@@ -66,7 +66,7 @@ public class CandidateController {
     }
 
     @GetMapping("/internship/{id}")
-    public List<Candidate> getCandidatesByInternshipId(@PathVariable("id") String id) {
+    public List<CandidateDTO> getCandidatesByInternshipId(@PathVariable("id") String id) {
         return candidateService.getAllCandidatesByInternshipId(id);
     }
 
