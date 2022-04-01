@@ -15,8 +15,6 @@ export class EditTechQuestionModalComponent implements OnInit {
   techQuestionForm: FormGroup = new FormGroup({});
   techQuestion: any = [];
   list: any = [];
-  statusButton: string = "Edit";
-  statusIntent: string = "Edit technical question";
   techQuestionStatusError = false;
   validationErrors: {} | null = {};
   statusOptions: { name: string; value: number }[] = [];
@@ -37,8 +35,6 @@ export class EditTechQuestionModalComponent implements OnInit {
       name: ["", Validators.required],
     });
     if (this.data) {
-      this.statusButton = "Edit";
-      this.statusIntent = "Edit technical question list";
       this.techQuestionForm.controls["name"].setValue(this.data.name);
     }
   }
@@ -63,7 +59,6 @@ export class EditTechQuestionModalComponent implements OnInit {
           .subscribe({
             next: () => {
               this.techQuestionStatusError = false;
-              this.router.navigate(["/"]);
             },
             error: (error) => {
               console.log(error);

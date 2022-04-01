@@ -58,6 +58,7 @@ export class QuestionComponent implements OnInit {
       if (result === "save") {
         this.getQuestionList();
       }
+      this.getQuestionList();
     });
   }
 

@@ -6,13 +6,12 @@
       class="techquestion-form"
     >
       <legend>
-        <h1>{{ statusIntent }}</h1>
+        <h1>Edit technical question</h1>
       </legend>
       <br />
       <mat-form-field appearance="outline">
         <mat-label> Name</mat-label>
         <input formControlName="name" matInput type="text" />
-        <!--        <input [value]="this.editQuestion" formControlName="techQuestionList" />-->
       </mat-form-field>
       <br />
       <button
@@ -21,7 +20,7 @@
         mat-raised-button
         type="submit"
       >
-        {{ statusButton }}
+        Edit
       </button>
     </form>
   </div>

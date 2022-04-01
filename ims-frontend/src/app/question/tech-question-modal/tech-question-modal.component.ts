@@ -15,8 +15,6 @@ export class TechQuestionModalComponent implements OnInit {
   techQuestionForm: FormGroup = new FormGroup({});
   techQuestion: any = [];
   list: any = [];
-  statusButton: string = "Save";
-  statusIntent: string = "Add a new technical question";
   techQuestionStatusError = false;
   validationErrors: {} | null = {};
   statusOptions: { name: string; value: number }[] = [];
