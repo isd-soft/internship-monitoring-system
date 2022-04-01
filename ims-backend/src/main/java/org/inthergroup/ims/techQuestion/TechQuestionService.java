@@ -1,5 +1,6 @@
 package org.inthergroup.ims.techQuestion;
 
+import org.inthergroup.ims.techMark.TechMarkDTO;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 import org.inthergroup.ims.techQuestionList.TechQuestionListRepository;
 import org.springframework.http.HttpStatus;
@@ -24,6 +25,12 @@ public class TechQuestionService {
 
     public List<TechQuestionDTO> findAll() {
         return techQuestionRepository.findAll()
+                .stream()
+                .map(techQuestion -> mapToDTO(techQuestion, new TechQuestionDTO()))
+                .collect(Collectors.toList());
+    }
+    public List<TechQuestionDTO> getByQuestionListId(final String id) {
+        return techQuestionRepository.getTechQuestionsByTechQuestionListId(id)
                 .stream()
                 .map(techQuestion -> mapToDTO(techQuestion, new TechQuestionDTO()))
                 .collect(Collectors.toList());

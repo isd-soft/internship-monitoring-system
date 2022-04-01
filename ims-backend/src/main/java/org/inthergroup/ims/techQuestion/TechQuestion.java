@@ -28,7 +28,7 @@ public class TechQuestion {
     @JoinColumn(name = "tech_question_list_id", nullable = false)
     private TechQuestionList techQuestionList;
 
-    @OneToOne(mappedBy = "techQuestion", fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "techQuestion", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private TechMark techQuestion;
 
     public TechQuestion(){

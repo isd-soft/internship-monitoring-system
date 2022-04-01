@@ -1,5 +1,6 @@
 package org.inthergroup.ims.techQuestion;
 
+import org.inthergroup.ims.techMark.TechMarkDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class TechQuestionController {
         this.techQuestionService = techQuestionService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping("")
     public ResponseEntity<List<TechQuestionDTO>> getAllTechQuestions() {
         return ResponseEntity.ok(techQuestionService.findAll());
     }
@@ -29,10 +30,15 @@ public class TechQuestionController {
         return ResponseEntity.ok(techQuestionService.get(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<String> createTechQuestion(
             @RequestBody @Valid final TechQuestionDTO techQuestionDTO) {
         return new ResponseEntity<>(techQuestionService.create(techQuestionDTO), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/techQuestionList/{id}")
+    public ResponseEntity<List<TechQuestionDTO>> getTechMarkByCandidateId(@PathVariable final String id) {
+        return ResponseEntity.ok(techQuestionService.getByQuestionListId(id));
     }
 
     @PutMapping("/{id}")
@@ -41,7 +47,6 @@ public class TechQuestionController {
         techQuestionService.update(id, techQuestionDTO);
         return ResponseEntity.ok().build();
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTechQuestion(@PathVariable final String id) {
         techQuestionService.delete(id);

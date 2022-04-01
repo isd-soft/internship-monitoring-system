@@ -2,13 +2,12 @@ package org.inthergroup.ims.techQuestionList;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.techQuestion.TechQuestion;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Set;
@@ -27,8 +26,9 @@ public class TechQuestionList {
     @Column
     private String name;
 
-    @OneToMany(mappedBy = "techQuestionList")
-    private Set<TechQuestion> techQuestionListTechQuestions;
+
+    @OneToMany(mappedBy = "techQuestionList", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TechQuestion> techQuestionListTechQuestions;
 
     @OneToMany(mappedBy = "techQuesList")
     private List<Internship> internships;

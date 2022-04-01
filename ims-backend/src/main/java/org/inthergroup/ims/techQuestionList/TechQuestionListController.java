@@ -1,5 +1,6 @@
 package org.inthergroup.ims.techQuestionList;
 
+import org.inthergroup.ims.techMark.TechMarkDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +20,7 @@ public class TechQuestionListController {
         this.techQuestionListService = techQuestionListService;
     }
 
-    @GetMapping("/getall")
+    @GetMapping("")
     public ResponseEntity<List<TechQuestionListDTO>> getAllTechQuestionLists() {
         return ResponseEntity.ok(techQuestionListService.findAll());
     }
@@ -29,7 +30,7 @@ public class TechQuestionListController {
         return ResponseEntity.ok(techQuestionListService.get(id));
     }
 
-    @PostMapping("/add")
+    @PostMapping("")
     public ResponseEntity<String> createTechQuestionList(
             @RequestBody @Valid final TechQuestionListDTO techQuestionListDTO) {
         return new ResponseEntity<>(techQuestionListService.create(techQuestionListDTO), HttpStatus.CREATED);
