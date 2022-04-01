@@ -4,3 +4,18 @@
   margin-right: 5%;
   width: 90%;
 }
+
+.mat-stroked-button {
+  border: none;
+  margin-bottom: 10px;
+}
+
+/*.mat-icon {*/
+/*  margin-right: 40px;*/
+/*  margin-left: 0px;*/
+/*}*/
+
+/*.mat-header-cell {*/
+/*  text-align: justify;*/
+/*  margin-left: 20px;*/
+/*}*/
