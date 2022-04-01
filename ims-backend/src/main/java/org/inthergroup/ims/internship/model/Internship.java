@@ -38,7 +38,7 @@ public class Internship {
     @Id
     private String id;
 
-    @Column(columnDefinition = "varchar(100) default 'Upcoming Internship'",name = "project_name")
+    @Column(columnDefinition = "text default 'Upcoming Internship'",name = "project_name")
     private String projectName;
 
     @Enumerated(EnumType.STRING)
