@@ -117,12 +117,7 @@ export class AddInternshipComponent implements OnInit {
     return !this.form.internshipForm.get(field).valid && this.internshipForm.get(field).touched;
   }
 
-  displayFieldCss(field: string) {
-    return {
-      'has-error': this.isFieldValid(field),
-      'has-feedback': this.isFieldValid(field)
-    };
-  }
+
 
   createInternship() {
     if (!this.editData) {
@@ -131,7 +126,7 @@ export class AddInternshipComponent implements OnInit {
           next: (res) => {
             console.log(res);
             // TODO - custom notification message
-            this._snackBar.open("Edited successfully", "OK");
+            this._snackBar.open("Internship was created successfully", "OK");
             this.internshipForm.reset();
             this.dialogRef.close('save');
           },
