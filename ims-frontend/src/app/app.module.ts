@@ -43,6 +43,9 @@ import { MatMenuModule } from "@angular/material/menu";
 import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { QuestionComponent } from './question/question.component';
 import {AuthGuard} from "./shared/common/auth.guard";
+import { QuestionListModalComponent } from './question/question-list-modal/question-list-modal.component';
+import { TechQuestionModalComponent } from './question/tech-question-modal/tech-question-modal.component';
+import { EditTechQuestionModalComponent } from './question/edit-tech-question-modal/edit-tech-question-modal.component';
 
 
 @NgModule({
@@ -66,6 +69,9 @@ import {AuthGuard} from "./shared/common/auth.guard";
     MarksModalComponent,
     CandidatesListComponent,
     QuestionComponent,
+    QuestionListModalComponent,
+    TechQuestionModalComponent,
+    EditTechQuestionModalComponent,
   ],
   imports: [
     BrowserModule,
