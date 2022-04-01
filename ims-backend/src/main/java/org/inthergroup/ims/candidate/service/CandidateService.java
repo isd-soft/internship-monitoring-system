@@ -22,5 +22,7 @@ public interface CandidateService {
     public void update(final String id, final CandidateDTO candidateDTO);
 
     public void delete(final String id);
+
+    public Candidate mapToEntity(final CandidateDTO candidateDTO, final Candidate candidate);
 }
 

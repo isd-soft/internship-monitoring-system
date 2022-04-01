@@ -1,20 +1,18 @@
-import { RouterModule } from "@angular/router";
+import { RouterModule, Routes } from "@angular/router";
 import { NgModule } from "@angular/core";
 import { LoginComponent } from "./account/login/login.component";
-import { RegisterComponent } from "./account/register/register.component";
 import { InternshipComponent } from "./intership/internship.component";
 import { AddCandidateComponent } from "./pages/add-candidate/add-candidate.component";
 import { TechquestionlistComponent } from "./techquestionlist/techquestionlist.component";
-import { Routes, CanActivate } from "@angular/router";
 import { AuthGuard } from "./shared/common/auth.guard";
 import { TechquestionComponent } from "./techquestion/techquestion.component";
 import { TechMarkComponent } from "./tech-mark/tech-mark.component";
 import { CandidateEvaluationComponent } from "./candidate-evaluation/candidate-evaluation.component";
 import { FeedbackComponent } from "./pages/feedback/feedback.component";
-import {CandidatesListComponent} from "./pages/candidates-list/candidates-list.component";
+import { CandidatesListComponent } from "./pages/candidates-list/candidates-list.component";
 import { CandidatesTableComponent } from "./candidates-table/candidates-table.component";
 import { QuestionComponent } from "./question/question.component";
-import {AddInternshipComponent} from "./intership/add-internship/add-internship.component";
+import { AddInternshipComponent } from "./intership/add-internship/add-internship.component";
 
 const routes: Routes = [
   {
@@ -26,29 +24,29 @@ const routes: Routes = [
   },
   //{ path: "register", component: RegisterComponent },
   {
-    path: "candidate-add",
+    path: "add",
     component: AddCandidateComponent,
     data: { intent: "add" },
     canActivate: [AuthGuard],
   },
   {
-    path: "candidate-update",
+    path: "update",
     component: AddCandidateComponent,
     data: { intent: "update" },
     canActivate: [AuthGuard],
   },
   {
-    path: "candidate-by-internship/:id",
+    path: "internship/:id/candidates",
     component: CandidatesListComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: "all-candidates",
+    path: "candidates",
     component: CandidatesListComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: "feedback-create",
+    path: "create",
     component: FeedbackComponent,
     data: { intent: "add" },
     canActivate: [AuthGuard],
@@ -60,7 +58,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: "add-internship",
+    path: "add",
     component: AddInternshipComponent,
     canActivate: [AuthGuard],
   },

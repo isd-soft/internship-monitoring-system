@@ -14,7 +14,6 @@ import { TechQuestionListService } from "../shared/service/tech-question-list.se
 })
 export class TechquestionComponent implements OnInit {
   techQuestionForm: FormGroup = new FormGroup({});
-  techQuestionListForm: FormGroup = new FormGroup({});
   techQuestion: TechQuestion[];
   techQuestionList: TechQuestionList[];
   techQuestionStatusError = false;

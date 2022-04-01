@@ -1,4 +1,4 @@
-import {Component, AfterViewInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
 import {Category, Internship, Status} from "../shared/model/internship";
 import {MatTableDataSource} from "@angular/material/table";
@@ -9,6 +9,7 @@ import {AddInternshipComponent} from "./add-internship/add-internship.component"
 import {User} from "../shared/model/user";
 import {AccountService} from "../shared/service/account.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: 'app-internship',
@@ -17,8 +18,10 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class InternshipComponent implements AfterViewInit {
   internships: Internship[];
-  displayedColumns: string[] = ['position', 'projectName', 'category', 'periodFrom', 'periodTo', 'mentorsId',
-    'internshipStatus', 'candidates', 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl', 'actions'];
+  displayedColumns: string[] = ['position', 'projectName', 'category', 'period', 'mentorsId',
+    'internshipStatus', 'candidates',
+    'actions', 'links'];
+  // 'gitHubUrl', 'trelloBoardUrl', 'deployedAppUrl', 'presentationUrl',
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
   mentors: User[];
@@ -26,22 +29,24 @@ export class InternshipComponent implements AfterViewInit {
   statuses: { name: string; value: string }[];
   category = Category;
   categories: { name: string; value: string }[];
+  lastTouchedInternship: Internship;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  selectedRowPosition: -1;
 
   constructor(
     private _snackBar: MatSnackBar,
     private internshipService: InternshipService,
-              private userService: AccountService,
-              private dialog: MatDialog) {
+    private userService: AccountService,
+    private dialog: MatDialog) {
   }
 
   ngAfterViewInit(): void {
     this.getAllInternships();
     this.categories = Object.entries(this.category).map(([key, value]) => ({name: key, value: value}));
     this.statuses = Object.entries(this.status).map(([key, value]) => ({name: key, value: value}));
-
+    this.getMentors();
   }
 
   applyFilter(event: Event) {
@@ -65,7 +70,12 @@ export class InternshipComponent implements AfterViewInit {
     });
   }
 
-  public getMentorsByInternship() {
+  public getMentorById(id: string) {
+    return this.mentors.find(
+      (mentor: any) => mentor.id === id);
+  }
+
+  public getMentors() {
     this.userService
       .getAll()
       .subscribe((res: User[]) => {
@@ -73,7 +83,15 @@ export class InternshipComponent implements AfterViewInit {
       });
   }
 
-  openDialog() {
+  public getStatusObject(enumType: any) {
+    return this.statuses.find((status) => status.name === enumType);
+  }
+
+  public getCategoryObject(enumType: any) {
+    return this.categories.find((category) => category.name === enumType);
+  }
+
+  addInternship() {
     const dialogRef = this.dialog.open(AddInternshipComponent, {
       width: '75%'
     });
@@ -103,19 +121,27 @@ export class InternshipComponent implements AfterViewInit {
 
   deleteInternship(id: string) {
     console.log(id);
-    this.internshipService.deleteInternship(id).subscribe({
-      next: (res) => {
-        // TODO - custom notification message
-        this._snackBar.open("Deleted successfully", "OK");
-        this.getAllInternships();
-      },
-      error: () => {
-        alert("Error while deleting internship");
+    this.dialog.open(ConfirmDialogComponent).afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.internshipService.deleteInternship(id).subscribe({
+          next: (res) => {
+            // TODO - custom notification message
+            this._snackBar.open("Deleted successfully", "OK");
+            this.getAllInternships();
+          },
+          error: () => {
+            alert("Error while deleting internship");
+          }
+        });
       }
     });
   }
 
   openPresentation() {
+  }
+
+  filterLoggedUserInternships() {
+    this.dataSource.filter = JSON.parse(localStorage.getItem('user')).id;
   }
 }
 

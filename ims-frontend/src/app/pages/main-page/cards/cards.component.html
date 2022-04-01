@@ -3,7 +3,7 @@
     <div [routerLink]="['login']">
       <h3 class="title">{{ card.name }}</h3>
       <div class="requirements">
-        <p *ngFor="let req of card.requirements">{{ req }}</p>
+        <p *ngFor="let req of dataSource">{{ req.name }}</p>
       </div>
       <!--      <div class="bar">-->
       <!--        <div class="emptybar"></div>-->

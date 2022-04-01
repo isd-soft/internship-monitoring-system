@@ -48,6 +48,8 @@ import { QuestionComponent } from "./question/question.component";
 import { QuestionListModalComponent } from "./question/question-list-modal/question-list-modal.component";
 import { TechQuestionModalComponent } from "./question/tech-question-modal/tech-question-modal.component";
 import { EditTechQuestionModalComponent } from "./question/edit-tech-question-modal/edit-tech-question-modal.component";
+import { ConfirmDialogComponent } from './intership/confirm-dialog/confirm-dialog.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 @NgModule({
   declarations: [
@@ -73,34 +75,37 @@ import { EditTechQuestionModalComponent } from "./question/edit-tech-question-mo
     QuestionListModalComponent,
     TechQuestionModalComponent,
     EditTechQuestionModalComponent,
+    CandidatesListComponent,
+    ConfirmDialogComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    RouterModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatToolbarModule,
-    MainPageModule,
-    FormsModule,
-    MatSelectModule,
-    CommonModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatIconModule,
-    MatDialogModule,
-    MatGridListModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatDividerModule,
-    MatMenuModule,
-    MatSnackBarModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        BrowserAnimationsModule,
+        RouterModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatToolbarModule,
+        MainPageModule,
+        FormsModule,
+        MatSelectModule,
+        CommonModule,
+        MatTableModule,
+        MatPaginatorModule,
+        MatSortModule,
+        MatIconModule,
+        MatDialogModule,
+        MatGridListModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatDividerModule,
+        MatMenuModule,
+        MatSnackBarModule,
+        MatCheckboxModule
+    ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1500 } },
   ],
