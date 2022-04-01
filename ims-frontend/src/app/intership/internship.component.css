@@ -1,20 +1,7 @@
-form {
-  padding-top: 1rem;
-}
-
 label {
   display: block;
   margin: .5em 0;
   font-weight: bold;
-}
-
-.internship-form {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  min-width: 1000px;
-  max-width: 2000px;
 }
 
 .table {
@@ -23,18 +10,23 @@ label {
 
 .container {
   max-width: 1400px;
-  margin: 0 auto;
+  margin:0 auto;
 }
-
 
 td, th {
   width: 20%;
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
   /*overflow: hidden;*/
   /*text-overflow: ellipsis;*/
 }
 
-.w-1 {
+.w-5 {
   width: 5%;
+}
+.w-50 {
+  width: 50%;
 }
 
 .w-action {
@@ -43,5 +35,49 @@ td, th {
 
 .mat-form-field {
   font-size: 14px;
-  width: 100%;
+  width: 50%;
 }
+
+.table-responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.mat-table {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  display: table;
+  border-collapse: collapse;
+}
+
+.mat-row,
+.mat-header-row {
+  display: table-row;
+}
+
+.mat-cell,
+.mat-header-cell {
+  word-wrap: initial;
+  display: table-cell;
+  padding: 10px 10px;
+  line-break: unset;
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  vertical-align: middle;
+}
+.mat-column-projectName {
+  padding: 10px 10px;
+  max-width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
+}
+/*.mat-column-mentorsId {*/
+/*  padding: 10px 10px;*/
+/*  max-width: 150px;*/
+/*  overflow-wrap: break-word;*/
+/*  word-wrap: break-word;*/
+/*}*/
+

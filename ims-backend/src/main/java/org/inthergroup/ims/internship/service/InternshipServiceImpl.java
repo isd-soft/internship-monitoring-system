@@ -64,8 +64,8 @@ public class InternshipServiceImpl implements InternshipService {
 
     @Override
     public Internship mapToInternshipEntity(InternshipDTO internshipDTO) {
-        final Internship internship = internshipRepository.findById(internshipDTO.getId())
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "internship not found"));
+
+        final Internship internship = getInternshipByIdOrCreate(internshipDTO.getId());
         internship.setProjectName(internshipDTO.getProjectName());
         internship.setCategory(internshipDTO.getCategory());
         internship.setMentors(getUserListByIds(internshipDTO.getMentorsId()));
@@ -87,6 +87,14 @@ public class InternshipServiceImpl implements InternshipService {
         //TODO- review after intergration with candidates list selected by internshipId
 //        internship.setCandidates(getCandidateListByIds(internshipDTO.getCandidatesId()));
         return internship;
+    }
+
+    private Internship getInternshipByIdOrCreate(String id) {
+        if (Objects.isNull(id)) {
+            return new Internship();
+        }
+        return internshipRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "internship not found"));
     }
 
     @Override

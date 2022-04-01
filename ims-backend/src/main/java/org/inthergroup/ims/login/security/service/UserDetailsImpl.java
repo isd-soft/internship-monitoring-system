@@ -34,7 +34,7 @@ public class UserDetailsImpl implements UserDetails {
 
     public UserDetailsImpl(String id, String username,String name,String surname, String email,JPosition jPosition ,String password,
                            Collection<? extends GrantedAuthority> authorities) {
-        this.id = UUID.randomUUID().toString();
+        this.id = id;
         this.username = username;
         this.name = name;
         this.surname = surname;

@@ -5,7 +5,7 @@ export class Internship {
   id: string;
   projectName: string;
   category: string;
-  mentors: string []; // mentors id
+  mentorsId: string []; // mentors id
   periodFrom: Date;
   periodTo: Date;
   internshipStatus: Status;

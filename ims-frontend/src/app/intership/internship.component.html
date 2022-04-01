@@ -3,90 +3,111 @@
 <br>
 <div class="container">
   <div class="border">
-    <button mat-stroked-button (click)="openDialog()">
-      <mat-icon>add</mat-icon>
-      New Internship
-    </button>
+      <button mat-stroked-button (click)="addInternship()">
+        <mat-icon>add</mat-icon>
+        New Internship
+      </button>
+    <mat-checkbox (change)="filterLoggedUserInternships()">Checked</mat-checkbox>
+      <button mat-stroked-button (click)="filterLoggedUserInternships()">
+        My Internships
+      </button>
+      <mat-form-field appearance="outline">
+        <mat-label> Search</mat-label>
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
+      </mat-form-field>
   </div>
-  <mat-form-field appearance="outline">
-    <mat-label> Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
-  </mat-form-field>
-  <div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
+
+  <div class="table-responsive">
+    <table mat-table [dataSource]="dataSource" matSort matSortActive="periodFrom" matSortDirection="desc">
 
       <!-- No Column -->
       <ng-container matColumnDef="position">
-        <th class="w-1" mat-header-cell *matHeaderCellDef mat-sort-header="position"> No</th>
-        <td class="w-1"  mat-cell *matCellDef="let row; let i = index"> {{i+1}}</td>
+        <th class="w-5" mat-header-cell *matHeaderCellDef mat-sort-header="position"> No</th>
+        <td class="w-5" mat-cell *matCellDef="let row; let i = index"> {{i + 1}}</td>
       </ng-container>
 
       <!-- Project Name Column -->
       <ng-container matColumnDef="projectName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header="projectName"> Project Name</th>
-        <td mat-cell *matCellDef="let row"> {{row.projectName}}</td>
+        <th class="w-50" mat-header-cell *matHeaderCellDef mat-sort-header="projectName"> Project Name</th>
+        <td class="w-50" mat-cell *matCellDef="let row"> {{row.projectName}}</td>
       </ng-container>
 
       <!-- Category Column -->
       <ng-container matColumnDef="category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Category</th>
-        <td mat-cell *matCellDef="let row"> {{row.category}} </td>
+        <td mat-cell *matCellDef="let row"> {{getCategoryObject(row.category).value}} </td>
       </ng-container>
 
       <!-- Mentors Column -->
       <ng-container matColumnDef="mentorsId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Mentors</th>
-        <td mat-cell *matCellDef="let row"> {{row.mentorsId}} </td>
+        <td mat-cell *matCellDef="let row">
+          <ng-container *ngIf="row.length != 0">
+            <ng-container *ngFor="let mentorId of row.mentorsId; last as isLast">
+              {{getMentorById(mentorId).name + " " + getMentorById(mentorId).surname}}
+            <ng-container *ngIf="!isLast">,</ng-container>
+              <br>
+            </ng-container>
+          </ng-container>
+        </td>
       </ng-container>
 
       <!-- Period from Column -->
-      <ng-container matColumnDef="periodFrom">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period from</th>
-        <td mat-cell *matCellDef="let row"> {{row.periodFrom | date}} </td>
-      </ng-container>
-
-      <!-- Period to Column -->
-      <ng-container matColumnDef="periodTo">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period to</th>
-        <td mat-cell *matCellDef="let row"> {{row.periodTo | date}} </td>
+      <ng-container matColumnDef="period">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Period</th>
+        <td mat-cell *matCellDef="let row"><span>{{row.periodFrom | date}} - </span>
+          <br>
+          <span>{{row.periodTo | date}}</span></td>
       </ng-container>
 
       <!-- Status Column-->
       <ng-container matColumnDef="internshipStatus">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Status</th>
-        <td mat-cell *matCellDef="let row"> {{row.internshipStatus}} </td>
+        <td mat-cell *matCellDef="let row"> {{getStatusObject(row.internshipStatus).value}} </td>
       </ng-container>
 
       <!-- Cantidate Column-->
       <ng-container matColumnDef="candidates">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Candidates </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Candidates</th>
         <td mat-cell *matCellDef="let row">
           <!--      TODO - to change endpoint to candidates selected by internship id -->
           <a mat-stroked-button [routerLink]="['/candidates/internship/{id}']" target="_blank">Candidates</a>
         </td>
       </ng-container>
+      <!--TODO - REMOVE if menu with usefull links is aproved-->
+      <!--      &lt;!&ndash; Link to GitHub repository Column &ndash;&gt;-->
+      <!--      <ng-container matColumnDef="gitHubUrl">-->
+      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>GitHub</th>-->
+      <!--        <td mat-cell *matCellDef="let row ">-->
+      <!--          <ng-container *ngIf="row.gitHubUrl">-->
+      <!--            <a href="{{row.gitHubUrl}}" target="_blank">GitHub</a>-->
+      <!--          </ng-container>-->
+      <!--        </td>-->
+      <!--      </ng-container>-->
 
-      <!-- Link to GitHub repository Column -->
-      <ng-container matColumnDef="gitHubUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to GitHub repository</th>
-        <td mat-cell *matCellDef="let row "><a href="{{row.gitHubUrl}}">GitHub</a></td>
-      </ng-container>
+      <!--      &lt;!&ndash; Link to Trello board Column &ndash;&gt;-->
+      <!--      <ng-container matColumnDef="trelloBoardUrl">-->
+      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Trello board</th>-->
+      <!--        <td mat-cell *matCellDef="let row">-->
+      <!--          <ng-container *ngIf="row.trelloBoardUrl">-->
+      <!--            <a href="{{row.trelloBoardUrl}}" target="_blank">Trello</a>-->
+      <!--          </ng-container>-->
+      <!--        </td>-->
+      <!--      </ng-container>-->
 
-      <!-- Link to Trello board Column -->
-      <ng-container matColumnDef="trelloBoardUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Link to Trello board</th>
-        <td mat-cell *matCellDef="let row"><a href="{{row.trelloBoardUrl}}">Trello</a></td>
-      </ng-container>
-
-      <!-- Link to the deployed app Column -->
-      <ng-container matColumnDef="deployedAppUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Link to the deployed app</th>
-        <td mat-cell *matCellDef="let row"><a href="{{row.deployedAppUrl}}">Deployed App</a></td>
-      </ng-container>
+      <!--      &lt;!&ndash; Link to the deployed app Column &ndash;&gt;-->
+      <!--      <ng-container matColumnDef="deployedAppUrl">-->
+      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Deployed app</th>-->
+      <!--        <td mat-cell *matCellDef="let row">-->
+      <!--          <ng-container *ngIf="row.deployedAppUrl">-->
+      <!--            <a href="{{row.deployedAppUrl}}" target="_blank">Deployed App</a>-->
+      <!--          </ng-container>-->
+      <!--        </td>-->
+      <!--      </ng-container>-->
 
       <!-- PowerPoint presentation Column -->
       <ng-container matColumnDef="presentationUrl">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> PowerPoint presentation</th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Presentation</th>
         <td mat-cell *matCellDef="let row">
           <button mat-raised-button (click)="openPresentation()">Open</button>
         </td>
@@ -97,9 +118,20 @@
         <th class="w-action" mat-header-cell *matHeaderCellDef> Actions</th>
         <td class="w-action" mat-cell *matCellDef="let row">
           <button mat-icon-button color="accent" (click)="editInternship(row)" title="Edit Internship">
-            <mat-icon>edit</mat-icon></button>
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-icon-button color="warn" (click)="deleteInternship(row.id)" title="Delete Internship">
-            <mat-icon>delete</mat-icon></button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="links">
+        <th class="w-action" mat-header-cell *matHeaderCellDef> Links</th>
+        <td class="w-action" mat-cell *matCellDef="let row">
+          <button mat-icon-button [matMenuTriggerFor]="menu"
+                  [matMenuTriggerData]="{element: row}">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </td>
       </ng-container>
 
@@ -120,5 +152,17 @@
 </div>
 
 
-
+<mat-menu #menu="matMenu">
+  <ng-template matMenuContent let-aliasMenuItems="element">
+    <div *ngIf="aliasMenuItems.gitHubUrl" mat-menu-item>
+      <a href="{{aliasMenuItems.gitHubUrl}}" target="_blank">GitHub</a>
+    </div>
+    <div *ngIf="aliasMenuItems.trelloBoardUrl" mat-menu-item>
+      <a href="{{aliasMenuItems.trelloBoardUrl}}" target="_blank">Trello</a>
+    </div>
+    <div *ngIf="aliasMenuItems.deployedAppUrl" mat-menu-item>
+      <a href="{{aliasMenuItems.deployedAppUrl}}" target="_blank">Deployed App</a>
+    </div>
+  </ng-template>
+</mat-menu>
 
