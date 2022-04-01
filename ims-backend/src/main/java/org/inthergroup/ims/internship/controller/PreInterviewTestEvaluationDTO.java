@@ -7,9 +7,6 @@ import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.model.PreInterviewTest;
 
-import javax.persistence.*;
-
-
 @Getter
 @Setter
 @EqualsAndHashCode

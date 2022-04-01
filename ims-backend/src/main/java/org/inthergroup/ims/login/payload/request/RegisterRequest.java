@@ -2,9 +2,12 @@ package org.inthergroup.ims.login.payload.request;
 
 import java.util.Set;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 public class RegisterRequest {
+
     @NotBlank
     @Size(min = 3, max = 20)
     private String username;

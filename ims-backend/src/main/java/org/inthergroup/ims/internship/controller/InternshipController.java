@@ -43,7 +43,6 @@ public class InternshipController {
         return internshipService.getAllCandidatesByInternshipId(internshipId);
     }
 
-
     @PostMapping
     public ResponseEntity<Void> createInternship(@RequestBody @Valid final InternshipDTO internship) {
         internshipService.createInternship(internship);

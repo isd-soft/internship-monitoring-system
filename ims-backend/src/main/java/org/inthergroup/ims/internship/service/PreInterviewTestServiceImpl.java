@@ -24,7 +24,6 @@ public class PreInterviewTestServiceImpl implements PreInterviewTestEvaluationSe
     @Override
     public void save(PreInterviewTestEvaluationDTO preInterviewTest) {
         preInterviewRepository.save(toPreInterviewTestEntity(preInterviewTest));
-
     }
 
     @Override
@@ -36,5 +35,4 @@ public class PreInterviewTestServiceImpl implements PreInterviewTestEvaluationSe
         preInterviewTestEvaluation.setMark(preInterviewTestDTO.getMark());
         return null;
     }
-
 }

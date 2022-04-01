@@ -9,7 +9,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class TechQuestionService {
 
@@ -24,6 +23,12 @@ public class TechQuestionService {
 
     public List<TechQuestionDTO> findAll() {
         return techQuestionRepository.findAll()
+                .stream()
+                .map(techQuestion -> mapToDTO(techQuestion, new TechQuestionDTO()))
+                .collect(Collectors.toList());
+    }
+    public List<TechQuestionDTO> getByQuestionListId(final String id) {
+        return techQuestionRepository.getTechQuestionsByTechQuestionListId(id)
                 .stream()
                 .map(techQuestion -> mapToDTO(techQuestion, new TechQuestionDTO()))
                 .collect(Collectors.toList());
@@ -70,5 +75,4 @@ public class TechQuestionService {
         }
         return techQuestion;
     }
-
 }

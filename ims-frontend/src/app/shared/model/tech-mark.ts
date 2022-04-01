@@ -1,4 +1,4 @@
-export class TechMark {
+export interface TechMark {
   id: string;
   mark: number;
   techQuestion: string;

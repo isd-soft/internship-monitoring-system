@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
 @RestController
 @RequestMapping(value = "/api/candidateEvaluations", produces = MediaType.APPLICATION_JSON_VALUE)
 public class CandidateEvaluationController {
@@ -56,12 +55,9 @@ public class CandidateEvaluationController {
         return ResponseEntity.ok().build();
     }
 
-
-
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCandidateEvaluation(@PathVariable final String id) {
         candidateEvaluationService.delete(id);
         return ResponseEntity.noContent().build();
     }
-
 }

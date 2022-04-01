@@ -1,6 +1,12 @@
 package org.inthergroup.ims.techMark;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
@@ -9,9 +15,7 @@ import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.techQuestion.TechQuestion;
 
-
 import java.util.UUID;
-
 
 @Entity
 @Getter
@@ -36,5 +40,4 @@ public class TechMark {
     public TechMark(){
         id = UUID.randomUUID().toString();
     }
-
 }

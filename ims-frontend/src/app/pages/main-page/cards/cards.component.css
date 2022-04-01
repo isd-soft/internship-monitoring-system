@@ -71,6 +71,7 @@
 }
 
 .emptybar {
+  position: inherit;
   background-color: #2e3033;
   width: 100%;
   height: 100%;

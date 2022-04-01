@@ -4,7 +4,6 @@ import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-
 @Getter
 @Setter
 public class CandidateEvaluationDTO {
@@ -22,5 +21,4 @@ public class CandidateEvaluationDTO {
 
     @NotNull
     private String candidate;
-
 }
