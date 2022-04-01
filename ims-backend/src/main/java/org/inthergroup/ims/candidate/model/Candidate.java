@@ -1,5 +1,6 @@
 package org.inthergroup.ims.candidate.model;
 
+import java.util.List;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
@@ -58,9 +59,8 @@ public class Candidate {
     @JsonIgnore
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
-    @OneToOne(mappedBy = "candidate",fetch = FetchType.LAZY)
-    @JoinColumn(name = "feedback_id")
-    private Feedback feedback;
+    @OneToMany(mappedBy = "candidate",fetch = FetchType.LAZY)
+    private Set<Feedback> feedback;
 
     public Candidate(){
         id = UUID.randomUUID().toString();

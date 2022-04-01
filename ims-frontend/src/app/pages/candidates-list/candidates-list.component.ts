@@ -5,8 +5,11 @@ import {Candidate, Status} from "../../shared/model/candidate";
 import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {take} from "rxjs";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AddCandidateComponent} from "../add-candidate/add-candidate.component";
+import {FeedbackComponent} from "../feedback/feedback.component";
+import { MarksModalComponent } from 'src/app/candidates-table/marks-modal/marks-modal.component';
+import { CandidateEvaluationService } from 'src/app/shared/service/candidate-evaluation.service';
 
 @Component({
   selector: 'app-candidates-list',
@@ -15,13 +18,15 @@ import {AddCandidateComponent} from "../add-candidate/add-candidate.component";
 })
 export class CandidatesListComponent implements OnInit {
   dataSource: DataSource<Candidate>
-  displayedColumns: string[] = ['id', 'name', 'surname', 'email','cv', 'comment',
-    'status', 'mark', 'actions'];
+  displayedColumns: string[] = ['name', 'surname', 'email','cv', 'comment',
+    'status', 'feedback', 'actions'];
   displayMode: "all"|"byInternship";
-  lastTouchedCandidate: Candidate;
   internshipId: string;
 
-  constructor(private candidateService: CandidateService, private activatedRoute: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
+  constructor(private candidateService: CandidateService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router, private dialog: MatDialog,
+              private CandidateEvaluationSv: CandidateEvaluationService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
@@ -32,41 +37,55 @@ export class CandidatesListComponent implements OnInit {
         return;
       }
       this.displayMode = 'all'
-      this.displayedColumns.splice(this.displayedColumns.length -2, 0,'internship');
       this.candidateService.getAllCandidates().subscribe(candidates => { this.dataSource = new MatTableDataSource(candidates)})
     })
 
   }
 
-  selectCandidate(elem: Candidate){
-    this.lastTouchedCandidate = elem;
-  }
-
-  updateCandidateModal() {
-    this.lastTouchedCandidate.internship = this.internshipId;
-    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'update', candidate: this.lastTouchedCandidate}});
+  updateCandidateModal(candidate: Candidate) {
+    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'update', candidate: candidate, internship: this.internshipId}});
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
+  }
+  openMarksDialog(id: string) {
+    const dialogConfig = new MatDialogConfig();
+
+    this.CandidateEvaluationSv.getCandidateEvaluationById(id).subscribe(
+      (res) => {
+        //console.log(res);
+        dialogConfig.data = res;
+        this.dialog.open(MarksModalComponent, dialogConfig);
+      },
+      (err) => {}
+    );
   }
 
   addCandidateModal() {
-    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'add'}});
+    const dialogRef = this.dialog.open(AddCandidateComponent, {data: {intent: 'add', internship: this.internshipId}});
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
   }
 
-  showFeedbackModal() {
+  showFeedbackModal(candidate: Candidate) {
   // this.router.navigate(['/candidate-update'])
+    const dialogRef = this.dialog.open(FeedbackComponent, {data: {candidateId: candidate.id}});
+    dialogRef.afterClosed().subscribe(result => {
+      this.updateTableData();
+    });
     this.updateTableData();
   }
 
-  deleteCandidateModal() {
+  deleteCandidateModal(candidate: Candidate) {
   // this.router.navigate(['/candidate-update'])
-    this.candidateService.deleteCandidateFromIntership(this.lastTouchedCandidate.id.toString()).subscribe(() => {
+    this.candidateService.deleteCandidateFromIntership(candidate.id.toString()).subscribe(() => {
       this.updateTableData();
     })
+  }
+
+  downloadCV(cv: string){
+    this.candidateService.downloadCandidatesCV(cv);
   }
 
   private updateTableData() {

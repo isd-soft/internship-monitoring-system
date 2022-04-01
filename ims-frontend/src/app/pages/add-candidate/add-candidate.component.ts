@@ -26,7 +26,7 @@ export class AddCandidateComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private candidateService: CandidateService,
-    @Inject(MAT_DIALOG_DATA) public data: { intent:"add" | "update", candidate?: Candidate },
+    @Inject(MAT_DIALOG_DATA) public data: { intent:"add" | "update", candidate?: Candidate, internship: string },
     private dialogRef: MatDialogRef<AddCandidateComponent>
   ) {}
 
@@ -47,9 +47,9 @@ export class AddCandidateComponent implements OnInit {
       comment: ["", [Validators.required]],
       status: ["", [Validators.required]],
       cv: ["", [Validators.required]],
-      mark: ["", [Validators.required]],
       internship: ["", [Validators.required]],
     });
+    this.candidateForm.controls['internship'].patchValue(this.data.internship);
     if (this.data.intent === "update") {
       this.candidateForm.controls["id"].setValidators([Validators.required]);
     }
@@ -70,8 +70,10 @@ export class AddCandidateComponent implements OnInit {
       return;
     }
     if (this.data.intent === "update") {
+      const objToSend = this.candidateForm.value;
+      objToSend.internship = this.data.internship;
       this.candidateService
-        .updateCandidateInIntership(this.candidateForm.value)
+        .updateCandidateInIntership(objToSend)
         .subscribe(() => {this.dialogRef.close('updated candidate!')})
         // .subscribe({
         //   next: () => {
@@ -93,6 +95,7 @@ export class AddCandidateComponent implements OnInit {
     if (this.data.intent === "add") {
       const objToSend = this.candidateForm.value;
       delete objToSend.id;
+      objToSend.internship = this.data.internship;
 
       this.candidateService
         .createCandidate(this.candidateForm.value)
@@ -130,6 +133,10 @@ export class AddCandidateComponent implements OnInit {
         this.candidateForm.controls["cv"].patchValue(val.data);
       });
     }
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 
   ngOnDestroy(): void {

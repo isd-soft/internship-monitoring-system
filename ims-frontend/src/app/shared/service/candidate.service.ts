@@ -24,6 +24,11 @@ export class CandidateService {
     });
   }
 
+  downloadCandidatesCV(fileName: string): void{
+    // return this.http.get<any>(`${environment.apiUrl}fileUpload/files/${fileName}`);
+    window.open(`${environment.apiUrl}fileUpload/files/${fileName}`, '_blank');
+  }
+
   deleteCandidateFromIntership(candidateId: string): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}candidates/${candidateId}`);
   }

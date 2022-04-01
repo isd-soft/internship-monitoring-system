@@ -7,7 +7,6 @@ export class Candidate {
   comment: string;
   status: Status;
   mark: number;
-  internship?: string
 }
 
 export enum Status {

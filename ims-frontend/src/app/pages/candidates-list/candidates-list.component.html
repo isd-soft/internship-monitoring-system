@@ -1,5 +1,5 @@
 <div class="table-holder">
-  <button (click)="addCandidateModal()" mat-raised-button >Add candidate</button>
+  <button *ngIf="this.displayMode === 'byInternship'" (click)="addCandidateModal()" mat-raised-button >Add candidate</button>
   <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
     <!--- Note that these columns can be defined in any order.
@@ -31,12 +31,22 @@
     <!-- Symbol Column -->
     <ng-container matColumnDef="cv">
       <th mat-header-cell *matHeaderCellDef> CV </th>
-      <td mat-cell *matCellDef="let element"> {{element.cv}} </td>
+      <td mat-cell *matCellDef="let element"> <button (click)="downloadCV(element.cv)" mat-button>
+        <mat-icon>cloud_download</mat-icon>
+      </button> </td>
+
     </ng-container>
 
     <ng-container matColumnDef="comment">
       <th mat-header-cell *matHeaderCellDef> Comment </th>
       <td mat-cell *matCellDef="let element"> {{element.comment}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="feedback" stickyEnd>
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let element">
+        <button (click)="showFeedbackModal(element)" mat-button> Feedback</button>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="status">
@@ -54,10 +64,15 @@
       <td mat-cell *matCellDef="let element"> {{element.mark}} </td>
     </ng-container>
 
-    <ng-container matColumnDef="actions" stickyEnd>
-      <th mat-header-cell *matHeaderCellDef></th>
-      <td mat-cell *matCellDef="let element">
-        <button (click)="selectCandidate(element)" mat-button [matMenuTriggerFor]="menu"> <mat-icon>more_vert</mat-icon></button>0
+    <ng-container matColumnDef="actions">
+      <th class="w-action" mat-header-cell *matHeaderCellDef> Actions</th>
+      <td class="w-action" mat-cell *matCellDef="let element">
+        <button mat-icon-button color="accent" (click)="updateCandidateModal(element)" title="Edit Internship">
+          <mat-icon>edit</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="deleteCandidateModal(element)" title="Delete Internship">
+          <mat-icon>delete</mat-icon></button>
+        <button mat-icon-button color="warn" (click)="openMarksDialog(element.id)" title="Delete Internship">
+          <mat-icon>school</mat-icon></button>
       </td>
     </ng-container>
 
@@ -65,10 +80,3 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
 </div>
-
-
-<mat-menu #menu="matMenu">
-  <button (click)="updateCandidateModal()" mat-menu-item>Update</button>
-  <button (click)="showFeedbackModal()" mat-menu-item>FeedBack</button>
-  <button (click)="deleteCandidateModal()"mat-menu-item>Delete</button>
-</mat-menu>
