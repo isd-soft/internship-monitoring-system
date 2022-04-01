@@ -1,6 +1,5 @@
 package org.inthergroup.ims.techQuestion;
 
-import org.inthergroup.ims.techMark.TechMarkDTO;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 import org.inthergroup.ims.techQuestionList.TechQuestionListRepository;
 import org.springframework.http.HttpStatus;
@@ -9,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 
 @Service
 public class TechQuestionService {
@@ -77,5 +75,4 @@ public class TechQuestionService {
         }
         return techQuestion;
     }
-
 }

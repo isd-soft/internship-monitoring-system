@@ -1,6 +1,5 @@
 package org.inthergroup.ims.feedback;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,7 +7,12 @@ import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.login.model.User;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.UUID;
 
 @Entity
@@ -32,9 +36,7 @@ public class Feedback {
     @JoinColumn(name = "user_id")
     private User user;
 
-
     public Feedback() {
         id = UUID.randomUUID().toString();
-
     }
 }

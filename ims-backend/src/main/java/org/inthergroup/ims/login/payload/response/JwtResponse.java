@@ -3,6 +3,7 @@ package org.inthergroup.ims.login.payload.response;
 import java.util.List;
 
 public class JwtResponse {
+
     private String token;
     private String type = "Bearer";
     private String id;
@@ -11,6 +12,7 @@ public class JwtResponse {
     private List<String> roles;
 
     public JwtResponse(String accessToken, String id, String username, String email, List<String> roles) {
+
         this.token = accessToken;
         this.id = id;
         this.username = username;

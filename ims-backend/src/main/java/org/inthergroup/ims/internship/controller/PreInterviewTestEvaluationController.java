@@ -1,10 +1,12 @@
 package org.inthergroup.ims.internship.controller;
 
-import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.model.PreInterviewTestEvaluation;
-import org.inthergroup.ims.internship.service.InternshipService;
 import org.inthergroup.ims.internship.service.PreInterviewTestEvaluationService;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 

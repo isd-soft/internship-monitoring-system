@@ -11,15 +11,26 @@ import java.util.List;
 public interface InternshipService {
 
     List<InternshipDTO> getAllInternships();
+
     void createInternship(final InternshipDTO internshipDTO);
+
     void update(String id, final InternshipDTO internshipDTO);
+
     void delete(final String id);
+
     Internship mapToInternshipEntity(InternshipDTO internshipDTO);
+
     InternshipDTO mapToInternshipDTO(Internship internship);
+
     List<User> getUserListByIds(List<String> mentorIdList);
+
     List<Candidate> getAllCandidatesByInternshipId(String internshipId);
+
     Candidate getCandidateById(String candidateId);
+
     List<Candidate> getCandidateListByIds(List<String> candidateIdList);
+
     TechQuestionList getTechQuestionListById(String tqlId);
+
     Internship getInternship(String id);
 }

@@ -1,13 +1,11 @@
 package org.inthergroup.ims.feedback;
 
-
 import org.inthergroup.ims.candidate.controller.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.login.model.User;
 import org.inthergroup.ims.login.security.service.UserDetailsServiceImpl;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -65,7 +62,6 @@ public class FeedbackController {
         return null;
     }
 
-
     @PutMapping()
     public Feedback updateFeedback(@RequestBody FeedbackDTO feedbackDTO) {
         Feedback feedback1 = new Feedback();
@@ -77,6 +73,5 @@ public class FeedbackController {
         feedback1.setCandidate(candidate);
         feedbackService.save(feedback1);
         return feedback1;
-
     }
 }

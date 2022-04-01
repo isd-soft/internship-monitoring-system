@@ -8,12 +8,12 @@ import java.util.List;
 
 @Service
 public class MentorServiceImpl implements MentorService{
+
     private final UserRepository userRepository;
 
     public MentorServiceImpl(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
-
 
     @Override
     public List<User> getAllMentors() {

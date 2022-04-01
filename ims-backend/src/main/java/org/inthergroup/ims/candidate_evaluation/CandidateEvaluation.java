@@ -15,7 +15,6 @@ import org.inthergroup.ims.candidate.model.Candidate;
 
 import java.util.UUID;
 
-
 @Entity
 @Getter
 @Setter

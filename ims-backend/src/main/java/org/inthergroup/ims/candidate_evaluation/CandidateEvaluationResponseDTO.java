@@ -6,7 +6,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-
 @Builder
 @Getter
 @Setter
@@ -28,5 +27,4 @@ public class CandidateEvaluationResponseDTO {
 
     @NotNull
     private String candidate;
-
 }

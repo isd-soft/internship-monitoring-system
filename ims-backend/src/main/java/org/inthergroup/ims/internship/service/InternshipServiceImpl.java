@@ -37,7 +37,6 @@ public class InternshipServiceImpl implements InternshipService {
         this.techQuestionListRepository = techQuestionListRepository;
     }
 
-
     @Override
     public List<InternshipDTO> getAllInternships() {
         List<Internship> internships = internshipRepository.findAll();
@@ -168,7 +167,6 @@ public class InternshipServiceImpl implements InternshipService {
         return techQuestionListRepository.findById(tqlId)
                 .orElseThrow(() -> new IllegalArgumentException("TechQuestion list with id = " + tqlId + " was not found!"));
     }
-
 
     @Override
     public Internship getInternship(final String id) {

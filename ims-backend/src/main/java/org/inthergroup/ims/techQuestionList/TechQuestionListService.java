@@ -7,7 +7,6 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
 @Service
 public class TechQuestionListService {
 
@@ -48,16 +47,15 @@ public class TechQuestionListService {
     }
 
     private TechQuestionListDTO mapToDTO(final TechQuestionList techQuestionList,
-            final TechQuestionListDTO techQuestionListDTO) {
+                                         final TechQuestionListDTO techQuestionListDTO) {
         techQuestionListDTO.setId(techQuestionList.getId());
         techQuestionListDTO.setName(techQuestionList.getName());
         return techQuestionListDTO;
     }
 
     private TechQuestionList mapToEntity(final TechQuestionListDTO techQuestionListDTO,
-            final TechQuestionList techQuestionList) {
+                                         final TechQuestionList techQuestionList) {
         techQuestionList.setName(techQuestionListDTO.getName());
         return techQuestionList;
     }
-
 }

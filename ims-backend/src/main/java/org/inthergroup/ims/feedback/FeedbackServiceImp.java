@@ -25,17 +25,13 @@ public class FeedbackServiceImp implements FeedbackService {
         feedbackRepository.save(feedback);
     }
 
-
     @Override
     public void delete(String id) {
         feedbackRepository.deleteById(id);
     }
 
     @Override
-    public void updateFeedback(String id) {
-
-    }
-
+    public void updateFeedback(String id) {}
 
     @Override
     public List<Feedback> getAllFeedbacks() {
@@ -53,7 +49,6 @@ public class FeedbackServiceImp implements FeedbackService {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
-
 
     private FeedbackDTO mapToDTO(final Feedback feedback, final FeedbackDTO feedbackDTO) {
         feedbackDTO.setId(feedback.getId());

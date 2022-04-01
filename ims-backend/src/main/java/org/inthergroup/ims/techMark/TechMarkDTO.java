@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
-
 @Getter
 @Setter
 public class TechMarkDTO {
@@ -20,5 +19,4 @@ public class TechMarkDTO {
 
     @NotNull
     private String candidate;
-
 }
