@@ -3,18 +3,18 @@
 <br>
 <div class="container">
   <div class="border">
-      <button mat-stroked-button (click)="addInternship()">
-        <mat-icon>add</mat-icon>
-        New Internship
-      </button>
+    <button mat-stroked-button (click)="addInternship()">
+      <mat-icon>add</mat-icon>
+      New Internship
+    </button>
     <mat-checkbox (change)="filterLoggedUserInternships()">Checked</mat-checkbox>
-      <button mat-stroked-button (click)="filterLoggedUserInternships()">
-        My Internships
-      </button>
-      <mat-form-field appearance="outline">
-        <mat-label> Search</mat-label>
-        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
-      </mat-form-field>
+    <button mat-stroked-button (click)="filterLoggedUserInternships()">
+      My Internships
+    </button>
+    <mat-form-field appearance="outline">
+      <mat-label> Search</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Upcoming Internship" #input/>
+    </mat-form-field>
   </div>
 
   <div class="table-responsive">
@@ -45,7 +45,7 @@
           <ng-container *ngIf="row.length != 0">
             <ng-container *ngFor="let mentorId of row.mentorsId; last as isLast">
               {{getMentorById(mentorId).name + " " + getMentorById(mentorId).surname}}
-            <ng-container *ngIf="!isLast">,</ng-container>
+              <ng-container *ngIf="!isLast">,</ng-container>
               <br>
             </ng-container>
           </ng-container>
@@ -74,36 +74,6 @@
           <a mat-stroked-button [routerLink]="['/candidates/internship/{id}']" target="_blank">Candidates</a>
         </td>
       </ng-container>
-      <!--TODO - REMOVE if menu with usefull links is aproved-->
-      <!--      &lt;!&ndash; Link to GitHub repository Column &ndash;&gt;-->
-      <!--      <ng-container matColumnDef="gitHubUrl">-->
-      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>GitHub</th>-->
-      <!--        <td mat-cell *matCellDef="let row ">-->
-      <!--          <ng-container *ngIf="row.gitHubUrl">-->
-      <!--            <a href="{{row.gitHubUrl}}" target="_blank">GitHub</a>-->
-      <!--          </ng-container>-->
-      <!--        </td>-->
-      <!--      </ng-container>-->
-
-      <!--      &lt;!&ndash; Link to Trello board Column &ndash;&gt;-->
-      <!--      <ng-container matColumnDef="trelloBoardUrl">-->
-      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header>Trello board</th>-->
-      <!--        <td mat-cell *matCellDef="let row">-->
-      <!--          <ng-container *ngIf="row.trelloBoardUrl">-->
-      <!--            <a href="{{row.trelloBoardUrl}}" target="_blank">Trello</a>-->
-      <!--          </ng-container>-->
-      <!--        </td>-->
-      <!--      </ng-container>-->
-
-      <!--      &lt;!&ndash; Link to the deployed app Column &ndash;&gt;-->
-      <!--      <ng-container matColumnDef="deployedAppUrl">-->
-      <!--        <th mat-header-cell *matHeaderCellDef mat-sort-header=""> Deployed app</th>-->
-      <!--        <td mat-cell *matCellDef="let row">-->
-      <!--          <ng-container *ngIf="row.deployedAppUrl">-->
-      <!--            <a href="{{row.deployedAppUrl}}" target="_blank">Deployed App</a>-->
-      <!--          </ng-container>-->
-      <!--        </td>-->
-      <!--      </ng-container>-->
 
       <!-- PowerPoint presentation Column -->
       <ng-container matColumnDef="presentationUrl">
