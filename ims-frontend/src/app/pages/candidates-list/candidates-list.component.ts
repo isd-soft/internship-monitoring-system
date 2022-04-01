@@ -5,9 +5,11 @@ import {Candidate, Status} from "../../shared/model/candidate";
 import {MatTableDataSource} from "@angular/material/table";
 import {ActivatedRoute, Router} from "@angular/router";
 import {take} from "rxjs";
-import {MatDialog} from "@angular/material/dialog";
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import {AddCandidateComponent} from "../add-candidate/add-candidate.component";
 import {FeedbackComponent} from "../feedback/feedback.component";
+import { MarksModalComponent } from 'src/app/candidates-table/marks-modal/marks-modal.component';
+import { CandidateEvaluationService } from 'src/app/shared/service/candidate-evaluation.service';
 
 @Component({
   selector: 'app-candidates-list',
@@ -21,7 +23,10 @@ export class CandidatesListComponent implements OnInit {
   displayMode: "all"|"byInternship";
   internshipId: string;
 
-  constructor(private candidateService: CandidateService, private activatedRoute: ActivatedRoute, private router: Router, private dialog: MatDialog) { }
+  constructor(private candidateService: CandidateService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router, private dialog: MatDialog,
+              private CandidateEvaluationSv: CandidateEvaluationService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
@@ -42,6 +47,18 @@ export class CandidatesListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       this.updateTableData();
     });
+  }
+  openMarksDialog(id: string) {
+    const dialogConfig = new MatDialogConfig();
+
+    this.CandidateEvaluationSv.getCandidateEvaluationById(id).subscribe(
+      (res) => {
+        //console.log(res);
+        dialogConfig.data = res;
+        this.dialog.open(MarksModalComponent, dialogConfig);
+      },
+      (err) => {}
+    );
   }
 
   addCandidateModal() {
