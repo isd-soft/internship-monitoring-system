@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface CandidateService {
 
-    List<Candidate> getAllCandidatesByInternshipId(String internshipId);
+    List<CandidateDTO> getAllCandidatesByInternshipId(String internshipId);
 
     public List<CandidateDTO> findAll();
 

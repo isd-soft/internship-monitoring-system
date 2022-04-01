@@ -61,9 +61,9 @@ public class CandidateServiceImp implements CandidateService {
     }
 
     @Override
-    public List<Candidate> getAllCandidatesByInternshipId(String internshipId) {
-        List<Candidate> candidates = candidateRepository.getCandidatesByInternshipId(internshipId);
-        return candidates;
+    public List<CandidateDTO> getAllCandidatesByInternshipId(String internshipId) {
+        return candidateRepository.getCandidatesByInternshipId(internshipId).stream()
+                .map((candidate -> mapToDTO(candidate, new CandidateDTO()))).collect(Collectors.toList());
 
     }
 
