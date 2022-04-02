@@ -27,8 +27,8 @@ export class FeedbackService {
     return this.http.put<any>(`${environment.apiUrl}feedback`, feedback);
   }
 
-  saveFeedback(feedback: Feedback) {
-    return this.http.post<any>(`${environment.apiUrl}message`, feedback);
+  saveFeedback(internshipId: string ,feedback: Feedback) {
+    return this.http.post<any>(`${environment.apiUrl}message/${internshipId}`, feedback);
   }
 
   deleteFeedback(id: string) {
