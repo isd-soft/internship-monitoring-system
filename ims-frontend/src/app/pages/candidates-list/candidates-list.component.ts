@@ -99,6 +99,8 @@ export class CandidatesListComponent implements OnInit {
   showFeedbackModal(candidate: Candidate) {
     const dialogRef = this.dialog.open(FeedbackComponent, {
       data: { candidateId: candidate.id },
+      height: '920px',
+      width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();

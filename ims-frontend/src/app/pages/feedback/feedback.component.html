@@ -1,62 +1,67 @@
-<div class="form-container">
-  <form [formGroup]="feedbackForm" class="feedback-form">
-    <legend><h1>Add feedback to candidate</h1></legend>
-    <br />
-    <mat-form-field appearance="fill">
-      <mat-label> Feedback</mat-label>
-      <textarea formControlName="feedback" matInput> </textarea>
-    </mat-form-field>
-    <br />
+<mat-tab-group>
+  <mat-tab label="My feedback">
+    <br>
+    <div class="form-container">
+      <form [formGroup]="feedbackForm" class="feedback-form">
+        <legend *ngIf="this.feedbackForm.controls['id'].value === ''"><h1>Add feedback to candidate</h1></legend>
+        <legend *ngIf="this.feedbackForm.controls['id'].value !== ''"><h1>Update feedback to candidate</h1></legend>
+        <br />
+        <mat-form-field style="width: 401px" appearance="fill">
+          <mat-label> Feedback</mat-label>
+          <textarea class="feedback-text-area" formControlName="feedback" matInput> </textarea>
+        </mat-form-field>
+        <br />
 
-    <ng-container *ngIf="candidateStatusError">
-      <h4 class="error-message">{{ validationErrors }}</h4>
-    </ng-container>
-    <div class="button-holder">
-      <button
-        *ngIf="this.feedbackForm.controls['id'].value !== ''"
-        color="warn"
-        mat-raised-button
-        (click)="deleteFeedback()"
-      >
-        Delete
-      </button>
-      <button
-        [disabled]="!feedbackForm.valid"
-        color="primary"
-        mat-raised-button
-        (click)="onSubmit()"
-      >
-        Submit
-      </button>
-      <button
-        [disabled]="!feedbackForm.valid"
-        color="primary"
-        mat-raised-button
-        (click)="save()"
-      >
-        Save
-      </button>
+        <ng-container *ngIf="candidateStatusError">
+          <h4 class="error-message">{{ validationErrors }}</h4>
+        </ng-container>
+        <div class="button-holder">
+          <button
+            *ngIf="this.feedbackForm.controls['id'].value !== ''"
+            color="warn"
+            mat-raised-button
+            (click)="deleteFeedback()"
+          >
+            Delete
+          </button>
+          <button
+            [disabled]="!feedbackForm.valid"
+            color="primary"
+            mat-raised-button
+            (click)="onSubmit()"
+          >
+            Submit
+          </button>
+          <button
+            [disabled]="!feedbackForm.valid"
+            color="primary"
+            mat-raised-button
+            (click)="save()"
+          >
+            Save
+          </button>
+        </div>
+
+      </form>
     </div>
+  </mat-tab>
+  <mat-tab label="Others feedback">
+    <br>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
-  </form>
-</div>
+      <ng-container matColumnDef="userName">
+        <th mat-header-cell *matHeaderCellDef> User name </th>
+        <td mat-cell *matCellDef="let element"> {{element.userName}} </td>
+      </ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="feedback">
+        <th mat-header-cell *matHeaderCellDef> Feedback </th>
+        <td mat-cell *matCellDef="let element"> {{element.feedback}} </td>
+      </ng-container>
 
-<div class="other-reviews">
-  <h2>Other Feedbacks:</h2>
-<!--  <div *ngFor="let notMineFeedBack of notMineFeedBacks"> {{notMineFeedBack.feedback}} </div>-->
-</div>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </mat-tab>
+</mat-tab-group>
 
-  <ng-container matColumnDef="userName">
-    <th mat-header-cell *matHeaderCellDef> User name </th>
-    <td mat-cell *matCellDef="let element"> Kolea </td>
-  </ng-container>
-  <!-- Position Column -->
-  <ng-container matColumnDef="feedback">
-    <th mat-header-cell *matHeaderCellDef> Feedback </th>
-    <td mat-cell *matCellDef="let element"> {{element.feedback}} </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>

@@ -5,7 +5,7 @@ import {Candidate, Status} from "../../shared/model/candidate";
 import { Subscription } from "rxjs/internal/Subscription";
 import { FeedbackService } from "../../shared/service/feedback.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Feedback} from "../../shared/model/feedback";
+import {Feedback, FeedbackWithUsername} from "../../shared/model/feedback";
 import {MatTableDataSource} from "@angular/material/table";
 import {DataSource} from "@angular/cdk/collections";
 
@@ -23,7 +23,7 @@ export class FeedbackComponent implements OnInit {
   candidatesOptions: { name: string; value: string }[] = [];
 
   myFeedback: Feedback;
-  notMineFeedBacks: Feedback[] = []
+  notMineFeedBacks: FeedbackWithUsername[] = []
   dataSource:DataSource<Feedback>;
   subscription = new Subscription();
   displayedColumns: string[] = ['userName', 'feedback'];

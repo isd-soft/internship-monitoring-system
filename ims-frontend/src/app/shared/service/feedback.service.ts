@@ -3,7 +3,7 @@ import { HttpClient } from "@angular/common/http";
 import { CandidateService } from "./candidate.service";
 import { Observable } from "rxjs";
 import { Candidate } from "../model/candidate";
-import { Feedback } from "../model/feedback";
+import {Feedback, FeedbackWithUsername} from "../model/feedback";
 import { environment } from "../../../environments/environment";
 
 @Injectable({
@@ -15,7 +15,7 @@ export class FeedbackService {
     private candidateService: CandidateService
   ) {}
 
-  getFeedbackById(id: string): Observable<Feedback[]> {
+  getFeedbackById(id: string): Observable<FeedbackWithUsername[]> {
     return this.http.get<any>(`${environment.apiUrl}feedback/candidate/${id}`);
   }
 

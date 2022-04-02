@@ -39,7 +39,7 @@ public class FeedbackController {
     }
 
     @GetMapping("/candidate/{id}")
-    public List<FeedbackDTO> getFeedbacksByCandidateId(@PathVariable("id") final String id) {
+    public List<FeedbackWithAuthorNameDTO> getFeedbacksByCandidateId(@PathVariable("id") final String id) {
         return feedbackService.getFeedbacksByCandidateId(id);
     }
 

@@ -39,7 +39,7 @@ public class InternshipController {
     }
 
     @GetMapping("/{id}/candidates")
-    public List<Candidate> getCandidatesByInternshipId(String internshipId) {
+    public List<Candidate> getCandidatesByInternshipId(@PathVariable("id") String internshipId) {
         return internshipService.getAllCandidatesByInternshipId(internshipId);
     }
 

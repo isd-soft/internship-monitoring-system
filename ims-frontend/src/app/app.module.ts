@@ -50,6 +50,7 @@ import { TechQuestionModalComponent } from "./question/tech-question-modal/tech-
 import { EditTechQuestionModalComponent } from "./question/edit-tech-question-modal/edit-tech-question-modal.component";
 import { ConfirmDialogComponent } from './intership/confirm-dialog/confirm-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatTabsModule} from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -104,7 +105,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatDividerModule,
         MatMenuModule,
         MatSnackBarModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        MatTabsModule
     ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1500 } },
