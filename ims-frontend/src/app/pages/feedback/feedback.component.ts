@@ -5,7 +5,7 @@ import {Candidate, Status} from "../../shared/model/candidate";
 import { Subscription } from "rxjs/internal/Subscription";
 import { FeedbackService } from "../../shared/service/feedback.service";
 import {MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
-import {Feedback} from "../../shared/model/feedback";
+import {Feedback, FeedbackWithUsername} from "../../shared/model/feedback";
 import {MatTableDataSource} from "@angular/material/table";
 import {DataSource} from "@angular/cdk/collections";
 
@@ -23,7 +23,7 @@ export class FeedbackComponent implements OnInit {
   candidatesOptions: { name: string; value: string }[] = [];
 
   myFeedback: Feedback;
-  notMineFeedBacks: Feedback[] = []
+  notMineFeedBacks: FeedbackWithUsername[] = []
   dataSource:DataSource<Feedback>;
   subscription = new Subscription();
   displayedColumns: string[] = ['userName', 'feedback'];
@@ -33,7 +33,7 @@ export class FeedbackComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private feedbackService: FeedbackService,
-    @Inject(MAT_DIALOG_DATA) public data: { candidateId: string },
+    @Inject(MAT_DIALOG_DATA) public data: { candidateId: string, internshipId: string },
     private dialogRef: MatDialogRef<FeedbackComponent>
   ) {}
 
@@ -108,13 +108,14 @@ export class FeedbackComponent implements OnInit {
     if (!this.feedbackForm.valid) {
       return;
     }
-    const objToSend: Feedback = {
+    const objToSend: Feedback&{userName: string} = {
       feedback: this.feedbackForm.value.feedback,
       candidateId: this.feedbackForm.value.candidateId,
-      userId: this.feedbackForm.value.userId
+      userId: this.feedbackForm.value.userId,
+      userName: JSON.parse(localStorage.getItem('user')).username
     };
     this.feedbackService
-      .saveFeedback(objToSend)
+      .saveFeedback(this.data.internshipId , objToSend)
       .subscribe((feedback) =>
         this.feedbackForm.controls["id"].patchValue(feedback.id)
       );
