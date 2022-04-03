@@ -1,4 +1,4 @@
-package org.inthergroup.ims.exceptions;
+package org.inthergroup.ims.file.service;
 
 public class StorageException extends RuntimeException {
 

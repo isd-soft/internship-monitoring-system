@@ -31,6 +31,9 @@ export class AddCandidateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    setInterval(() => {
+      console.log(this.candidateForm.controls)
+    }, 3000 )
     this.statusOptions = this.buildStatusOptions();
     this.candidateForm = this.formBuilder.group({
       id: [""],

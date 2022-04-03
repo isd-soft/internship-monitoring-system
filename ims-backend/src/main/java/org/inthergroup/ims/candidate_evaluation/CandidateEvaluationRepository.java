@@ -8,7 +8,7 @@ import java.util.Optional;
 public interface CandidateEvaluationRepository extends JpaRepository<CandidateEvaluation, String> {
 
     @Query(value = "SELECT avg(mark) FROM tech_mark where candidate_id=?1", nativeQuery = true)
-    public Double avg(String id);
+    Double avg(String id);
 
-    public Optional<CandidateEvaluation> getCandidateEvaluationByCandidateId(String id);
+    Optional<CandidateEvaluation> getCandidateEvaluationByCandidateId(String id);
 }

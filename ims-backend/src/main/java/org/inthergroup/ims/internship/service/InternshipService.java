@@ -1,5 +1,6 @@
 package org.inthergroup.ims.internship.service;
 
+import org.inthergroup.ims.candidate.facade.CandidateDTO;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.controller.InternshipDTO;

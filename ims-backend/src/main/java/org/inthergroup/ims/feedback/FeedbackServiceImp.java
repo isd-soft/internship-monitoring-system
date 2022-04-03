@@ -58,10 +58,19 @@ public class FeedbackServiceImp implements FeedbackService {
         return feedbackDTO;
     }
 
-    public List<FeedbackDTO> getFeedbacksByCandidateId(String id) {
+    private FeedbackWithAuthorNameDTO mapToFeedbackWithAuthorNameDTO(final Feedback feedback, final FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO) {
+        feedbackWithAuthorNameDTO.setId(feedback.getId());
+        feedbackWithAuthorNameDTO.setFeedback(feedback.getFeedback());
+        feedbackWithAuthorNameDTO.setCandidateId(feedback.getCandidate().getId());
+        feedbackWithAuthorNameDTO.setUserId(feedback.getUser().getId());
+        feedbackWithAuthorNameDTO.setUserName(feedback.getUser().getName());
+        return feedbackWithAuthorNameDTO;
+    }
+
+    public List<FeedbackWithAuthorNameDTO> getFeedbacksByCandidateId(String id) {
         return feedbackRepository.getFeedbacksByCandidateId(id).stream().map(feedback -> {
-            FeedbackDTO feedbackDTO = new FeedbackDTO();
-            return mapToDTO(feedback, feedbackDTO);
+            FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO = new FeedbackWithAuthorNameDTO();
+            return mapToFeedbackWithAuthorNameDTO(feedback, feedbackWithAuthorNameDTO);
         }).collect(Collectors.toList());
     }
 }

@@ -19,7 +19,7 @@ public interface FeedbackService {
 
     public User getUserById(String id);
 
-    public List<FeedbackDTO> getFeedbacksByCandidateId(String id);
+    public List<FeedbackWithAuthorNameDTO> getFeedbacksByCandidateId(String id);
 
    // Feedback getFeedback(String id);
 }
