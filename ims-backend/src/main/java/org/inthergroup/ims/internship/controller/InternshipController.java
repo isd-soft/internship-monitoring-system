@@ -1,5 +1,7 @@
 package org.inthergroup.ims.internship.controller;
 
+import org.inthergroup.ims.candidate.facade.CandidateDTO;
+import org.inthergroup.ims.candidate.facade.CandidateFacade;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
@@ -16,15 +18,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/api/internships", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InternshipController {
 
     private final InternshipService internshipService;
+    private final CandidateFacade candidateFacade;
 
-    public InternshipController(InternshipService internshipService) {
+    public InternshipController(InternshipService internshipService, CandidateFacade candidateFacade) {
         this.internshipService = internshipService;
+        this.candidateFacade = candidateFacade;
     }
 
     @GetMapping()
@@ -39,8 +44,11 @@ public class InternshipController {
     }
 
     @GetMapping("/{id}/candidates")
-    public List<Candidate> getCandidatesByInternshipId(@PathVariable("id") String internshipId) {
-        return internshipService.getAllCandidatesByInternshipId(internshipId);
+    public List<CandidateDTO> getCandidatesByInternshipId(@PathVariable("id") String internshipId) {
+        List<Candidate> candidates = internshipService.getAllCandidatesByInternshipId(internshipId);
+        return candidates.stream().map(candidate -> {
+            return candidateFacade.mapToDTO(candidate, new CandidateDTO());
+        }).collect(Collectors.toList());
     }
 
     @PostMapping

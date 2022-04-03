@@ -53,11 +53,6 @@ public class CandidateController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/internship/{id}")
-    public List<CandidateDTO> getCandidatesByInternshipId(@PathVariable("id") String internshipId) {
-        return candidateFacade.getAllCandidatesByInternshipId(internshipId);
-    }
-
     @ExceptionHandler(EntityNotFoundException.class)
     ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex, WebRequest request) {
         log.error(ex.getMessage());

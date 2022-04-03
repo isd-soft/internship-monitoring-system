@@ -11,5 +11,6 @@ import java.util.List;
 public interface CandidateRepository extends JpaRepository<Candidate, String> {
 
     // TODO: Remove this one from here and use the method from the Internship repository, do the same thing with the controller.
+
     List<Candidate> findAllByInternshipId(@Param("internship_id") String internshipsId);
 }

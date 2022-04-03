@@ -42,6 +42,6 @@ export class CandidateService {
   }
 
   getCandidatesByInternship(internshipId: string): Observable<Candidate[]> {
-    return this.http.get<any>(`${environment.apiUrl}candidates/internship/${internshipId}/`);
+    return this.http.get<any>(`${environment.apiUrl}internships/${internshipId}/candidates`);
   }
 }
