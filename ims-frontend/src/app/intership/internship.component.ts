@@ -71,8 +71,8 @@ export class InternshipComponent implements AfterViewInit {
   }
 
   public getMentorById(id: string) {
-    return this.mentors.find(
-      (mentor: any) => mentor.id === id);
+      return this.mentors.find(
+        (mentor: any) => mentor.id === id);
   }
 
   public getMentors() {
