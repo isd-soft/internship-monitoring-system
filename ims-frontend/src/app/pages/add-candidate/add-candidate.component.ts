@@ -31,9 +31,6 @@ export class AddCandidateComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    setInterval(() => {
-      console.log(this.candidateForm.controls)
-    }, 3000 )
     this.statusOptions = this.buildStatusOptions();
     this.candidateForm = this.formBuilder.group({
       id: [""],
@@ -76,23 +73,8 @@ export class AddCandidateComponent implements OnInit {
       const objToSend = this.candidateForm.value;
       objToSend.internship = this.data.internship;
       this.candidateService
-        .updateCandidateInIntership(objToSend)
-        .subscribe(() => {this.dialogRef.close('updated candidate!')})
-        // .subscribe({
-        //   next: () => {
-        //     this.candidateStatusError = false;
-        //     this.dialogRef.close('updated candidate!')
-        //   },
-        //   error: (error) => {
-        //     console.log(error);
-        //     this.candidateStatusError = true;
-        //     this.validationErrors = error?.error?.message;
-        //   },
-        //   complete: () => {
-        //     this.candidateStatusError = false;
-        //     this.dialogRef.close('updated candidate!')
-        //   },
-        // });
+        .updateCandidateInInternship(objToSend)
+        .subscribe(() => {this.dialogRef.close('updated')})
     }
 
     if (this.data.intent === "add") {
@@ -103,23 +85,8 @@ export class AddCandidateComponent implements OnInit {
       this.candidateService
         .createCandidate(this.candidateForm.value)
         .subscribe(() => {
-            this.dialogRef.close('updated candidate!');
+            this.dialogRef.close('created');
           }
-        // .subscribe({
-        //   next: () => {
-        //     this.candidateStatusError = false;
-        //     this.dialogRef.close('created candidate!')
-        //   },
-        //   error: (error) => {
-        //     console.log(error);
-        //     this.candidateStatusError = true;
-        //     this.validationErrors = error?.error?.message;
-        //   },
-        //   complete: () => {
-        //     this.candidateStatusError = false;
-        //     this.dialogRef.close('created candidate!')
-        //   }
-        //   }
         );
     }
   }
