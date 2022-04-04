@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.internship.model.Category;
-import org.inthergroup.ims.internship.model.PreInterviewTest;
+import org.inthergroup.ims.preInterwiewTestEvaluation.PreInterviewTest;
 import org.inthergroup.ims.internship.model.Status;
 
 import java.time.LocalDate;

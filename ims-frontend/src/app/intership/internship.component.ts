@@ -22,7 +22,7 @@ export class InternshipComponent implements AfterViewInit {
     'internshipStatus', 'candidates', 'results', 'actions', 'links'];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  mentors: User[];
+  mentors: User[] = [];
   status = Status;
   statuses: { name: string; value: string }[];
   category = Category;

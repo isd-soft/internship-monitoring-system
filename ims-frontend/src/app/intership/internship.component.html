@@ -40,7 +40,7 @@
       <ng-container matColumnDef="mentorsId">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Mentors</th>
         <td mat-cell *matCellDef="let row">
-          <div *ngIf=" row.mentorsId.length>0">
+          <div *ngIf=" row.mentorsId.length>0 && mentors.length>0">
             <ng-container *ngFor="let mentorId of row.mentorsId; last as isLast">
               {{getMentorById(mentorId).name + " " + getMentorById(mentorId).surname}}
               <ng-container *ngIf="!isLast">,</ng-container>

@@ -13,6 +13,7 @@ import java.util.UUID;
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate_evaluation.CandidateEvaluation;
+import org.inthergroup.ims.preInterwiewTestEvaluation.PreInterviewTestMark;
 import org.inthergroup.ims.techMark.TechMark;
 
 @Entity
@@ -57,6 +58,9 @@ public class Candidate {
 
     @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     private Set<Feedback> feedback;
+
+    @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
+    private Set<PreInterviewTestMark> candidatePreInterviewMarks;
 
     public Candidate() {
         id = UUID.randomUUID().toString();

@@ -1,56 +1,76 @@
-<mat-dialog-content *ngIf="data; else noInfo">
-  <form (ngSubmit)="submit()" [formGroup]="marksForm">
-    <h1>
-      Candidate name
-      <b>{{ candidates.name }}</b>
-    </h1>
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>English mark</mat-label>
-      <input
-        formControlName="englishMark"
-        matInput
-        value="{{ data.englishMark }}"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Soft mark</mat-label>
-      <input
-        formControlName="softSkillMark"
-        matInput
-        value="{{ data.softSkillMark }}"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Practice mark</mat-label>
-      <input
-        formControlName="practiceMark"
-        matInput
-        value="{{ data.practiceMark }}"
-      />
-    </mat-form-field>
-    <mat-form-field appearance="outline" class="example-full-width">
-      <mat-label>Average mark based on tech questions below</mat-label>
-      <input
-        formControlName="averageMark"
-        matInput
-        value="{{ data.averageMark }}"
-      />
-    </mat-form-field>
-  </form>
-  <form>
-    <h2>Tech Questions</h2>
-    <mat-divider></mat-divider>
-    <mat-form-field
-      *ngFor="let tech of marksArray; let idx = index"
-      appearance="outline"
-      class="example-full-width"
-    >
-      <mat-label>{{ getQuestionNameById(tech.techQuestion) }}</mat-label>
-      <input [(ngModel)]="tech.mark" [name]="tech.techQuestion" matInput />
-    </mat-form-field>
-    <button (click)="submit()" color="primary" mat-raised-button>Save</button>
-  </form>
-</mat-dialog-content>
+<mat-tab-group>
+  <h1>
+    Candidate name
+    <b>{{ candidates.name +" "+ candidates.surname }}</b>
+  </h1>
+  <mat-tab label="PreInterview marks" >
+    <br>
+    <form>
+      <h2>PreInterview Test Results</h2>
+      <mat-divider></mat-divider>
+      <mat-form-field
+        *ngFor="let tech of marksArray; let idx = index"
+        appearance="outline"
+        class="example-full-width"
+      >
+        <mat-label>{{ getQuestionNameById(tech.techQuestion) }}</mat-label>
+        <input [(ngModel)]="tech.mark" [name]="tech.techQuestion" matInput/>
+      </mat-form-field>
+      <button (click)="submit()" color="primary" mat-raised-button>Save</button>
+    </form>
+  </mat-tab>
+<!--    <mat-dialog-content *ngIf="data; else noInfo">-->
+    <mat-tab label="Interview marks" *ngIf="data; else noInfo">
+      <form (ngSubmit)="submit()" [formGroup]="marksForm">
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>English mark</mat-label>
+          <input
+            formControlName="englishMark"
+            matInput
+            value="{{ data.englishMark }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Soft mark</mat-label>
+          <input
+            formControlName="softSkillMark"
+            matInput
+            value="{{ data.softSkillMark }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Practice mark</mat-label>
+          <input
+            formControlName="practiceMark"
+            matInput
+            value="{{ data.practiceMark }}"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="example-full-width">
+          <mat-label>Average mark based on tech questions below</mat-label>
+          <input
+            formControlName="averageMark"
+            matInput
+            value="{{ data.averageMark }}"
+          />
+        </mat-form-field>
+      </form>
+      <form>
+        <h2>Tech Questions</h2>
+        <mat-divider></mat-divider>
+        <mat-form-field
+          *ngFor="let tech of marksArray; let idx = index"
+          appearance="outline"
+          class="example-full-width"
+        >
+          <mat-label>{{ getQuestionNameById(tech.techQuestion) }}</mat-label>
+          <input [(ngModel)]="tech.mark" [name]="tech.techQuestion" matInput/>
+        </mat-form-field>
+        <button (click)="submit()" color="primary" mat-raised-button>Save</button>
+      </form>
+<!--    </mat-dialog-content>-->
+  </mat-tab>
+</mat-tab-group>
 
 <ng-template #noInfo>
   <div>No information received</div>

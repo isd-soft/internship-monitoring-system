@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.login.model.User;
+import org.inthergroup.ims.preInterwiewTestEvaluation.PreInterviewTest;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
 import javax.persistence.Column;
@@ -59,7 +60,7 @@ public class Internship {
     @Column(columnDefinition = "date", name = "period_to")
     private LocalDate periodTo;
 
-    @Column(columnDefinition = "varchar(32) default 'NEW'", name = "status")
+    @Column(name = "status")
     @Enumerated(EnumType.STRING)
     private Status internshipStatus;
 
@@ -88,5 +89,6 @@ public class Internship {
 
     public Internship() {
         id = UUID.randomUUID().toString();
+        internshipStatus = Status.NEW;
     }
 }
