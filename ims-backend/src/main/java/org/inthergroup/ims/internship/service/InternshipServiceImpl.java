@@ -77,7 +77,7 @@ public class InternshipServiceImpl implements InternshipService {
         internship.setInternshipStatus(internshipDTO.getInternshipStatus());
         internship.setPreInterviewTestList(internshipDTO.getPreInterviewTestList());
         if (Objects.nonNull(internshipDTO.getTechQuesListId())) {
-            internship.setTechQuesList(getTechQuestionListById(internshipDTO.getTechQuesListId()));
+            internship.setTechQuestionList(getTechQuestionListById(internshipDTO.getTechQuesListId()));
         }
         internship.setGitHubUrl(internshipDTO.getGitHubUrl());
         internship.setTrelloBoardUrl(internshipDTO.getTrelloBoardUrl());
@@ -107,7 +107,7 @@ public class InternshipServiceImpl implements InternshipService {
         internshipDTO.setPeriodTo(internship.getPeriodTo());
         internshipDTO.setInternshipStatus(internship.getInternshipStatus());
         internshipDTO.setPreInterviewTestList(internship.getPreInterviewTestList());
-        internshipDTO.setTechQuesListId(getTechQuestionListId(internship.getTechQuesList()));
+        internshipDTO.setTechQuesListId(getTechQuestionListId(internship.getTechQuestionList()));
         internshipDTO.setGitHubUrl(internship.getGitHubUrl());
         internshipDTO.setTrelloBoardUrl(internship.getTrelloBoardUrl());
         internshipDTO.setDeployedAppUrl(internship.getDeployedAppUrl());

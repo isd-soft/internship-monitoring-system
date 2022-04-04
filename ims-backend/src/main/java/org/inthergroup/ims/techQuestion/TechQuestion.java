@@ -5,14 +5,7 @@ import lombok.Setter;
 import org.inthergroup.ims.techMark.TechMark;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
@@ -33,9 +26,6 @@ public class TechQuestion {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "tech_question_list_id", nullable = false)
     private TechQuestionList techQuestionList;
-
-    @OneToOne(mappedBy = "techQuestion", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private TechMark techQuestion;
 
     public TechQuestion(){
         id = UUID.randomUUID().toString();

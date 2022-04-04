@@ -1,6 +1,5 @@
 package org.inthergroup.ims.internship.model;
 
-import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,7 +31,6 @@ import java.util.UUID;
 @Getter
 @Setter
 @EqualsAndHashCode
-@AllArgsConstructor
 public class Internship {
 
     @Id
@@ -67,9 +65,9 @@ public class Internship {
     @Enumerated(EnumType.STRING)
     private List<PreInterviewTest> preInterviewTestList;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "tech_question_list_id")
-    private TechQuestionList techQuesList;
+    private TechQuestionList techQuestionList;
 
     @Column(name = "github_link")
     private String gitHubUrl;

@@ -25,13 +25,13 @@ public class CandidateEvaluation {
     @Column(name = "id")
     private String id;
 
-    @Column(nullable = false)
+    @Column(name = "english_mark")
     private Double englishMark;
 
-    @Column(nullable = false)
+    @Column(name = "soft_skill_mark")
     private Double softSkillMark;
 
-    @Column(nullable = false)
+    @Column(name = "practice_mark")
     private Double practiceMark;
 
     @OneToOne

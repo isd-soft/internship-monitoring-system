@@ -1,6 +1,7 @@
 package org.inthergroup.ims.candidate_evaluation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
@@ -52,9 +53,16 @@ public class CandidateEvaluationService {
 
     public CandidateEvaluationResponseDTO getByCandidateId(final String id) {
 
-        CandidateEvaluationDTO candidateEvaluationDTO = candidateEvaluationRepository.getCandidateEvaluationByCandidateId(id)
-                .map(candidateEvaluation -> mapToDTO(candidateEvaluation, new CandidateEvaluationDTO()))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        CandidateEvaluationDTO candidateEvaluationDTO;
+        Optional<CandidateEvaluation> candidateEvaluationOptional = candidateEvaluationRepository.getCandidateEvaluationByCandidateId(id);
+        if (candidateEvaluationOptional.isPresent()) {
+                    candidateEvaluationDTO = mapToDTO(candidateEvaluationOptional.get(), new CandidateEvaluationDTO());
+        } else {
+            CandidateEvaluation candidateEvaluation = new CandidateEvaluation();
+            candidateEvaluation.setCandidate(candidateRepository.findById(id).orElseThrow());
+            candidateEvaluationRepository.save(candidateEvaluation);
+            candidateEvaluationDTO = mapToDTO(candidateEvaluation, new CandidateEvaluationDTO());
+        }
 
         return CandidateEvaluationResponseDTO.builder()
                 .id(candidateEvaluationDTO.getId())
