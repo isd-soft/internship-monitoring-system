@@ -10,6 +10,7 @@ import { AddCandidateComponent } from "../add-candidate/add-candidate.component"
 import { FeedbackComponent } from "../feedback/feedback.component";
 import { MarksModalComponent } from "src/app/candidates-table/marks-modal/marks-modal.component";
 import { CandidateEvaluationService } from "src/app/shared/service/candidate-evaluation.service";
+import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
 
 @Component({
   selector: "app-candidates-list",
@@ -80,7 +81,13 @@ export class CandidatesListComponent implements OnInit {
         dialogConfig.data = res;
         this.dialog.open(MarksModalComponent, dialogConfig);
       },
-      (err) => {}
+      (err) => {
+        let candidateEvaluation = new CandidateEvaluation();
+
+        dialogConfig.data = candidateEvaluation;
+
+        this.dialog.open(MarksModalComponent, dialogConfig);
+      }
     );
   }
 
