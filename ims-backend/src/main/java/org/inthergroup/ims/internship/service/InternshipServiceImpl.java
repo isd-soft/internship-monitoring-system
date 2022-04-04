@@ -1,7 +1,10 @@
 package org.inthergroup.ims.internship.service;
 
+import org.inthergroup.ims.candidate.facade.CandidateDTO;
+import org.inthergroup.ims.candidate.facade.CandidateFacade;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
+import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.internship.controller.InternshipDTO;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.repository.InternshipRepository;
@@ -142,7 +145,10 @@ public class InternshipServiceImpl implements InternshipService {
     public List<Candidate> getAllCandidatesByInternshipId(String internshipId) {
         Internship internship = internshipRepository.findById(internshipId)
                 .orElseThrow(() -> new IllegalArgumentException("Internship with id" + internshipId + "was not found!"));
-        return internship.getCandidates();
+        List<Candidate> candidates = internship.getCandidates();
+        return candidates;
+
+//        candidateFacade.mapToDTO(candidates);
     }
 
     @Override
