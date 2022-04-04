@@ -29,11 +29,11 @@ export class CandidateService {
     window.open(`${environment.apiUrl}fileUpload/files/${fileName}`, '_blank');
   }
 
-  deleteCandidateFromIntership(candidateId: string): Observable<any> {
+  deleteCandidateFromInternship(candidateId: string): Observable<any> {
     return this.http.delete<any>(`${environment.apiUrl}candidates/${candidateId}`);
   }
 
-  updateCandidateInIntership(candidate: Candidate): Observable<any> {
+  updateCandidateInInternship(candidate: Candidate): Observable<any> {
     return this.http.put<any>(`${environment.apiUrl}candidates/${candidate.id}`, candidate);
   }
 

@@ -21,6 +21,5 @@ public class EmailService {
         message.setSubject(subject);
         message.setText(text);
         this.emailSender.send(message);
-        System.out.println("Mail send successfully!");
     }
 }

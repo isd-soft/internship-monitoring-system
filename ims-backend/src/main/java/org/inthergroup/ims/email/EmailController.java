@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import javax.mail.internet.AddressException;
 
 @RestController
@@ -20,19 +21,24 @@ public class EmailController {
     @Value("${feedback.recipients}")
     private String feedbackRecipients;
 
-    public EmailController(EmailService emailService,InternshipService internshipService) {
+    public EmailController(EmailService emailService, InternshipService internshipService) {
         this.internshipService = internshipService;
         this.emailService = emailService;
     }
 
     @PostMapping("/api/message/{id}")
     String sendEmailMessage(@PathVariable final String id, @RequestBody final FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO) throws AddressException {
-        String textOfMail  = "Author: " + feedbackWithAuthorNameDTO.getUserName() + " \nFeedback: " + feedbackWithAuthorNameDTO.getFeedback() +
-                "\nInternshipName: " + internshipService.getInternship(id).getProjectName();
+        String subject = internshipService.getCandidateById(feedbackWithAuthorNameDTO.getCandidateId()).getName() + " "
+                + internshipService.getCandidateById(feedbackWithAuthorNameDTO.getCandidateId()).getSurname();
+        String textOfMail = "Author: " + feedbackWithAuthorNameDTO.getUserName() +
+                " \nFeedback: " +
+                feedbackWithAuthorNameDTO.getFeedback() +
+                "\nInternshipName: " + internshipService.getInternship(id).getProjectName() +
+                "\nCandidateName: " + subject;
         this.emailService.sendMessage(feedbackRecipients,
-                "Greetings!",
+                "Internship interview feedback for: " + subject,
                 textOfMail
-                );
+        );
         return "Message sent";
 
     }
