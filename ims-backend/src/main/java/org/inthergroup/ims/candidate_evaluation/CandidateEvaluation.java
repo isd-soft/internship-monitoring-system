@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +20,6 @@ import java.util.UUID;
 public class CandidateEvaluation {
 
     @Id
-    @NotBlank
     @Column(name = "id")
     private String id;
 

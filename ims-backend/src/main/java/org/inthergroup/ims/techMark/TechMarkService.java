@@ -43,15 +43,8 @@ public class TechMarkService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-
-    //Datele anyway se creiaza chiar daca exista in db, 1. prima apasare de modal creaza 1 set de note pentru fiecare intrebare
-    //                                              2. a 2 apasare adauga cite 1 dublicat
-    //                                              3. a 3 apasare imi da error ca nu stie care get sa faca ca sunt data dublicate
-
-
     public List<TechMarkDTO> getByCandidateId(final String id) {
 
-        //hz ne maio
         Candidate candidate = candidateRepository.findById(id).orElseThrow();
         Internship internship = candidate.getInternship();
         TechQuestionList techQuestionList = internship.getTechQuestionList();

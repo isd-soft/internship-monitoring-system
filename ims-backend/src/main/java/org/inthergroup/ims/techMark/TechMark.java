@@ -1,7 +1,11 @@
 package org.inthergroup.ims.techMark;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import lombok.Getter;
 import lombok.Setter;
