@@ -6,8 +6,6 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.validation.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,16 +18,16 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
+
 public class TechMark {
 
     @Id
-    @NotBlank
     private String id;
 
-    @Column(nullable = false)
+    @Column(name = "mark")
     private Double mark;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "tech_question_id", nullable = false)
     private TechQuestion techQuestion;
 

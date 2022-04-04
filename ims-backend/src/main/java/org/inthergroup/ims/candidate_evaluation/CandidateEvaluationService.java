@@ -1,11 +1,11 @@
 package org.inthergroup.ims.candidate_evaluation;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
-import org.inthergroup.ims.techMark.TechMark;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -36,10 +36,6 @@ public class CandidateEvaluationService {
                 .map(candidateEvaluation -> mapToDTO(candidateEvaluation, new CandidateEvaluationDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-//        candidateEvaluationRepository.findById(id).get()
-//                .getCandidate().getCandidateTechMarks().stream()
-//                .mapToDouble(TechMark::getMark).average();
-
         return CandidateEvaluationResponseDTO.builder()
                 .id(candidateEvaluationDTO.getId())
                 .englishMark(candidateEvaluationDTO.getEnglishMark())
@@ -52,9 +48,16 @@ public class CandidateEvaluationService {
 
     public CandidateEvaluationResponseDTO getByCandidateId(final String id) {
 
-        CandidateEvaluationDTO candidateEvaluationDTO = candidateEvaluationRepository.getCandidateEvaluationByCandidateId(id)
-                .map(candidateEvaluation -> mapToDTO(candidateEvaluation, new CandidateEvaluationDTO()))
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        CandidateEvaluationDTO candidateEvaluationDTO;
+        Optional<CandidateEvaluation> candidateEvaluationOptional = candidateEvaluationRepository.getCandidateEvaluationByCandidateId(id);
+        if (candidateEvaluationOptional.isPresent()) {
+                    candidateEvaluationDTO = mapToDTO(candidateEvaluationOptional.get(), new CandidateEvaluationDTO());
+        } else {
+            CandidateEvaluation candidateEvaluation = new CandidateEvaluation();
+            candidateEvaluation.setCandidate(candidateRepository.findById(id).orElseThrow());
+            candidateEvaluationRepository.save(candidateEvaluation);
+            candidateEvaluationDTO = mapToDTO(candidateEvaluation, new CandidateEvaluationDTO());
+        }
 
         return CandidateEvaluationResponseDTO.builder()
                 .id(candidateEvaluationDTO.getId())

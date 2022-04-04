@@ -18,9 +18,15 @@
 }
 
 mat-form-field {
+  display: flex;
+  align-content: center;
+
   width: 250px;
 }
 
 button {
-  margin: 2rem;
+  margin-right: 0;
+  margin-left: auto;
+  display: block;
+  align-content: flex-end;
 }

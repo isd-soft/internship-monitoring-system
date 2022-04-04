@@ -2,7 +2,7 @@
   <form (ngSubmit)="submit()" [formGroup]="marksForm">
     <h1>
       Candidate name
-      <b>{{ candidates.name }}</b>
+      <b>{{ candidates.name + " " + candidates.surname }}</b>
     </h1>
     <mat-form-field appearance="outline" class="example-full-width">
       <mat-label>English mark</mat-label>

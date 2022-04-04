@@ -11,7 +11,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotBlank;
 
 import java.util.List;
 import java.util.UUID;
@@ -22,16 +21,15 @@ import java.util.UUID;
 public class TechQuestionList {
 
     @Id
-    @NotBlank
     private String id;
 
     @Column
     private String name;
 
     @OneToMany(mappedBy = "techQuestionList", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TechQuestion> techQuestionListTechQuestions;
+    private List<TechQuestion> TechQuestions;
 
-    @OneToMany(mappedBy = "techQuesList")
+    @OneToMany(mappedBy = "techQuestionList")
     private List<Internship> internships;
 
     public TechQuestionList() {

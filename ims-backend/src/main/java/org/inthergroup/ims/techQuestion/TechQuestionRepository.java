@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface TechQuestionRepository extends JpaRepository<TechQuestion, String> {
 
-    public List<TechQuestion> getTechQuestionsByTechQuestionListId(String id);
+    List<TechQuestion> getTechQuestionsByTechQuestionListId(String id);
 }
