@@ -127,8 +127,7 @@ export class CandidatesListComponent implements OnInit {
   }
 
   deleteCandidateModal(candidate: Candidate) {
-    const dialogRef = this.dialog.open(ConfirmCandidateDialogComponent, {
-    });
+    const dialogRef = this.dialog.open(ConfirmCandidateDialogComponent, {});
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
         this.candidateService
@@ -138,7 +137,8 @@ export class CandidatesListComponent implements OnInit {
             this.snackBar.open('Candidate was deleted');
           });
       }
-
+    });
+  }
   downloadCV(cv: string) {
     this.candidateService.downloadCandidatesCV(cv);
   }
