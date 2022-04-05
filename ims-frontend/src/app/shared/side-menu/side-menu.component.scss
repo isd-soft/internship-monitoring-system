@@ -3,6 +3,7 @@ $violet: #6d06a2;
 $easing: cubic-bezier(.6, .05, .28, .91);
 * {
   box-sizing: border-box;
+
 }
 
 body {
@@ -27,6 +28,19 @@ body {
   font-size: 2em;
 }
 
+#logo .logo {
+  width: 8%;
+  height: auto;
+}
+
+#logo {
+  width: 20px;
+  height: 20px;
+  margin-left: 1.6rem;
+
+}
+
+
 #btn {
   position: fixed;
   z-index: 5;
@@ -45,7 +59,7 @@ body {
 }
 
 #btn.active {
-  right: 230px;
+  right: 130px;
 
   div {
     background-color: #660ca7;
@@ -75,22 +89,23 @@ body {
   opacity: 0;
   padding: 20px 0px;
   height: 100%;
-  background: #fe6f06;
-  background: -webkit-linear-gradient(top, #fe6f06, #ffffff);
-  background: -moz-linear-gradient(top, #fe6f06, #ffffff);
-  background: linear-gradient(to bottom, #fe6f06, #ffffff);
+  background-image: linear-gradient(to bottom,
+    #f6f6ef, #e6eee5, #d3e5df, #c2dcdd, #b6d2dd, #a2c0d5,
+    #93aecc, #8a9ac1, #6e7eae, #53629b, #3b4687, #232c73);
   color: $black;
   transition: all 350ms $easing;
 }
 
 #box.active {
+  width: 200px;
   right: 0px;
   opacity: 1;
 }
 
+
 #items {
   position: relative;
-  top: 50%;
+  top: 40%;
   transform: translateY(-50%);
 
   .item {
@@ -115,4 +130,9 @@ body {
 
 #box {
   will-change: transform, opacity;
+}
+
+.logo {
+  width: 8%;
+  height: auto;
 }

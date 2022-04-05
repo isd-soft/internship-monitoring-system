@@ -1,120 +1,157 @@
 <ng-container>
-  <div mat-dialog-title class="dialog-title">
-    <h2>Add New Internship Form</h2>
-    <button mat-icon-button aria-label="close dialog" mat-dialog-close>
+  <div class="dialog-title" mat-dialog-title>
+    <h2>{{ intent }}</h2>
+    <button aria-label="close dialog" mat-dialog-close mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
   </div>
- </ng-container>
-<div mat-dialog-content>
-  <form [formGroup]="internshipForm">
-    <mat-grid-list cols="2" rowHeight="500px">
-      <mat-grid-tile>
-        <div class="controles-container">
-          <!-- Project Name -->
-          <mat-form-field appearance="outline">
-            <mat-label> Project Name:</mat-label>
-            <input formControlName="projectName" matInput type="text" required/>
-            <mat-error *ngIf="internshipForm.get('projectName').invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-          <br/>
-          <!-- Category -->
-          <mat-form-field appearance="outline">
-            <mat-label> Category :</mat-label>
-            <mat-select formControlName="category">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let category of categories" [value]="category.name">
-                {{category.value}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="internshipForm.get('category').invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-          <br/>
-          <!-- Mentors -->
-          <mat-form-field appearance="outline">
-            <mat-label>Mentors:</mat-label>
-            <mat-select formControlName="mentorsId" multiple>
-              <mat-option *ngFor="let mentor of mentors"
-                          [value]="mentor.id">{{mentor.name + " " + mentor.surname}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-          <!-- Period -->
-          <mat-form-field appearance="outline">
-            <mat-label>Period</mat-label>
-            <mat-date-range-input [rangePicker]="picker">
-              <input matStartDate placeholder="Period from" formControlName="periodFrom">
-              <input matEndDate placeholder="Period to" formControlName="periodTo">
-            </mat-date-range-input>
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
-          <br/>
-          <!-- Status -->
-          <mat-form-field appearance="outline">
-            <mat-label> Status:</mat-label>
-            <mat-select formControlName="internshipStatus">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let status of statuses" [value]="status.name">
-                {{status.value}}
-              </mat-option>
-            </mat-select>
-            <mat-error *ngIf="internshipForm.get('internshipStatus').invalid">{{getErrorMessage()}}</mat-error>
-          </mat-form-field>
-          <br/>
-        </div>
-      </mat-grid-tile>
-      <mat-grid-tile>
-        <div class="controles-container">
-          <!-- Pre-interview tests: -->
-          <mat-form-field appearance="outline">
-            <mat-label>Pre-interview tests:</mat-label>
-            <mat-select formControlName="preInterviewTestList" multiple>
-              <mat-option *ngFor="let test of preInterviewTestList" [value]="test.name">{{test.value}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+</ng-container>
 
-          <!--Technical question list: -->
-          <mat-form-field appearance="outline">
-            <mat-label> Technical question list:</mat-label>
-            <mat-select formControlName="techQuesListId">
-              <mat-option>--</mat-option>
-              <mat-option *ngFor="let techQuestionList of techQuestionsList" [value]="techQuestionList.id">
-                {{techQuestionList.name}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <br/>
+<form [formGroup]="internshipForm">
+  <mat-grid-list cols="2" rowHeight="400px">
+    <mat-grid-tile>
+      <div class="controles-container">
+        <!-- Project Name -->
+        <mat-form-field appearance="outline">
+          <mat-label> Project Name</mat-label>
+          <input formControlName="projectName" matInput required type="text" />
+          <mat-error *ngIf="internshipForm.get('projectName').invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        <br />
+        <!-- Category -->
+        <mat-form-field appearance="outline">
+          <mat-label> Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option>--</mat-option>
+            <mat-option
+              *ngFor="let category of categories"
+              [value]="category.name"
+            >
+              {{ category.value }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="internshipForm.get('category').invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        <br />
+        <!-- Mentors -->
+        <mat-form-field appearance="outline">
+          <mat-label>Mentors</mat-label>
+          <mat-select formControlName="mentorsId" multiple>
+            <mat-option *ngFor="let mentor of mentors" [value]="mentor.id">{{
+              mentor.name + " " + mentor.surname
+            }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!-- Period -->
+        <mat-form-field appearance="outline">
+          <mat-label>Period</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input
+              formControlName="periodFrom"
+              matStartDate
+              placeholder="Period from"
+            />
+            <input
+              formControlName="periodTo"
+              matEndDate
+              placeholder="Period to"
+            />
+          </mat-date-range-input>
+          <mat-datepicker-toggle
+            [for]="picker"
+            matSuffix
+          ></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+        <br />
+        <!-- Status -->
+        <mat-form-field appearance="outline">
+          <mat-label> Status</mat-label>
+          <mat-select formControlName="internshipStatus">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let status of statuses" [value]="status.name">
+              {{ status.value }}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="internshipForm.get('internshipStatus').invalid">{{
+            getErrorMessage()
+          }}</mat-error>
+        </mat-form-field>
+        <br />
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <div class="controles-container">
+        <!-- Pre-interview tests: -->
+        <mat-form-field appearance="outline">
+          <mat-label>Pre-Interview Tests</mat-label>
+          <mat-select formControlName="preInterviewTestList" multiple>
+            <mat-option
+              *ngFor="let test of preInterviewTestList"
+              [value]="test.name"
+              >{{ test.value }}</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
 
-          <!--Link to GitHub repository: -->
-          <mat-form-field appearance="outline">
-            <mat-label> Link to repository:</mat-label>
-            <input formControlName="gitHubUrl" matInput type="text" placeholder="https://github.com"/>
-          </mat-form-field>
-          <!--Link to Trello board: -->
-          <mat-form-field appearance="outline">
-            <mat-label>Link to Trello board:</mat-label>
-            <input formControlName="trelloBoardUrl" matInput type="text" placeholder="https://trello.com"/>
-          </mat-form-field>
-          <br/>
+        <!--Technical question list: -->
+        <mat-form-field appearance="outline">
+          <mat-label> Technical Question List</mat-label>
+          <mat-select formControlName="techQuesListId">
+            <mat-option>--</mat-option>
+            <mat-option
+              *ngFor="let techQuestionList of techQuestionsList"
+              [value]="techQuestionList.id"
+            >
+              {{ techQuestionList.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
 
-          <!--Link to the deployed app: -->
-          <mat-form-field appearance="outline">
-            <mat-label>Link to the deployed app:</mat-label>
-            <input formControlName="deployedAppUrl" matInput type="text"/>
-          </mat-form-field>
-          <br/>
-          <!--Powerpoint presentation: -->
-          <!--          <mat-label>Powerpoint presentation:</mat-label>-->
-          <!--          <br/>-->
-          <!--          <input (change)="onFileSelected($event)" class="file-input" type="file"/>-->
-          <!--          <br/>-->
-        </div>
-      </mat-grid-tile>
-    </mat-grid-list>
-  </form>
+        <!--Link to GitHub repository: -->
+        <mat-form-field appearance="outline">
+          <mat-label> Link to Repository</mat-label>
+          <input
+            formControlName="gitHubUrl"
+            matInput
+            placeholder="https://github.com"
+            type="text"
+          />
+        </mat-form-field>
+        <!--Link to Trello board: -->
+        <mat-form-field appearance="outline">
+          <mat-label>Link to Trello Board</mat-label>
+          <input
+            formControlName="trelloBoardUrl"
+            matInput
+            placeholder="https://trello.com"
+            type="text"
+          />
+        </mat-form-field>
+        <br />
+        <!--Link to the deployed app: -->
+        <mat-form-field appearance="outline">
+          <mat-label>Link to the Deployed Application</mat-label>
+          <input formControlName="deployedAppUrl" matInput type="text" />
+        </mat-form-field>
+        <!--Powerpoint presentation: -->
+        <!--          <mat-label>Powerpoint presentation</mat-label>-->
+        <!--          <br/>-->
+        <!--          <input (change)="onFileSelected($event)" class="file-input" type="file"/>-->
+        <!--          <br/>-->
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</form>
+
+<div [align]="'end'" mat-dialog-actions>
+  <button (click)="reset()" color="warn" mat-raised-button>Reset</button>
+  <button (click)="createInternship()" color="primary" mat-raised-button>
+    {{ actionBtn }}
+  </button>
 </div>
-<div mat-dialog-actions [align]="'end'">
-  <button mat-raised-button color="warn" (click)="reset()">Reset</button>
-  <button mat-raised-button color="primary" (click)="createInternship()">{{actionBtn}}</button>
-</div>
-

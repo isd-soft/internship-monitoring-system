@@ -139,9 +139,6 @@ export class CandidatesListComponent implements OnInit {
           });
       }
 
-    });
-  }
-
   downloadCV(cv: string) {
     this.candidateService.downloadCandidatesCV(cv);
   }

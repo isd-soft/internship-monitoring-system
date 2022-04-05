@@ -1,6 +1,6 @@
 label {
   display: block;
-  margin: .5em 0;
+  margin: 0.5em 0;
   font-weight: bold;
 }
 
@@ -10,10 +10,11 @@ label {
 
 .container {
   max-width: 1400px;
-  margin:0 auto;
+  margin: 0 auto;
 }
 
-td, th {
+td,
+th {
   width: 20%;
   white-space: normal;
   word-wrap: break-word;
@@ -25,6 +26,7 @@ td, th {
 .w-5 {
   width: 5%;
 }
+
 .w-50 {
   width: 50%;
 }
@@ -68,20 +70,28 @@ td, th {
   overflow: hidden;
   vertical-align: middle;
 }
+
 .mat-column-projectName {
   padding: 10px 10px;
   max-width: 200px;
   white-space: normal;
   word-wrap: break-word;
 }
-.mat-stroked-button mat-checkbox{
+
+.mat-stroked-button mat-checkbox {
   margin-left: 15px;
   margin-right: 15px;
   justify-content: space-between;
 }
+
 .mat-checkbox {
   margin-left: 15px;
   margin-right: 15px;
+}
+
+.mat-stroked-button {
+  border: none;
+  margin-bottom: 10px;
 }
 
 /*.mat-column-mentorsId {*/
@@ -90,4 +100,3 @@ td, th {
 /*  overflow-wrap: break-word;*/
 /*  word-wrap: break-word;*/
 /*}*/
-

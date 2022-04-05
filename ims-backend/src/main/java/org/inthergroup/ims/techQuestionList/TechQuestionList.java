@@ -29,7 +29,7 @@ public class TechQuestionList {
     @OneToMany(mappedBy = "techQuestionList", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TechQuestion> TechQuestions;
 
-    @OneToMany(mappedBy = "techQuestionList")
+    @OneToMany(mappedBy = "techQuestionList", cascade = CascadeType.REMOVE)
     private List<Internship> internships;
 
     public TechQuestionList() {

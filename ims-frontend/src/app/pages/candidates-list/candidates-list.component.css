@@ -3,6 +3,18 @@
   margin-left: 5%;
   margin-right: 5%;
   width: 90%;
+  overflow-wrap: break-word;
+}
+
+.w-50 {
+  width: 30px;
+}
+
+.mat-column-comment {
+  padding: 10px 10px;
+  max-width: 200px;
+  white-space: normal;
+  word-wrap: break-word;
 }
 
 .mat-stroked-button {

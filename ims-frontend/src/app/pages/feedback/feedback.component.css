@@ -1,3 +1,16 @@
+.mat-tab-group {
+  display: block;
+  padding: 24px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  overflow: auto;
+  outline: 0;
+  width: 100%;
+  height: 70%;
+  min-height: inherit;
+  max-height: inherit;
+}
+
 .form-container {
   display: flex;
   justify-content: center;
@@ -10,7 +23,7 @@
   align-items: center;
   flex-direction: column;
   min-width: 400px;
-  max-width: 600px;
+  max-height: 600px;
 }
 
 mat-form-field {
@@ -20,6 +33,7 @@ mat-form-field {
 button {
   margin: 2rem;
 }
+
 .button-holder {
   display: flex;
   flex-direction: row;
@@ -30,13 +44,12 @@ button {
   font-weight: bold;
 }
 
-
-.other-reviews{
+.other-reviews {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.feedback-text-area{
-  height: 202px
+.feedback-text-area {
+  height: 202px;
 }
