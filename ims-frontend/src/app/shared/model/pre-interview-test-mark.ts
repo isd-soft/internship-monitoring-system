@@ -1,6 +1,8 @@
-export class PreInterviewTestEvaluation {
+import {PreInterviewTest} from "./internship";
+
+export class PreInterviewTestMark {
   id: string;
-  testName : PreInterviewTestEvaluation;
+  preInterviewTestName : PreInterviewTest;
   candidateId : string;
   mark : number;
 }
