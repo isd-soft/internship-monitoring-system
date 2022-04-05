@@ -16,8 +16,8 @@ export class CandidateEvaluationService {
     );
   }
 
-  getCandidateEvaluationById(id: string): Observable<CandidateEvaluation[]> {
-    return this.http.get<CandidateEvaluation[]>(
+  getCandidateEvaluationById(id: string): Observable<CandidateEvaluation> {
+    return this.http.get<CandidateEvaluation>(
       `${environment.apiUrl}candidateEvaluations/candidate/${id}`
     );
   }

@@ -10,6 +10,7 @@ import {User} from "../shared/model/user";
 import {AccountService} from "../shared/service/account.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import {InternshipResultsComponent} from "./internship-results/internship-results.component";
 
 @Component({
   selector: 'app-internship',
@@ -119,11 +120,14 @@ export class InternshipComponent implements AfterViewInit {
 
   }
 
-  deleteInternship(id: string) {
-    console.log(id);
-    this.dialog.open(ConfirmDialogComponent).afterClosed().subscribe(confirm => {
+  deleteInternship(row: Internship) {
+    console.log(row.id);
+    this.dialog.open(ConfirmDialogComponent, {
+      // width: '75%',
+      data: row
+    }).afterClosed().subscribe(confirm => {
       if (confirm) {
-        this.internshipService.deleteInternship(id).subscribe({
+        this.internshipService.deleteInternship(row.id).subscribe({
           next: (res) => {
             // TODO - custom notification message
             this._snackBar.open("Deleted successfully", "OK");
@@ -149,16 +153,12 @@ export class InternshipComponent implements AfterViewInit {
   }
 
   getInternshipResults(row: Internship) {
-    this.dialog.open(AddInternshipComponent, {
+    this.dialog.open(InternshipResultsComponent, {
       width: '75%',
       data: row
     }).afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      if (result === 'update') {
         this.getAllInternships();
-        // TODO - custom notification message
-        this._snackBar.open("Edited successfully", "OK");
-      }
     });
   }
 }

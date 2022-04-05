@@ -37,7 +37,7 @@ public class CandidateServiceImp implements CandidateService {
 
     public void create(final Candidate candidate) {
         candidateRepository.save(candidate);
-        // TODO: Create candidate evaluation and tech marksfg
+        // TODO: Create candidate evaluation and tech marks
     }
 
     @Override

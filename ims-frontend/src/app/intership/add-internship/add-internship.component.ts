@@ -117,8 +117,6 @@ export class AddInternshipComponent implements OnInit {
     return !this.form.internshipForm.get(field).valid && this.internshipForm.get(field).touched;
   }
 
-
-
   createInternship() {
     if (!this.editData) {
       if (this.internshipForm.valid) {

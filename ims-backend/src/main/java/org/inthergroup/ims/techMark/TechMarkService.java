@@ -2,13 +2,17 @@ package org.inthergroup.ims.techMark;
 
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.techQuestion.TechQuestion;
 import org.inthergroup.ims.techQuestion.TechQuestionRepository;
+import org.inthergroup.ims.techQuestionList.TechQuestionList;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -19,8 +23,8 @@ public class TechMarkService {
     private final CandidateRepository candidateRepository;
 
     public TechMarkService(final TechMarkRepository techMarkRepository,
-            final TechQuestionRepository techQuestionRepository,
-            final CandidateRepository candidateRepository) {
+                           final TechQuestionRepository techQuestionRepository,
+                           final CandidateRepository candidateRepository) {
         this.techMarkRepository = techMarkRepository;
         this.techQuestionRepository = techQuestionRepository;
         this.candidateRepository = candidateRepository;
@@ -38,11 +42,33 @@ public class TechMarkService {
                 .map(techMark -> mapToDTO(techMark, new TechMarkDTO()))
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
+
     public List<TechMarkDTO> getByCandidateId(final String id) {
-        return techMarkRepository.getTechMarkByCandidateId(id)
+
+        Candidate candidate = candidateRepository.findById(id).orElseThrow();
+        Internship internship = candidate.getInternship();
+        TechQuestionList techQuestionList = internship.getTechQuestionList();
+        List<TechQuestion> techQuestions = techQuestionRepository.getTechQuestionsByTechQuestionListId(techQuestionList.getId());
+        List<TechMark> techMarks = new ArrayList<>();
+        techQuestions.forEach(techQuestion -> {
+            Optional<TechMark> techMarkOptional = techMarkRepository.getByTechQuestionIdAndCandidateId(techQuestion.getId(), candidate.getId());
+            if(techMarkOptional.isPresent()){
+                techMarks.add(techMarkOptional.get());
+            } else {
+                techMarks.add(createNewTechMark(candidate, techQuestion));
+            }
+        });
+        return techMarks
                 .stream()
                 .map(techMark -> mapToDTO(techMark, new TechMarkDTO()))
                 .collect(Collectors.toList());
+    }
+
+    private TechMark createNewTechMark(Candidate candidate, TechQuestion techQuestion){
+        TechMark techMark = new TechMark();
+        techMark.setCandidate(candidate);
+        techMark.setTechQuestion(techQuestion);
+        return techMarkRepository.save(techMark);
     }
 
     public String create(final TechMarkDTO techMarkDTO) {

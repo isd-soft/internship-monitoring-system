@@ -4,7 +4,7 @@ import {Observable} from "rxjs";
 import {CandidateEvaluation} from "../model/candidate-evaluation";
 import {environment} from "../../../environments/environment";
 import {PreInterviewTest} from "../model/internship";
-import {PreInterviewTestEvaluation} from "../model/pre-interview-test-evaluation";
+import {PreInterviewTestMark} from "../model/pre-interview-test-mark";
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +13,9 @@ export class PreInterviewTestService {
 
   constructor(private http: HttpClient) { }
 
-  getCandidatePreInterviewTestById(id: string): Observable<PreInterviewTestEvaluation[]> {
-    return this.http.get<PreInterviewTestEvaluation[]>(
-      `${environment.apiUrl}candidateEvaluations/candidate/${id}`
+  getPreInterviewTestMarksByCandidateId(id: string): Observable<PreInterviewTestMark[]> {
+    return this.http.get<PreInterviewTestMark[]>(
+      `${environment.apiUrl}preInterviewTestMaks/${id}`
     );
   }
 }

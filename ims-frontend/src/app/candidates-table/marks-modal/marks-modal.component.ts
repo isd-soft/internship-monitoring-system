@@ -17,7 +17,6 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class MarksModalComponent implements OnInit {
   candidates: any = [];
-  // candidateEvaluation: any = [];
   techQuestions: any = [];
   marksForm: FormGroup = new FormGroup({});
   marksArray: TechMark[] = [];
@@ -35,7 +34,6 @@ export class MarksModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getCandidateEvaluationByCandidateId();
     this.getTechQuestions();
     this.getCandidates();
     this.getTechMarksByCandidateId();
@@ -76,14 +74,6 @@ export class MarksModalComponent implements OnInit {
         this.candidates = res;
       });
   }
-
-  // getCandidateEvaluationByCandidateId(): Subscription {
-  //   return this.candidateEvaluationSv
-  //     .getCandidateEvaluationById(this.data.candidate)
-  //     .subscribe((res) => {
-  //       this.candidateEvaluation = res;
-  //     });
-  // }
 
   submit(): void {
     this.candidateEvaluationSv
