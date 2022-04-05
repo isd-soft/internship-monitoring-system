@@ -4,12 +4,24 @@
   <div id="bottom"></div>
 </div>
 <div id="box">
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <div id="logo">
+    <img
+      alt="logo"
+      height="80"
+      src="assets/img/isd_logo-500x500.png"
+      width="80"
+    />
+  </div>
   <div id="items">
     <div [routerLink]="['']" class="item">Home</div>
     <div *ngIf="user">
       <div [routerLink]="['/internships']" class="item">Internships</div>
       <div [routerLink]="['/questions']" class="item">Questions</div>
-      <div [routerLink]="['/profile']" class="item">Profile</div>
     </div>
     <div *ngIf="!user">
       <div [routerLink]="['/login']" class="item">Login</div>

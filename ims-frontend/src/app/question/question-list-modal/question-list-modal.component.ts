@@ -14,7 +14,7 @@ export class QuestionListModalComponent implements OnInit {
   techQuestionListStatusError = false;
   dataSource: any = [];
   statusButton: string = "Save";
-  statusIntent: string = "Add a new technical question list";
+  statusIntent: string = "Add a Technical Question List";
   validationErrors: {} | null = {};
   statusOptions: { name: string; value: number }[] = [];
 
@@ -50,6 +50,14 @@ export class QuestionListModalComponent implements OnInit {
       });
   }
 
+  getQuestionList() {
+    return this.techQuestionListService
+      .getAllTechQuestionList()
+      .subscribe((res) => {
+        this.dataSource = res;
+      });
+  }
+
   createTechnicalQuestionList() {
     if (!this.editList) {
       if (this.techQuestionListForm.valid) {
@@ -64,6 +72,7 @@ export class QuestionListModalComponent implements OnInit {
             },
           });
         this.dialogRef.close("save");
+        this.getQuestionList();
       }
     } else {
       this.updateQuestionList();

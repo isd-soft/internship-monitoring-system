@@ -4,8 +4,8 @@
     [formGroup]="candidateForm"
     class="candidate-form"
   >
-    <legend *ngIf="data.intent =='add'"><h1>Add candidate to internship</h1></legend>
-    <legend *ngIf="data.intent =='update'"><h1>Update candidate in internship</h1></legend>
+    <legend *ngIf="data.intent =='add'"><h1>Add Candidate</h1></legend>
+    <legend *ngIf="data.intent =='update'"><h1>Update Candidate</h1></legend>
     <br />
     <mat-form-field appearance="outline">
       <mat-label> Name</mat-label>
@@ -45,21 +45,21 @@
     </ng-container>
     <br />
     <div class="buttons-holder">
-    <button
-      (click)="closeModal()"
-      color="warn"
-      mat-raised-button
-    >
-      Cancel
-    </button>
-    <button
-      [disabled]="!candidateForm.valid"
-      color="primary"
-      mat-raised-button
-      type="submit"
-    >
-      Submit
-    </button>
+      <button
+        (click)="closeModal()"
+        color="warn"
+        mat-raised-button
+      >
+        Cancel
+      </button>
+      <button
+        [disabled]="!candidateForm.valid"
+        color="primary"
+        mat-raised-button
+        type="submit"
+      >
+        Submit
+      </button>
     </div>
   </form>
 </mat-dialog-content>
