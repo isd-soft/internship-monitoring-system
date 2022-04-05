@@ -1,10 +1,10 @@
-<mat-dialog-content class="form-container">
+<div class="form-container">
   <form
     [formGroup]="candidateForm"
     class="candidate-form"
   >
-    <legend *ngIf="data.intent =='add'"><h1>Add candidate to internship</h1></legend>
-    <legend *ngIf="data.intent =='update'"><h1>Update candidate in internship</h1></legend>
+    <legend *ngIf="data.intent =='add'"><h1>Add candidate</h1></legend>
+    <legend *ngIf="data.intent =='update'"><h1>Update candidate</h1></legend>
     <br />
     <mat-form-field appearance="outline">
       <mat-label> Name</mat-label>
@@ -62,4 +62,4 @@
     </button>
     </div>
   </form>
-</mat-dialog-content>
+</div>

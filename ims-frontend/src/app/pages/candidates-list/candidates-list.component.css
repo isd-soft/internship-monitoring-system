@@ -10,12 +10,11 @@
   margin-bottom: 10px;
 }
 
-/*.mat-icon {*/
-/*  margin-right: 40px;*/
-/*  margin-left: 0px;*/
-/*}*/
-
-/*.mat-header-cell {*/
-/*  text-align: justify;*/
-/*  margin-left: 20px;*/
-/*}*/
+td, th {
+  /*width: 20%;*/
+  white-space: normal;
+  word-wrap: break-word;
+  max-width: 200px;
+  /*overflow: hidden;*/
+  /*text-overflow: ellipsis;*/
+}
