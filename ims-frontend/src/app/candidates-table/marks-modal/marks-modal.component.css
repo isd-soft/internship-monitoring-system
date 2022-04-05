@@ -4,8 +4,20 @@
   align-items: center;
 }
 
-.h1 {
-  text-align: center;
+.mat-h2{
+  align-content: center;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  flex-direction: row;
+}
+.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label {
+  flex-basis: 0;
+  flex-grow: 1;
 }
 
 .techquestion-form {
@@ -16,17 +28,34 @@
   min-width: 400px;
   max-width: 600px;
 }
+.mat-tab-group {
+  margin-bottom: 0px;
+}
+.mat-form-field{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
 
-mat-form-field {
+mat-form-field mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0px 8.75em 0 0.75em;
+  margin-top: -0.25em;
+  position: relative;
   display: flex;
   align-content: center;
-
-  width: 250px;
 }
 
 button {
-  margin-right: 0;
-  margin-left: auto;
   display: block;
-  align-content: flex-end;
+
 }
+.mat-raised-button{
+  margin-left: auto;
+  margin-right: auto;
+  position: sticky;
+
+}
+.mat-icon-button{
+  background: none;
+}
+

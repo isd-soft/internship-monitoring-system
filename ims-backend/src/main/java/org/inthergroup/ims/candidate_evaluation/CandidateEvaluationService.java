@@ -43,6 +43,7 @@ public class CandidateEvaluationService {
                 .practiceMark(candidateEvaluationDTO.getPracticeMark())
                 .candidate(candidateEvaluationDTO.getCandidate())
                 .averageMark(candidateEvaluationRepository.avg(candidateEvaluationDTO.getCandidate()))
+                .averagePreInterviewTestMark(candidateEvaluationRepository.testAvg(candidateEvaluationDTO.getCandidate()))
                 .build();
     }
 

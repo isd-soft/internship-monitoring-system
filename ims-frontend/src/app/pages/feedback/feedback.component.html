@@ -3,10 +3,10 @@
     <br>
     <div class="form-container">
       <form [formGroup]="feedbackForm" class="feedback-form">
-        <legend *ngIf="this.feedbackForm.controls['id'].value === ''"><h1>Add feedback to candidate</h1></legend>
+        <legend *ngIf="this.feedbackForm.controls['id'].value === ''"><h1>Add feedback to this candidate</h1></legend>
         <legend *ngIf="this.feedbackForm.controls['id'].value !== ''"><h1>Update feedback to candidate</h1></legend>
         <br />
-        <mat-form-field style="width: 401px" appearance="fill">
+        <mat-form-field style="width: 401px" appearance="outline">
           <mat-label> Feedback</mat-label>
           <textarea class="feedback-text-area" formControlName="feedback" matInput> </textarea>
         </mat-form-field>

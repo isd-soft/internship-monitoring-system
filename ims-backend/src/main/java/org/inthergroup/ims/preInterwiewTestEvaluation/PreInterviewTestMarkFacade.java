@@ -1,6 +1,7 @@
 package org.inthergroup.ims.preInterwiewTestEvaluation;
 
 import org.inthergroup.ims.candidate.facade.CandidateDTO;
+import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.stereotype.Service;
@@ -41,5 +42,9 @@ public class PreInterviewTestMarkFacade {
                     .stream()
                     .map(PreInterviewTestMarkDTO::new)
                     .collect(Collectors.toList());
+    }
+    public void update(PreInterviewTestMarkDTO preInterviewTestMarkDTO) {
+        PreInterviewTestMark preInterviewTestMark = mapToEntity(preInterviewTestMarkDTO);
+        preInterviewTestMarkService.update(preInterviewTestMark);
     }
 }

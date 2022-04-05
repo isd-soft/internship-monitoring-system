@@ -9,6 +9,8 @@ import {Subscription} from "rxjs/internal/Subscription";
 import {TechMark} from "../../shared/model/tech-mark";
 import {CandidateEvaluation} from "../../shared/model/candidate-evaluation";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {PreInterviewTestMarkService} from "../../shared/service/pre-interview-test-mark.service";
+import {PreInterviewTestMark} from "../../shared/model/pre-interview-test-mark";
 
 @Component({
   selector: "app-marks-modal",
@@ -20,7 +22,7 @@ export class MarksModalComponent implements OnInit {
   techQuestions: any = [];
   marksForm: FormGroup = new FormGroup({});
   marksArray: TechMark[] = [];
-  preInterviewTests: any = [];
+  preInterviewTestMarks: PreInterviewTestMark[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CandidateEvaluation,
@@ -29,14 +31,15 @@ export class MarksModalComponent implements OnInit {
     private candidateEvaluationSv: CandidateEvaluationService,
     private techQuestionService: TechQuestionService,
     private candidateService: CandidateService,
-    private techMarkService: TechMarkService
-  ) {
-  }
+    private techMarkService: TechMarkService,
+    private preInterviewTestMarkService : PreInterviewTestMarkService
+  ) {}
 
   ngOnInit(): void {
     this.getTechQuestions();
     this.getCandidates();
     this.getTechMarksByCandidateId();
+    this.getPreInterviewTestMarksByCandidateId();
     this.marksForm = this.formBuilder.group({
       englishMark: [{value: this.data.englishMark, disabled: false}],
       softSkillMark: [{value: this.data.softSkillMark, disabled: false}],
@@ -49,10 +52,17 @@ export class MarksModalComponent implements OnInit {
     return this.techMarkService
       .getTechMarksByCandidateId(this.data.candidate)
       .subscribe((res) => {
+        console.log(res)
         this.marksArray = res;
       });
   }
-
+  getPreInterviewTestMarksByCandidateId(): Subscription {
+    return this.preInterviewTestMarkService.getPreInterviewTestMarksByCandidateId(this.data.candidate)
+      .subscribe((res) => {
+        console.log(res);
+        this.preInterviewTestMarks = res;
+      });
+  }
   getTechQuestions() {
     return this.techQuestionService.getAllTechQuestion().subscribe((res) => {
       console.log(res);
@@ -89,6 +99,19 @@ export class MarksModalComponent implements OnInit {
     this.marksArray.forEach((marks) => {
       this.techMarkService
         .editTechMarkById(marks.id, marks)
+        .subscribe((res) => {
+          marks = res;
+        });
+    });
+
+    this._snackBar.open("Saved successfully", "Ok!");
+  }
+
+  submitPreInterviewForm() {
+    console.log(this.marksArray);
+    this.preInterviewTestMarks.forEach((marks) => {
+      this.preInterviewTestMarkService
+        .editPreInterviewTestMarkById(marks.id, marks)
         .subscribe((res) => {
           marks = res;
         });

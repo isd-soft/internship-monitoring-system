@@ -20,10 +20,6 @@ public class PreInterviewTestMarkServiceImpl implements PreInterviewTestMarkServ
         this.candidateRepository = candidateRepository;
     }
 
-    @Override
-    public List<PreInterviewTestMark> getAllPreInterviewTestEvaluation() {
-        return preInterviewTestMarkRepository.findAll();
-    }
 
     @Override
     public PreInterviewTestMark getById(String preInterviewTestEvaluationId) {
@@ -36,8 +32,8 @@ public class PreInterviewTestMarkServiceImpl implements PreInterviewTestMarkServ
     @Override
     public List<PreInterviewTestMark> getPreInterviewTestMarksByCandidateId(String candidateId) {
         Candidate candidate = candidateRepository.findById(candidateId)
-                .orElseThrow(() -> new EntityNotFoundException(String.format("Could not find any Candidate for the provided ID[%s]!",
-                        candidateId)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Could not find any " +
+                                "Candidate for the provided ID[%s]!", candidateId)));
         List<PreInterviewTest> internshipPreInterviewTestList =
                 Optional.ofNullable(candidate.getInternship().getPreInterviewTestList()).orElseThrow(()->
                 new EntityNotFoundException(String.format("Could not find any Pre-Interview Test List" +
@@ -46,7 +42,7 @@ public class PreInterviewTestMarkServiceImpl implements PreInterviewTestMarkServ
         List<PreInterviewTestMark> preInterviewTestMarkList = new ArrayList<>();
         internshipPreInterviewTestList.forEach(preInterviewTest -> {
             Optional<PreInterviewTestMark> preInterviewTestMarkOptional =
-                    preInterviewTestMarkRepository.getByCandidateIdAndPreInterviewTestName(preInterviewTest.name(), candidateId);
+                    preInterviewTestMarkRepository.getByCandidateIdAndPreInterviewTestName(candidateId, preInterviewTest);
             if(preInterviewTestMarkOptional.isPresent()){
                 preInterviewTestMarkList.add(preInterviewTestMarkOptional.get());
             } else {
@@ -55,6 +51,11 @@ public class PreInterviewTestMarkServiceImpl implements PreInterviewTestMarkServ
         });
 
         return preInterviewTestMarkList;
+    }
+
+    @Override
+    public void update(PreInterviewTestMark preInterviewTestMark) {
+        preInterviewTestMarkRepository.save(preInterviewTestMark);
     }
 
     private PreInterviewTestMark createNewPreInterviewTestMark(Candidate candidate, PreInterviewTest preInterviewTest) {
