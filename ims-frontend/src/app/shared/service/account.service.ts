@@ -44,7 +44,7 @@ export class AccountService {
     return this.http.post(`${environment.apiUrl}/auth/register/`, user);
   }
 
-  getAll(): any {
+  getAll(): Observable<User[]> {
     return this.http.get<User[]>(`${environment.apiUrl}user`);
   }
 

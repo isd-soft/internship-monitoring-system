@@ -12,6 +12,7 @@ import { MarksModalComponent } from "src/app/candidates-table/marks-modal/marks-
 import { CandidateEvaluationService } from "src/app/shared/service/candidate-evaluation.service";
 import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfirmCandidateDialogComponent} from "./confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "app-candidates-list",
@@ -113,6 +114,8 @@ export class CandidatesListComponent implements OnInit {
   showFeedbackModal(candidate: Candidate) {
     const dialogRef = this.dialog.open(FeedbackComponent, {
       data: { candidateId: candidate.id, internshipId: this.internshipId },
+      height: '570px',
+      width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
@@ -124,14 +127,18 @@ export class CandidatesListComponent implements OnInit {
   }
 
   deleteCandidateModal(candidate: Candidate) {
-    this.candidateService
-      .deleteCandidateFromInternship(candidate.id.toString())
-      .subscribe(() => {
-        this.updateTableData();
-        this.snackBar.open('Candidate was deleted');
-      });
+    const dialogRef = this.dialog.open(ConfirmCandidateDialogComponent, {});
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.candidateService
+          .deleteCandidateFromInternship(candidate.id.toString())
+          .subscribe(() => {
+            this.updateTableData();
+            this.snackBar.open('Candidate was deleted');
+          });
+      }
+    });
   }
-
   downloadCV(cv: string) {
     this.candidateService.downloadCandidatesCV(cv);
   }
