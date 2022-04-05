@@ -1,6 +1,5 @@
 <mat-dialog-content class="form-container">
   <form
-    (ngSubmit)="onSubmit()"
     [formGroup]="candidateForm"
     class="candidate-form"
   >
@@ -45,21 +44,22 @@
     </ng-container>
     <br />
     <div class="buttons-holder">
-      <button
-        (click)="closeModal()"
-        color="warn"
-        mat-raised-button
-      >
-        Cancel
-      </button>
-      <button
-        [disabled]="!candidateForm.valid"
-        color="primary"
-        mat-raised-button
-        type="submit"
-      >
-        Submit
-      </button>
+    <button
+      (click)="closeModal()"
+      color="warn"
+      mat-raised-button
+    >
+      Cancel
+    </button>
+    <button
+      [disabled]="!candidateForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
+      (click)="onSubmit()"
+    >
+      Submit
+    </button>
     </div>
   </form>
 </mat-dialog-content>
