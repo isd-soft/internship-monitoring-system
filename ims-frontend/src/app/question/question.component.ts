@@ -118,6 +118,8 @@ export class QuestionComponent implements OnInit {
   updateTechQuestion(question: any) {
     this.dialog
       .open(EditTechQuestionModalComponent, {
+        width: "50%",
+        height: "50%",
         data: question,
       })
       .afterClosed()
