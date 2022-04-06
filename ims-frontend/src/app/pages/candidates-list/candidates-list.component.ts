@@ -11,8 +11,8 @@ import { FeedbackComponent } from "../feedback/feedback.component";
 import { MarksModalComponent } from "src/app/candidates-table/marks-modal/marks-modal.component";
 import { CandidateEvaluationService } from "src/app/shared/service/candidate-evaluation.service";
 import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {ConfirmCandidateDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { ConfirmCandidateDialogComponent } from "./confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "app-candidates-list",
@@ -72,8 +72,10 @@ export class CandidatesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
-      if (result === 'updated') {this.snackBar.open('Candidate was updated');}
-      console.log('tick')
+      if (result === "updated") {
+        this.snackBar.open("Candidate was updated");
+      }
+      console.log("tick");
     });
   }
 
@@ -105,23 +107,25 @@ export class CandidatesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
-      if (result === 'created') {this.snackBar.open('Candidate was created');}
-
-
+      if (result === "created") {
+        this.snackBar.open("Candidate was created");
+      }
     });
   }
 
   showFeedbackModal(candidate: Candidate) {
     const dialogRef = this.dialog.open(FeedbackComponent, {
       data: { candidateId: candidate.id, internshipId: this.internshipId },
-      height: '570px',
-      width: '600px',
+      width: "600px",
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
-      if (result === 'create') {this.snackBar.open('Feedback was created');}
-      if (result === 'update') {this.snackBar.open('Feedback was updated');}
-
+      if (result === "create") {
+        this.snackBar.open("Feedback was created");
+      }
+      if (result === "update") {
+        this.snackBar.open("Feedback was updated");
+      }
     });
     this.updateTableData();
   }
@@ -134,11 +138,12 @@ export class CandidatesListComponent implements OnInit {
           .deleteCandidateFromInternship(candidate.id.toString())
           .subscribe(() => {
             this.updateTableData();
-            this.snackBar.open('Candidate was deleted');
+            this.snackBar.open("Candidate was deleted");
           });
       }
     });
   }
+
   downloadCV(cv: string) {
     this.candidateService.downloadCandidatesCV(cv);
   }

@@ -1,36 +1,43 @@
 <div class="container">
-  <div (mouseenter)="mouseOverCardAction(internshipCard)" *ngFor="let internshipCard of internships; let i = index" class="card">
+  <div
+    (mouseenter)="mouseOverCardAction(internshipCard)"
+    *ngFor="let internshipCard of internships; let i = index"
+    class="card"
+  >
     <div>
       <h3 class="title">{{ internshipCard.projectName }}</h3>
       <div *ngIf="activeCardId === internshipCard.id" class="requirements">
-         <span>Period: {{internshipCard.periodFrom | date}} -
-           {{internshipCard.periodTo | date}} </span>
-        <br/>
-        <span> status:  {{internshipCard.internshipStatus}}</span>
-        <br/>
+        <span
+          >Period: {{ internshipCard.periodFrom | date }} -
+          {{ internshipCard.periodTo | date }}
+        </span>
+        <br />
+        <span> status: {{ internshipCard.internshipStatus }}</span>
+        <br />
         <a [href]="internshipCard.gitHubUrl"> gitHubUrl </a>
-        <br/>
+        <br />
         <a [href]="internshipCard.deployedAppUrl"> deployedAppUrl</a>
-        <br/>
-        <span>Mentors: <br/></span>
-        <div *ngFor="let mentor of internshipCard.mentorsId">
-            {{mentorNameFromArray(mentor)}}
+        <br />
+        <span>Mentors: <br /></span>
+        <div *ngFor="let mentor of allMentors">
+          {{ mentor.name + " " + mentor.surname }}
         </div>
-        <br/>
-        <span>Candidates: <br/></span>
+        <br />
+        <span>Candidates: <br /></span>
         <div *ngFor="let candidateByInternship of allCandidatesByInternship">
-          {{candidateByInternship.name}}
+          {{ candidateByInternship.name + " " + candidateByInternship.surname }}
         </div>
       </div>
-
-
 
       <!--      <div class="bar">-->
       <!--        <div class="emptybar"></div>-->
       <!--        <div class="filledbar"></div>-->
       <!--      </div>-->
       <div class="circle">
-        <img id="rounded-img" src="assets/img/{{ internshipCard.id }}.png" />
+        <img
+          id="rounded-img"
+          src="assets/img/{{ internshipCard.category }}.png"
+        />
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg">
           <circle class="stroke" cx="60" cy="60" r="50" />
         </svg>
