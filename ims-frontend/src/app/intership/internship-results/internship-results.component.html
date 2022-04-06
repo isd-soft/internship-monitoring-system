@@ -1,112 +1,110 @@
-<div mat-dialog-title class="dialog-title">
-  <div>Results for internship:
-    <b>{{internship.projectName}}</b></div>
-  <a
-    [routerLink]="['/internship/' + internship.id + '/candidates']"
-    mat-stroked-button mat-dialog-close
-  >Candidates<mat-icon> how_to_reg </mat-icon>
-    <mat-icon> group_add </mat-icon>
-  </a>
-  <button color="primary" mat-icon-button aria-label="close dialog" mat-dialog-close>
-    <mat-icon>close</mat-icon>
-  </button>
-</div>
-<div class="example-action-buttons">
-  <button mat-button (click)="accordion.openAll()">Expand All</button>
-  <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-</div>
-<mat-accordion class="example-headers-align" multi>
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Accepted Candidates
-      </mat-panel-title>
-      <mat-panel-description>
-        Good job Heroes!
-        <mat-icon>how_to_reg</mat-icon>
-        <mat-icon>stars</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+<mat-dialog-content>
+  <div class="dialog-title" mat-dialog-title>
+    <div>
+      Results for internship: <b>{{ internship.projectName }}</b>
+    </div>
+    <a
+      [routerLink]="['/internship/' + internship.id + '/candidates']"
+      color="primary"
+      mat-dialog-close
+      mat-stroked-button
+      >Candidates
+      <mat-icon> how_to_reg</mat-icon>
+      <mat-icon> group_add</mat-icon>
+    </a>
+    <button
+      aria-label="close dialog"
+      color="primary"
+      mat-dialog-close
+      mat-icon-button
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div class="example-action-buttons">
+    <button (click)="accordion.openAll()" mat-button>Expand All</button>
+    <button (click)="accordion.closeAll()" mat-button>Collapse All</button>
+  </div>
+  <mat-accordion class="example-headers-align" multi>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Accepted Candidates</mat-panel-title>
+        <mat-panel-description>
+          Good job Heroes!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-icon color="primary">how_to_reg</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
-      <input matInput>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput min="1" type="number" />
+      </mat-form-field>
+    </mat-expansion-panel>
 
-  </mat-expansion-panel>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> On Hold Candidates</mat-panel-title>
+        <mat-panel-description>
+          Waiting decision!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-icon color="primary">sync</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        On Hold Candidates
-      </mat-panel-title>
-      <mat-panel-description>
-        Waiting decision!
-        <mat-icon>sync</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-    <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
-      <input matInput>
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput min="1" type="number" />
+      </mat-form-field>
+    </mat-expansion-panel>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> New Candidates</mat-panel-title>
+        <mat-panel-description>
+          Welcome!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-icon color="primary">sentiment_very_satisfied</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-  </mat-expansion-panel>
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        New Candidates
-      </mat-panel-title>
-      <mat-panel-description>
-        Welcome!
-        <mat-icon>sentiment_very_satisfied</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput min="1" type="number" />
+      </mat-form-field>
+    </mat-expansion-panel>
 
-    <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
-      <input matInput>
-    </mat-form-field>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title> Rejected Candidates</mat-panel-title>
+        <mat-panel-description>
+          Keep it
+          going!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <mat-icon color="primary">star_border</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>First name</mat-label>
+        <input matInput />
+      </mat-form-field>
 
-  </mat-expansion-panel>
-
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      <mat-panel-title>
-        Rejected Candidates
-      </mat-panel-title>
-      <mat-panel-description>
-        Keep it going!
-        <mat-icon>star_border</mat-icon>
-      </mat-panel-description>
-    </mat-expansion-panel-header>
-
-    <mat-form-field appearance="fill">
-      <mat-label>First name</mat-label>
-      <input matInput>
-    </mat-form-field>
-
-    <mat-form-field appearance="fill">
-      <mat-label>Age</mat-label>
-      <input matInput type="number" min="1">
-    </mat-form-field>
-
-  </mat-expansion-panel>
-
-</mat-accordion>
+      <mat-form-field appearance="outline">
+        <mat-label>Age</mat-label>
+        <input matInput min="1" type="number" />
+      </mat-form-field>
+    </mat-expansion-panel>
+  </mat-accordion>
+</mat-dialog-content>
