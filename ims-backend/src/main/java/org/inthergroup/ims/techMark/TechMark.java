@@ -28,7 +28,7 @@ public class TechMark {
     private Double mark;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "techQuestion", nullable = false)
+    @JoinColumn(name = "tech_question", nullable = false)
     private TechQuestion techQuestion;
 
     @ManyToOne(fetch = FetchType.LAZY)

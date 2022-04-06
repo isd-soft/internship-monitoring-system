@@ -1,4 +1,4 @@
-package org.inthergroup.ims.internship.controller;
+package org.inthergroup.ims.internship.facade;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
