@@ -52,10 +52,10 @@
     </ng-container>
 
     <ng-container matColumnDef="feedback" stickyEnd>
-      <th *matHeaderCellDef mat-header-cell></th>
+      <th *matHeaderCellDef mat-header-cell>Feedback</th>
       <td *matCellDef="let element" mat-cell>
         <button (click)="showFeedbackModal(element)" mat-button>
-          Feedback
+          <mat-icon> feedback </mat-icon>
         </button>
       </td>
     </ng-container>
@@ -82,7 +82,7 @@
           (click)="updateCandidateModal(element)"
           color="primary"
           mat-icon-button
-          title="Edit Internship"
+          title="Edit candidate"
         >
           <mat-icon>edit</mat-icon>
         </button>
@@ -90,7 +90,7 @@
           (click)="deleteCandidateModal(element)"
           color="primary"
           mat-icon-button
-          title="Delete Internship"
+          title="Delete candidate"
         >
           <mat-icon>delete</mat-icon>
         </button>
@@ -98,7 +98,7 @@
           (click)="openMarksDialog(element.id)"
           color="primary"
           mat-icon-button
-          title="Delete Internship"
+          title="Marks"
         >
           <mat-icon>school</mat-icon>
         </button>

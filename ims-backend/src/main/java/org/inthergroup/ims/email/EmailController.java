@@ -1,5 +1,6 @@
 package org.inthergroup.ims.email;
 
+import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.feedback.FeedbackWithAuthorNameDTO;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,23 +18,25 @@ public class EmailController {
 
     private EmailService emailService;
     private InternshipService internshipService;
+    private CandidateService candidateService;
 
     @Value("${feedback.recipients}")
     private String feedbackRecipients;
 
-    public EmailController(EmailService emailService, InternshipService internshipService) {
+    public EmailController(EmailService emailService, InternshipService internshipService, CandidateService candidateService) {
         this.internshipService = internshipService;
         this.emailService = emailService;
+        this.candidateService = candidateService;
     }
 
     @PostMapping("/api/message/{id}")
     String sendEmailMessage(@PathVariable final String id, @RequestBody final FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO) throws AddressException {
-        String subject = internshipService.getCandidateById(feedbackWithAuthorNameDTO.getCandidateId()).getName() + " "
-                + internshipService.getCandidateById(feedbackWithAuthorNameDTO.getCandidateId()).getSurname();
+        String subject = candidateService.getById(feedbackWithAuthorNameDTO.getCandidateId()).getName() + " "
+                + candidateService.getById(feedbackWithAuthorNameDTO.getCandidateId()).getSurname();
         String textOfMail = "Author: " + feedbackWithAuthorNameDTO.getUserName() +
                 " \nFeedback: " +
                 feedbackWithAuthorNameDTO.getFeedback() +
-                "\nInternshipName: " + internshipService.getInternship(id).getProjectName() +
+                "\nInternshipName: " + internshipService.getById(id).getProjectName() +
                 "\nCandidateName: " + subject;
         this.emailService.sendMessage(feedbackRecipients,
                 "Internship interview feedback for: " + subject,

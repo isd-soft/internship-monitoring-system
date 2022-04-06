@@ -109,7 +109,8 @@
           <a
             [routerLink]="['/internship/' + row.id + '/candidates']"
             mat-stroked-button
-            >Candidates</a
+            ><mat-icon> how_to_reg </mat-icon>
+            <mat-icon> group_add </mat-icon></a
           >
         </td>
       </ng-container>
@@ -117,8 +118,8 @@
       <ng-container matColumnDef="results">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Results</th>
         <td *matCellDef="let row" mat-cell>
-          <button (click)="getInternshipResults(row)" mat-stroked-button>
-            Results
+          <button (click)="getInternshipResults(row)" mat-stroked-button color="primary">
+            <mat-icon>poll</mat-icon>
           </button>
         </td>
       </ng-container>

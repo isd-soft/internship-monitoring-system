@@ -1,20 +1,112 @@
 <div mat-dialog-title class="dialog-title">
   <div>Results for internship:
     <b>{{internship.projectName}}</b></div>
+  <a
+    [routerLink]="['/internship/' + internship.id + '/candidates']"
+    mat-stroked-button mat-dialog-close
+  >Candidates<mat-icon> how_to_reg </mat-icon>
+    <mat-icon> group_add </mat-icon>
+  </a>
   <button color="primary" mat-icon-button aria-label="close dialog" mat-dialog-close>
     <mat-icon>close</mat-icon>
   </button>
 </div>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-  <ng-container *ngFor="let header of headers;let i=index" [matColumnDef]="header">
-    <th mat-header-cell *matHeaderCellDef>
-      {{getCandidateName(header)}}
-    </th>
-    <td mat-cell *matCellDef="let row">
-      {{row[i].name}}
-    </td>
-  </ng-container>
+<div class="example-action-buttons">
+  <button mat-button (click)="accordion.openAll()">Expand All</button>
+  <button mat-button (click)="accordion.closeAll()">Collapse All</button>
+</div>
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Accepted Candidates
+      </mat-panel-title>
+      <mat-panel-description>
+        Good job Heroes!
+        <mat-icon>how_to_reg</mat-icon>
+        <mat-icon>stars</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
 
-  <tr mat-header-row *matHeaderRowDef="headers"></tr>
-  <tr mat-row *matRowDef="let row; columns: headers;"></tr>
-</table>
+    <mat-form-field appearance="fill">
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        On Hold Candidates
+      </mat-panel-title>
+      <mat-panel-description>
+        Waiting decision!
+        <mat-icon>sync</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        New Candidates
+      </mat-panel-title>
+      <mat-panel-description>
+        Welcome!
+        <mat-icon>sentiment_very_satisfied</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Rejected Candidates
+      </mat-panel-title>
+      <mat-panel-description>
+        Keep it going!
+        <mat-icon>star_border</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field appearance="fill">
+      <mat-label>First name</mat-label>
+      <input matInput>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Age</mat-label>
+      <input matInput type="number" min="1">
+    </mat-form-field>
+
+  </mat-expansion-panel>
+
+</mat-accordion>

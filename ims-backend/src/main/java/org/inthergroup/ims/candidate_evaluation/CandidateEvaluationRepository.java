@@ -10,8 +10,5 @@ public interface CandidateEvaluationRepository extends JpaRepository<CandidateEv
     @Query(value = "SELECT avg(mark) FROM tech_mark where candidate_id=?1", nativeQuery = true)
     Double avg(String id);
 
-    @Query(value = "SELECT avg(mark) FROM pre_interview_tests_evaluation where candidate_id=?1", nativeQuery = true)
-    Double testAvg(String id);
-
     Optional<CandidateEvaluation> getCandidateEvaluationByCandidateId(String id);
 }
