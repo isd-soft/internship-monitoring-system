@@ -52,6 +52,7 @@ import { ConfirmDialogComponent } from './intership/confirm-dialog/confirm-dialo
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from '@angular/material/tabs';
 import { InternshipResultsComponent } from './intership/internship-results/internship-results.component';
+import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-dialog/confirm-dialog.component";
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { InternshipResultsComponent } from './intership/internship-results/inter
     EditTechQuestionModalComponent,
     CandidatesListComponent,
     ConfirmDialogComponent,
+    ConfirmCandidateDialogComponent,
     InternshipResultsComponent
   ],
     imports: [

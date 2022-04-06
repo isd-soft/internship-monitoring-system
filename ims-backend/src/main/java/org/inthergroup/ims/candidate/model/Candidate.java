@@ -55,7 +55,6 @@ public class Candidate {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
-
     @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     private Set<Feedback> feedback;
 
