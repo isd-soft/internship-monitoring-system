@@ -10,5 +10,7 @@ public interface CandidateEvaluationRepository extends JpaRepository<CandidateEv
     @Query(value = "SELECT avg(mark) FROM tech_mark where candidate_id=?1", nativeQuery = true)
     Double avg(String id);
 
+
+
     Optional<CandidateEvaluation> getCandidateEvaluationByCandidateId(String id);
 }

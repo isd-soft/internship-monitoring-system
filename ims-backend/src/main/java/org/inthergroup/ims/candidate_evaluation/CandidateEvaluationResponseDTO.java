@@ -13,17 +13,15 @@ public class CandidateEvaluationResponseDTO {
 
     private String id;
 
-    @NotNull
     private Double englishMark;
 
-    @NotNull
     private Double softSkillMark;
 
-    @NotNull
     private Double practiceMark;
 
-    @NotNull
     private Double averageMark;
+
+    private Double averageCandidateEvaluation;
 
     @NotNull
     private String candidate;
