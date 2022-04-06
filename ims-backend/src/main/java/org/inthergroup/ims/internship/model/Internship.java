@@ -8,6 +8,7 @@ import org.inthergroup.ims.login.model.User;
 import org.inthergroup.ims.preInterwiewTestEvaluation.PreInterviewTest;
 import org.inthergroup.ims.techQuestionList.TechQuestionList;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
@@ -82,7 +83,7 @@ public class Internship {
     @Column(name = "powerpoint_presentation")
     private String presentationUrl;
 
-    @OneToMany(mappedBy="internship")
+    @OneToMany(mappedBy="internship", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Candidate> candidates;
 
     public Internship() {

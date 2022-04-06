@@ -77,7 +77,7 @@ export class FeedbackComponent implements OnInit {
         .subscribe({
           next: () => {
             this.candidateStatusError = false;
-            this.dialogRef.close();
+            this.dialogRef.close('update');
           },
           error: (error) => {
             console.log(error);
@@ -93,7 +93,7 @@ export class FeedbackComponent implements OnInit {
       this.feedbackService.createFeedback(objToSend).subscribe({
         next: () => {
           this.candidateStatusError = false;
-          this.dialogRef.close();
+          this.dialogRef.close('create');
         },
         error: (error) => {
           console.log(error);
@@ -116,8 +116,10 @@ export class FeedbackComponent implements OnInit {
     };
     this.feedbackService
       .saveFeedback(this.data.internshipId , objToSend)
-      .subscribe((feedback) =>
-        this.feedbackForm.controls["id"].patchValue(feedback.id)
+      .subscribe((feedback) => {
+          this.feedbackForm.controls["id"].patchValue(feedback.id)
+          this.dialogRef.close();
+        }
       );
   }
 

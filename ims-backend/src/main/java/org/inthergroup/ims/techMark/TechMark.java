@@ -1,5 +1,6 @@
 package org.inthergroup.ims.techMark;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -18,7 +19,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-
 public class TechMark {
 
     @Id
@@ -27,8 +27,8 @@ public class TechMark {
     @Column(name = "mark")
     private Double mark;
 
-    @ManyToOne
-    @JoinColumn(name = "tech_question_id", nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "techQuestion", nullable = false)
     private TechQuestion techQuestion;
 
     @ManyToOne(fetch = FetchType.LAZY)

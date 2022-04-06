@@ -3,13 +3,13 @@
 <br />
 <div class="container">
   <div class="border">
-    <button (click)="addInternship()" mat-stroked-button>
+    <button (click)="addInternship()" color="primary" mat-stroked-button>
       <mat-icon>add</mat-icon>
-      New Internship
     </button>
     <mat-checkbox
       (change)="filterLoggedUserInternships(myInternships)"
       [(ngModel)]="myInternships"
+      color="primary"
       >My Internships
     </mat-checkbox>
     <mat-form-field appearance="outline">
@@ -137,7 +137,7 @@
         <td *matCellDef="let row" class="w-action" mat-cell>
           <button
             (click)="editInternship(row)"
-            color="accent"
+            color="primary"
             mat-icon-button
             title="Edit Internship"
           >
@@ -145,7 +145,7 @@
           </button>
           <button
             (click)="deleteInternship(row)"
-            color="warn"
+            color="primary"
             mat-icon-button
             title="Delete Internship"
           >
@@ -159,6 +159,7 @@
           <button
             [matMenuTriggerData]="{ element: row }"
             [matMenuTriggerFor]="menu"
+            color="primary"
             mat-icon-button
           >
             <mat-icon>more_vert</mat-icon>

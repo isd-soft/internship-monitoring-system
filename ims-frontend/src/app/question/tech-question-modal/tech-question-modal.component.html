@@ -1,27 +1,25 @@
-<div mat-dialog-content xmlns="http://www.w3.org/1999/html">
-  <div class="form-container">
-    <form
-      (ngSubmit)="onSubmit()"
-      [formGroup]="techQuestionForm"
-      class="techquestion-form"
+<div class="form-container">
+  <form
+    (ngSubmit)="onSubmit()"
+    [formGroup]="techQuestionForm"
+    class="techquestion-form"
+  >
+    <legend>
+      <h1>Add a Technical Question</h1>
+    </legend>
+    <br />
+    <mat-form-field appearance="outline">
+      <mat-label> Name</mat-label>
+      <input formControlName="name" matInput type="text" />
+    </mat-form-field>
+    <br />
+    <button
+      [disabled]="!techQuestionForm.valid"
+      color="primary"
+      mat-raised-button
+      type="submit"
     >
-      <legend>
-        <h1>Add a new technical question</h1>
-      </legend>
-      <br />
-      <mat-form-field appearance="outline">
-        <mat-label> Name</mat-label>
-        <input formControlName="name" matInput type="text" />
-      </mat-form-field>
-      <br />
-      <button
-        [disabled]="!techQuestionForm.valid"
-        color="primary"
-        mat-raised-button
-        type="submit"
-      >
-        Save
-      </button>
-    </form>
-  </div>
+      Save
+    </button>
+  </form>
 </div>

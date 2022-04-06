@@ -11,6 +11,7 @@ import { FeedbackComponent } from "../feedback/feedback.component";
 import { MarksModalComponent } from "src/app/candidates-table/marks-modal/marks-modal.component";
 import { CandidateEvaluationService } from "src/app/shared/service/candidate-evaluation.service";
 import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: "app-candidates-list",
@@ -37,7 +38,8 @@ export class CandidatesListComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private dialog: MatDialog,
-    private CandidateEvaluationSv: CandidateEvaluationService
+    private CandidateEvaluationSv: CandidateEvaluationService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -69,6 +71,8 @@ export class CandidatesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
+      if (result === 'updated') {this.snackBar.open('Candidate was updated');}
+      console.log('tick')
     });
   }
 
@@ -100,26 +104,31 @@ export class CandidatesListComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
+      if (result === 'created') {this.snackBar.open('Candidate was created');}
+
+
     });
   }
 
   showFeedbackModal(candidate: Candidate) {
     const dialogRef = this.dialog.open(FeedbackComponent, {
       data: { candidateId: candidate.id, internshipId: this.internshipId },
-      height: '920px',
-      width: '600px',
     });
     dialogRef.afterClosed().subscribe((result) => {
       this.updateTableData();
+      if (result === 'create') {this.snackBar.open('Feedback was created');}
+      if (result === 'update') {this.snackBar.open('Feedback was updated');}
+
     });
     this.updateTableData();
   }
 
   deleteCandidateModal(candidate: Candidate) {
     this.candidateService
-      .deleteCandidateFromIntership(candidate.id.toString())
+      .deleteCandidateFromInternship(candidate.id.toString())
       .subscribe(() => {
         this.updateTableData();
+        this.snackBar.open('Candidate was deleted');
       });
   }
 
