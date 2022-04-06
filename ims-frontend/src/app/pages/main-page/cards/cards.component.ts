@@ -90,7 +90,8 @@ export class CardsComponent implements OnInit{
   }
 
   mentorNameFromArray(id: string){
-    return this.allMentors.find((mentor) => mentor.id === id).name;
+    const mentor = this.allMentors.find((mentor) => mentor.id === id);
+    return mentor.name + ' ' + mentor.surname;
   }
 
   public getStatusObject(enumType: any): string {
