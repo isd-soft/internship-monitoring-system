@@ -83,18 +83,27 @@ export class CardsComponent implements OnInit{
   mouseOverCardAction(internship: Internship){
     this.activeCardId = internship.id;
     this.allCandidatesByInternship = [];
-    // if(internship.internshipStatus !== 'In process' && internship.internshipStatus !== 'Done') {return ;}
+    if(internship.internshipStatus === 'Interviewing' || internship.internshipStatus === 'New') {return ;}
     this.candidateService.getCandidatesByInternship(internship.id).subscribe(candidates => {
       this.allCandidatesByInternship = candidates;
     })
   }
 
   mentorNameFromArray(id: string){
-    return this.allMentors.find((mentor) => mentor.id === id).name;
+    const mentor = this.allMentors.find((mentor) => mentor.id === id);
+    return mentor.name + ' ' + mentor.surname;
+  }
+
+  public getStatusObject(enumType: any): string {
+    return this.statuses.find((status) => status.name === enumType).value;
   }
 
   ngOnInit(): void {
     this.getAllInternships();
     this.getAllMentors();
+    this.statuses = Object.entries(this.status).map(([key, value]) => ({
+      name: key,
+      value: value,
+    }));
   }
 }
