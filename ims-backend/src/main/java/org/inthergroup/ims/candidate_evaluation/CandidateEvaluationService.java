@@ -1,11 +1,14 @@
 package org.inthergroup.ims.candidate_evaluation;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.inthergroup.ims.candidate.repository.CandidateRepository;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -13,14 +16,16 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 public class CandidateEvaluationService {
 
+    private final Environment env;
     private final CandidateEvaluationRepository candidateEvaluationRepository;
     private final CandidateRepository candidateRepository;
 
     public CandidateEvaluationService(
             final CandidateEvaluationRepository candidateEvaluationRepository,
-            final CandidateRepository candidateRepository) {
+            final CandidateRepository candidateRepository, Environment env) {
         this.candidateEvaluationRepository = candidateEvaluationRepository;
         this.candidateRepository = candidateRepository;
+        this.env = env;
     }
 
     public List<CandidateEvaluationDTO> findAll() {
@@ -59,15 +64,21 @@ public class CandidateEvaluationService {
             candidateEvaluationDTO = mapToDTO(candidateEvaluation, new CandidateEvaluationDTO());
         }
 
+
+        Double averageMark = candidateEvaluationRepository.avg(candidateEvaluationDTO.getCandidate());
+
+
         return CandidateEvaluationResponseDTO.builder()
                 .id(candidateEvaluationDTO.getId())
                 .englishMark(candidateEvaluationDTO.getEnglishMark())
                 .softSkillMark(candidateEvaluationDTO.getSoftSkillMark())
                 .practiceMark(candidateEvaluationDTO.getPracticeMark())
                 .candidate(candidateEvaluationDTO.getCandidate())
-                .averageMark(candidateEvaluationRepository.avg(candidateEvaluationDTO.getCandidate()))
+                .averageMark(averageMark)
+                .averageCandidateEvaluation(calculateCandidateEvaluationAverage(candidateEvaluationDTO, averageMark))
                 .build();
     }
+
 
     public String create(final CandidateEvaluationDTO candidateEvaluationDTO) {
         final CandidateEvaluation candidateEvaluation = new CandidateEvaluation();
@@ -109,5 +120,27 @@ public class CandidateEvaluationService {
             candidateEvaluation.setCandidate(candidate);
         }
         return candidateEvaluation;
+    }
+    private Double calculateCandidateEvaluationAverage(CandidateEvaluationDTO candidateEvaluationDTO, Double averageMark){
+
+        final Double ENGLISH_MARK_WEIGHT = Double.parseDouble(Objects.requireNonNull(env.getProperty("englishMark.average.weight")));
+        final Double SOFT_SKILL_MARK_WEIGHT = Double.parseDouble(Objects.requireNonNull(env.getProperty("softSkill.average.weight")));
+        final Double PRACTICE_MARK_WEIGHT = Double.parseDouble(Objects.requireNonNull(env.getProperty("practice.average.weight")));
+        final Double AVERAGE_MARK_WEIGHT = Double.parseDouble(Objects.requireNonNull(env.getProperty("technical.average.weight")));
+        double averageCandidateEvaluations = 0.0d;
+
+        if(candidateEvaluationDTO.getEnglishMark() != null){
+            averageCandidateEvaluations += candidateEvaluationDTO.getEnglishMark() * ENGLISH_MARK_WEIGHT;
+        }
+        if(candidateEvaluationDTO.getSoftSkillMark() != null){
+            averageCandidateEvaluations += candidateEvaluationDTO.getSoftSkillMark() * SOFT_SKILL_MARK_WEIGHT;
+        }
+        if(candidateEvaluationDTO.getPracticeMark() != null){
+            averageCandidateEvaluations += candidateEvaluationDTO.getPracticeMark() * PRACTICE_MARK_WEIGHT;
+        }
+        if(averageMark != null){
+            averageCandidateEvaluations += averageMark * AVERAGE_MARK_WEIGHT;
+        }
+        return averageCandidateEvaluations;
     }
 }
