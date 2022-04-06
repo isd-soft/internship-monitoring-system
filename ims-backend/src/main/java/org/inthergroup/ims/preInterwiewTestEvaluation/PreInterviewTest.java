@@ -1,4 +1,4 @@
-package org.inthergroup.ims.internship.model;
+package org.inthergroup.ims.preInterwiewTestEvaluation;
 
 public enum PreInterviewTest {
     ENGLISH,

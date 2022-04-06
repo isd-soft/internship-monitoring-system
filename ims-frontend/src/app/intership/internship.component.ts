@@ -1,15 +1,16 @@
-import { AfterViewInit, Component, ViewChild } from "@angular/core";
-import { InternshipService } from "../shared/service/internship.service";
-import { Category, Internship, Status } from "../shared/model/internship";
-import { MatTableDataSource } from "@angular/material/table";
-import { MatPaginator } from "@angular/material/paginator";
-import { MatSort } from "@angular/material/sort";
-import { MatDialog } from "@angular/material/dialog";
-import { AddInternshipComponent } from "./add-internship/add-internship.component";
-import { User } from "../shared/model/user";
-import { AccountService } from "../shared/service/account.service";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { ConfirmDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import {AfterViewInit, Component, ViewChild} from '@angular/core';
+import {InternshipService} from "../shared/service/internship.service";
+import {Category, Internship, Status} from "../shared/model/internship";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
+import {MatDialog} from '@angular/material/dialog';
+import {AddInternshipComponent} from "./add-internship/add-internship.component";
+import {User} from "../shared/model/user";
+import {AccountService} from "../shared/service/account.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {ConfirmDialogComponent} from "./confirm-dialog/confirm-dialog.component";
+import {InternshipResultsComponent} from "./internship-results/internship-results.component";
 
 @Component({
   selector: "app-internship",
@@ -32,7 +33,7 @@ export class InternshipComponent implements AfterViewInit {
   ];
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
-  mentors: User[];
+  mentors: User[] = [];
   status = Status;
   statuses: { name: string; value: string }[];
   category = Category;
@@ -134,25 +135,25 @@ export class InternshipComponent implements AfterViewInit {
       });
   }
 
-  deleteInternship(id: string) {
-    console.log(id);
-    this.dialog
-      .open(ConfirmDialogComponent)
-      .afterClosed()
-      .subscribe((confirm) => {
-        if (confirm) {
-          this.internshipService.deleteInternship(id).subscribe({
-            next: (res) => {
-              // TODO - custom notification message
-              this._snackBar.open("Deleted successfully", "OK");
-              this.getAllInternships();
-            },
-            error: () => {
-              alert("Error while deleting internship");
-            },
-          });
-        }
-      });
+  deleteInternship(row: Internship) {
+    console.log(row.id);
+    this.dialog.open(ConfirmDialogComponent, {
+      // width: '75%',
+      data: row
+    }).afterClosed().subscribe(confirm => {
+      if (confirm) {
+        this.internshipService.deleteInternship(row.id).subscribe({
+          next: (res) => {
+            // TODO - custom notification message
+            this._snackBar.open("Deleted successfully", "OK");
+            this.getAllInternships();
+          },
+          error: () => {
+            alert("Error while deleting internship");
+          }
+        });
+      }
+    });
   }
 
   openPresentation() {}
@@ -166,19 +167,12 @@ export class InternshipComponent implements AfterViewInit {
   }
 
   getInternshipResults(row: Internship) {
-    this.dialog
-      .open(AddInternshipComponent, {
-        width: "75%",
-        data: row,
-      })
-      .afterClosed()
-      .subscribe((result) => {
-        console.log(`Dialog result: ${result}`);
-        if (result === "update") {
-          this.getAllInternships();
-          // TODO - custom notification message
-          this._snackBar.open("Edited successfully", "OK");
-        }
-      });
+    this.dialog.open(InternshipResultsComponent, {
+      width: '75%',
+      data: row
+    }).afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+        this.getAllInternships();
+    });
   }
 }

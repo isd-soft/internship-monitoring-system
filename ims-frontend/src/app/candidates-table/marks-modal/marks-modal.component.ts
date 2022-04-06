@@ -1,14 +1,16 @@
-import { Component, Inject, OnInit } from "@angular/core";
-import { MAT_DIALOG_DATA } from "@angular/material/dialog";
-import { FormBuilder, FormGroup } from "@angular/forms";
-import { CandidateEvaluationService } from "../../shared/service/candidate-evaluation.service";
-import { TechQuestionService } from "../../shared/service/tech-question.service";
-import { CandidateService } from "../../shared/service/candidate.service";
-import { TechMarkService } from "../../shared/service/tech-mark.service";
-import { Subscription } from "rxjs/internal/Subscription";
-import { TechMark } from "../../shared/model/tech-mark";
-import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import {Component, Inject, OnInit} from "@angular/core";
+import {MAT_DIALOG_DATA} from "@angular/material/dialog";
+import {FormBuilder, FormGroup} from "@angular/forms";
+import {CandidateEvaluationService} from "../../shared/service/candidate-evaluation.service";
+import {TechQuestionService} from "../../shared/service/tech-question.service";
+import {CandidateService} from "../../shared/service/candidate.service";
+import {TechMarkService} from "../../shared/service/tech-mark.service";
+import {Subscription} from "rxjs/internal/Subscription";
+import {TechMark} from "../../shared/model/tech-mark";
+import {CandidateEvaluation} from "../../shared/model/candidate-evaluation";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {PreInterviewTestMarkService} from "../../shared/service/pre-interview-test-mark.service";
+import {PreInterviewTestMark} from "../../shared/model/pre-interview-test-mark";
 
 @Component({
   selector: "app-marks-modal",
@@ -20,6 +22,7 @@ export class MarksModalComponent implements OnInit {
   techQuestions: any = [];
   marksForm: FormGroup = new FormGroup({});
   marksArray: TechMark[] = [];
+  preInterviewTestMarks: PreInterviewTestMark[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CandidateEvaluation,
@@ -28,18 +31,20 @@ export class MarksModalComponent implements OnInit {
     private candidateEvaluationSv: CandidateEvaluationService,
     private techQuestionService: TechQuestionService,
     private candidateService: CandidateService,
-    private techMarkService: TechMarkService
+    private techMarkService: TechMarkService,
+    private preInterviewTestMarkService : PreInterviewTestMarkService
   ) {}
 
   ngOnInit(): void {
     this.getTechQuestions();
     this.getCandidates();
     this.getTechMarksByCandidateId();
+    this.getPreInterviewTestMarksByCandidateId();
     this.marksForm = this.formBuilder.group({
-      englishMark: [{ value: this.data.englishMark, disabled: false }],
-      softSkillMark: [{ value: this.data.softSkillMark, disabled: false }],
-      practiceMark: [{ value: this.data.practiceMark, disabled: false }],
-      averageMark: [{ value: this.data.averageMark, disabled: true }],
+      englishMark: [{value: this.data.englishMark, disabled: false}],
+      softSkillMark: [{value: this.data.softSkillMark, disabled: false}],
+      practiceMark: [{value: this.data.practiceMark, disabled: false}],
+      averageMark: [{value: this.data.averageMark, disabled: true}],
     });
   }
 
@@ -47,10 +52,17 @@ export class MarksModalComponent implements OnInit {
     return this.techMarkService
       .getTechMarksByCandidateId(this.data.candidate)
       .subscribe((res) => {
+        console.log(res)
         this.marksArray = res;
       });
   }
-
+  getPreInterviewTestMarksByCandidateId(): Subscription {
+    return this.preInterviewTestMarkService.getPreInterviewTestMarksByCandidateId(this.data.candidate)
+      .subscribe((res) => {
+        console.log(res);
+        this.preInterviewTestMarks = res;
+      });
+  }
   getTechQuestions() {
     return this.techQuestionService.getAllTechQuestion().subscribe((res) => {
       console.log(res);
@@ -87,6 +99,19 @@ export class MarksModalComponent implements OnInit {
     this.marksArray.forEach((marks) => {
       this.techMarkService
         .editTechMarkById(marks.id, marks)
+        .subscribe((res) => {
+          marks = res;
+        });
+    });
+
+    this._snackBar.open("Saved successfully", "Ok!");
+  }
+
+  submitPreInterviewForm() {
+    console.log(this.marksArray);
+    this.preInterviewTestMarks.forEach((marks) => {
+      this.preInterviewTestMarkService
+        .editPreInterviewTestMarkById(marks.id, marks)
         .subscribe((res) => {
           marks = res;
         });

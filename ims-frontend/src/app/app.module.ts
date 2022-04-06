@@ -51,6 +51,7 @@ import { EditTechQuestionModalComponent } from "./question/edit-tech-question-mo
 import { ConfirmDialogComponent } from './intership/confirm-dialog/confirm-dialog.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from '@angular/material/tabs';
+import { InternshipResultsComponent } from './intership/internship-results/internship-results.component';
 import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-dialog/confirm-dialog.component";
 
 @NgModule({
@@ -79,7 +80,8 @@ import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-d
     EditTechQuestionModalComponent,
     CandidatesListComponent,
     ConfirmDialogComponent,
-    ConfirmCandidateDialogComponent
+    ConfirmCandidateDialogComponent,
+    InternshipResultsComponent
   ],
     imports: [
         BrowserModule,

@@ -33,9 +33,6 @@ insert into internships values (
     'Employee performance evaluator',
     'https://trello.com/b/UmlBCRKR/employee-performance-evaluator');
 
-
-DELETE FROM internships;
-
 insert into tech_question_list values
     ('f4a13c2d-68b5-4153-9837-dd43f49c1b8a', 'Java technical questions 1'),
     ('9af351cf-7edc-4e60-a4e6-1dd2f650e135', 'Java technical questions 2'),

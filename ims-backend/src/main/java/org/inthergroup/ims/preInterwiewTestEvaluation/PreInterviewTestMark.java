@@ -1,10 +1,11 @@
-package org.inthergroup.ims.internship.model;
+package org.inthergroup.ims.preInterwiewTestEvaluation;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.internship.model.Internship;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import java.util.UUID;
 @Setter
 @EqualsAndHashCode
 @AllArgsConstructor
-public class PreInterviewTestEvaluation {
+public class PreInterviewTestMark {
 
     @Id
     private String id;
@@ -33,17 +34,14 @@ public class PreInterviewTestEvaluation {
     private PreInterviewTest preInterviewTestName;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "internship_id")
-    private Internship internship;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "candidate_id")
     private Candidate candidate;
 
     @Column(name = "mark")
     private double mark;
 
-    public PreInterviewTestEvaluation() {
+    public PreInterviewTestMark() {
         id = UUID.randomUUID().toString();
     }
+
 }

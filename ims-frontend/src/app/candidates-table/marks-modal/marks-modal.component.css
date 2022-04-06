@@ -4,10 +4,20 @@
   align-items: center;
 }
 
-.h1 {
-  text-align: center;
-  position: sticky;
-  top: 0;
+.mat-h2{
+  align-content: center;
+}
+
+.dialog-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: space-between;
+  flex-direction: row;
+}
+.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label {
+  flex-basis: 0;
+  flex-grow: 1;
 }
 
 .techquestion-form {
@@ -18,43 +28,34 @@
   min-width: 400px;
   max-width: 600px;
 }
-
-mat-form-field {
+.mat-tab-group {
+  margin-bottom: 0px;
+}
+.mat-form-field{
   display: flex;
+  justify-content: center;
   flex-direction: column;
+}
+
+mat-form-field mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0px 8.75em 0 0.75em;
+  margin-top: -0.25em;
+  position: relative;
+  display: flex;
   align-content: center;
 }
 
 button {
-  margin-right: 0;
-  margin-left: auto;
   display: block;
-  align-content: flex-end;
-}
 
-.mat-form-field-appearance-outline .mat-form-field-flex {
-  padding-right: 8.75rem;
 }
-
-.mat-raised-button {
-  position: -webkit-sticky;
+.mat-raised-button{
+  margin-left: auto;
+  margin-right: auto;
   position: sticky;
-  top: 0;
+
+}
+.mat-icon-button{
+  background: none;
 }
 
-.mat-form-field-infix {
-  padding: -1em 0 1em 0;
-}
-
-::-webkit-scrollbar {
-  width: 4px;
-  height: 50px;
-  overflow-y: scroll;
-  background: white;
-  box-shadow: inset 0 0 4px #707070;
-}
-
-::-webkit-scrollbar-thumb {
-  background: rebeccapurple;
-  border-radius: 10px;
-}
