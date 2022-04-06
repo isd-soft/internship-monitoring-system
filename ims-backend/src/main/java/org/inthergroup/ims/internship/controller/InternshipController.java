@@ -3,6 +3,9 @@ package org.inthergroup.ims.internship.controller;
 import org.inthergroup.ims.candidate.facade.CandidateDTO;
 import org.inthergroup.ims.candidate.facade.CandidateFacade;
 import org.inthergroup.ims.candidate.model.Candidate;
+import org.inthergroup.ims.internship.facade.InternshipDTO;
+import org.inthergroup.ims.internship.facade.InternshipFacade;
+import org.inthergroup.ims.internship.facade.InternshipResultsDTO;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.http.MediaType;
@@ -25,48 +28,51 @@ import java.util.stream.Collectors;
 public class InternshipController {
 
     private final InternshipService internshipService;
+    private final InternshipFacade internshipFacade;
     private final CandidateFacade candidateFacade;
 
-    public InternshipController(InternshipService internshipService, CandidateFacade candidateFacade) {
+    public InternshipController(InternshipService internshipService, InternshipFacade internshipFacade, CandidateFacade candidateFacade) {
         this.internshipService = internshipService;
+        this.internshipFacade = internshipFacade;
         this.candidateFacade = candidateFacade;
     }
 
     @GetMapping()
     public List<InternshipDTO> getAllInternship() {
-        return internshipService.getAllInternships();
+        return internshipFacade.getAllInternship();
     }
 
     @GetMapping("/{id}")
-    public Internship getInternship(@PathVariable final String id) {
-        Internship internship = internshipService.getInternship(id);
-        return internship;
+    public InternshipDTO getInternship(@PathVariable final String id) {
+        return internshipFacade.getById(id);
     }
 
     @GetMapping("/{id}/candidates")
     public List<CandidateDTO> getCandidatesByInternshipId(@PathVariable("id") String internshipId) {
-        List<Candidate> candidates = internshipService.getAllCandidatesByInternshipId(internshipId);
-        return candidates.stream().map(candidate -> {
-            return candidateFacade.mapToDTO(candidate, new CandidateDTO());
-        }).collect(Collectors.toList());
+        return internshipFacade.getCandidatesByInternshipId(internshipId);
+    }
+
+    @GetMapping("/{id}/results")
+    public InternshipResultsDTO getInternshipResultsById(@PathVariable("id") String internshipId) {
+        return internshipFacade.getInternshipResults(internshipId);
     }
 
     @PostMapping
     public ResponseEntity<Void> createInternship(@RequestBody @Valid final InternshipDTO internship) {
-        internshipService.createInternship(internship);
+        internshipFacade.create(internship);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateInternship(@PathVariable("id") final String id,
                                                  @RequestBody @Valid final InternshipDTO internshipDTO) {
-        internshipService.update(id, internshipDTO);
+        internshipFacade.update(id, internshipDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInternship(@PathVariable("id") final String id) {
-        internshipService.delete(id);
+        internshipFacade.delete(id);
         return ResponseEntity.noContent().build();
     }
 }

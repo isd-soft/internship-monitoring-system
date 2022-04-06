@@ -1,7 +1,7 @@
 export const CARD_DISCIPLINES = [
   {
     name: "C# Internships",
-    img: "assets/img/8009c92e-37f3-411a-a7b8-53edc2ba9a71.png",
+    img: "assets/img/C_SHARP.png",
     requirements: "",
   },
   {

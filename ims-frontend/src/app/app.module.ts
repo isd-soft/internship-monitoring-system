@@ -53,6 +53,8 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatTabsModule} from '@angular/material/tabs';
 import { InternshipResultsComponent } from './intership/internship-results/internship-results.component';
 import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-dialog/confirm-dialog.component";
+import {MatListModule} from "@angular/material/list";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 @NgModule({
   declarations: [
@@ -83,35 +85,37 @@ import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-d
     ConfirmCandidateDialogComponent,
     InternshipResultsComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        HttpClientModule,
-        BrowserAnimationsModule,
-        RouterModule,
-        MatButtonModule,
-        ReactiveFormsModule,
-        MatInputModule,
-        MatFormFieldModule,
-        MatToolbarModule,
-        MainPageModule,
-        FormsModule,
-        MatSelectModule,
-        CommonModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatSortModule,
-        MatIconModule,
-        MatDialogModule,
-        MatGridListModule,
-        MatDatepickerModule,
-        MatNativeDateModule,
-        MatDividerModule,
-        MatMenuModule,
-        MatSnackBarModule,
-        MatCheckboxModule,
-        MatTabsModule
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    RouterModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatToolbarModule,
+    MainPageModule,
+    FormsModule,
+    MatSelectModule,
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatIconModule,
+    MatDialogModule,
+    MatGridListModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatDividerModule,
+    MatMenuModule,
+    MatSnackBarModule,
+    MatCheckboxModule,
+    MatTabsModule,
+    MatListModule,
+    MatExpansionModule
+  ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1500 } },
   ],

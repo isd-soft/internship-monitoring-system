@@ -24,8 +24,5 @@ public class CandidateEvaluationResponseDTO {
     private Double averageCandidateEvaluation;
 
     @NotNull
-    private Double averagePreInterviewTestMark;
-
-    @NotNull
     private String candidate;
 }

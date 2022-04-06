@@ -10,7 +10,7 @@
       (change)="filterLoggedUserInternships(myInternships)"
       [(ngModel)]="myInternships"
       color="primary"
-      >My Internships
+    >My Internships
     </mat-checkbox>
     <mat-form-field appearance="outline">
       <mat-label> Search</mat-label>
@@ -71,8 +71,8 @@
 
       <!-- Mentors Column -->
       <ng-container matColumnDef="mentorsId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Mentors</th>
-        <td mat-cell *matCellDef="let row">
+        <th *matHeaderCellDef mat-header-cell mat-sort-header> Mentors</th>
+        <td *matCellDef="let row" mat-cell>
           <div *ngIf=" row.mentorsId.length>0 && mentors.length>0">
             <ng-container *ngFor="let mentorId of row.mentorsId; last as isLast">
               {{getMentorById(mentorId).name + " " + getMentorById(mentorId).surname}}
@@ -106,10 +106,13 @@
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Candidates</th>
         <td *matCellDef="let row" mat-cell>
           <!--      TODO - to change endpoint to candidates selected by internship id -->
-          <a
-            [routerLink]="['/internship/' + row.id + '/candidates']"
-            mat-stroked-button
-            >Candidates</a
+          <a [routerLink]="['/internship/' + row.id + '/candidates']"
+             color="primary"
+             mat-stroked-button
+          >
+            <mat-icon> how_to_reg</mat-icon>
+            <mat-icon> group_add</mat-icon>
+          </a
           >
         </td>
       </ng-container>
@@ -117,8 +120,8 @@
       <ng-container matColumnDef="results">
         <th *matHeaderCellDef mat-header-cell mat-sort-header>Results</th>
         <td *matCellDef="let row" mat-cell>
-          <button (click)="getInternshipResults(row)" mat-stroked-button>
-            Results
+          <button (click)="getInternshipResults(row)" color="primary" mat-stroked-button>
+            <mat-icon>poll</mat-icon>
           </button>
         </td>
       </ng-container>
@@ -197,7 +200,7 @@
     </div>
     <div *ngIf="aliasMenuItems.deployedAppUrl" mat-menu-item>
       <a href="{{ aliasMenuItems.deployedAppUrl }}" target="_blank"
-        >Deployed App</a
+      >Deployed App</a
       >
     </div>
   </ng-template>

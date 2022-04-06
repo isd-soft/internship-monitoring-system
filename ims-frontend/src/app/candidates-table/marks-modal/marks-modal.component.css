@@ -4,7 +4,7 @@
   align-items: center;
 }
 
-.mat-h2{
+.mat-h2 {
   align-content: center;
 }
 
@@ -15,9 +15,17 @@
   align-content: space-between;
   flex-direction: row;
 }
-.mat-tab-group[mat-stretch-tabs]>.mat-tab-header .mat-tab-label {
+
+.mat-tab-group[mat-stretch-tabs] > .mat-tab-header .mat-tab-label {
   flex-basis: 0;
   flex-grow: 1;
+}
+
+.button-bar {
+  padding: 0.9rem;
+  background: white;
+  position: sticky;
+  bottom: 0;
 }
 
 .techquestion-form {
@@ -28,10 +36,12 @@
   min-width: 400px;
   max-width: 600px;
 }
+
 .mat-tab-group {
   margin-bottom: 0px;
 }
-.mat-form-field{
+
+.mat-form-field {
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -47,15 +57,14 @@ mat-form-field mat-form-field-appearance-outline .mat-form-field-flex {
 
 button {
   display: block;
-
 }
-.mat-raised-button{
+
+.mat-raised-button {
   margin-left: auto;
   margin-right: auto;
   position: sticky;
-
 }
-.mat-icon-button{
+
+.mat-icon-button {
   background: none;
 }
-

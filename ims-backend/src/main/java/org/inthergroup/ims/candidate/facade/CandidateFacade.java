@@ -48,7 +48,7 @@ public class CandidateFacade {
         candidate.setCv(candidateDTO.getCv());
         candidate.setComment(candidateDTO.getComment());
         candidate.setStatus(candidateDTO.getStatus());
-        candidate.setInternship(internshipService.getInternship(candidateDTO.getInternship()));
+        candidate.setInternship(internshipService.getById(candidateDTO.getInternship()));
         return candidate;
     }
 
