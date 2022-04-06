@@ -2,6 +2,7 @@ package org.inthergroup.ims.candidate.model;
 
 import java.util.Set;
 
+import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.inthergroup.ims.feedback.Feedback;
@@ -55,6 +56,7 @@ public class Candidate {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne(mappedBy = "candidate", fetch = FetchType.LAZY)
     private CandidateEvaluation candidate;
+    @Cascade(org.hibernate.annotations.CascadeType.DELETE)
     @OneToMany(mappedBy = "candidate", fetch = FetchType.LAZY)
     private Set<Feedback> feedback;
 

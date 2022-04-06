@@ -7,32 +7,25 @@
     <div>
       <h3 class="title">{{ internshipCard.projectName }}</h3>
       <div *ngIf="activeCardId === internshipCard.id" class="requirements">
-        <span
-          >Period: {{ internshipCard.periodFrom | date }} -
-          {{ internshipCard.periodTo | date }}
-        </span>
-        <br />
-        <span> status: {{ internshipCard.internshipStatus }}</span>
-        <br />
-        <a [href]="internshipCard.gitHubUrl"> gitHubUrl </a>
-        <br />
-        <a [href]="internshipCard.deployedAppUrl"> deployedAppUrl</a>
-        <br />
-        <span>Mentors: <br /></span>
-        <div *ngFor="let mentor of allMentors">
-          {{ mentor.name + " " + mentor.surname }}
+         <span>Period: {{internshipCard.periodFrom | date}} -
+           {{internshipCard.periodTo | date}} </span>
+        <br/>
+        <span> status:  {{getStatusObject(internshipCard.internshipStatus) }}</span>
+        <br/>
+        <a [href]="internshipCard.gitHubUrl"> <i class="fa fa-github fa-3x"></i> </a>
+        <br/>
+        <a [href]="internshipCard.deployedAppUrl"><i class="fa fa-cloud fa-3x"></i></a>
+        <br/>
+        <span *ngIf="internshipCard.mentorsId.length">Mentors: <br/></span>
+        <div *ngFor="let mentor of internshipCard.mentorsId">
+          {{mentorNameFromArray(mentor)}}
         </div>
-        <br />
-        <span>Candidates: <br /></span>
+        <br/>
+        <span *ngIf="allCandidatesByInternship.length">Candidates: <br/></span>
         <div *ngFor="let candidateByInternship of allCandidatesByInternship">
           {{ candidateByInternship.name + " " + candidateByInternship.surname }}
         </div>
       </div>
-
-      <!--      <div class="bar">-->
-      <!--        <div class="emptybar"></div>-->
-      <!--        <div class="filledbar"></div>-->
-      <!--      </div>-->
       <div class="circle">
         <img
           id="rounded-img"
@@ -45,3 +38,6 @@
     </div>
   </div>
 </div>
+
+
+
