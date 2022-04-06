@@ -6,18 +6,18 @@
          <span>Period: {{internshipCard.periodFrom | date}} -
            {{internshipCard.periodTo | date}} </span>
         <br/>
-        <span> status:  {{internshipCard.internshipStatus}}</span>
+        <span> status:  {{getStatusObject(internshipCard.internshipStatus) }}</span>
         <br/>
-        <a [href]="internshipCard.gitHubUrl"> gitHubUrl </a>
+        <a [href]="internshipCard.gitHubUrl"> <i class="fa fa-github fa-3x"></i> </a>
         <br/>
-        <a [href]="internshipCard.deployedAppUrl"> deployedAppUrl</a>
+        <a [href]="internshipCard.deployedAppUrl"><i class="fa fa-cloud fa-3x"></i></a>
         <br/>
-        <span>Mentors: <br/></span>
+        <span *ngIf="internshipCard.mentorsId.length">Mentors: <br/></span>
         <div *ngFor="let mentor of internshipCard.mentorsId">
             {{mentorNameFromArray(mentor)}}
         </div>
         <br/>
-        <span>Candidates: <br/></span>
+        <span *ngIf="allCandidatesByInternship.length">Candidates: <br/></span>
         <div *ngFor="let candidateByInternship of allCandidatesByInternship">
           {{candidateByInternship.name}}
         </div>
@@ -38,3 +38,6 @@
     </div>
   </div>
 </div>
+
+
+
