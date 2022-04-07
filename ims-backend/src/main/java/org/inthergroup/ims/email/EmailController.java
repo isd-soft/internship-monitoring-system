@@ -30,7 +30,7 @@ public class EmailController {
     }
 
     @PostMapping("/api/message/{id}")
-    String sendEmailMessage(@PathVariable final String id, @RequestBody final FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO) throws AddressException {
+    FeedbackWithAuthorNameDTO sendEmailMessage(@PathVariable final String id, @RequestBody final FeedbackWithAuthorNameDTO feedbackWithAuthorNameDTO) throws AddressException {
         String subject = candidateService.getById(feedbackWithAuthorNameDTO.getCandidateId()).getName() + " "
                 + candidateService.getById(feedbackWithAuthorNameDTO.getCandidateId()).getSurname();
         String textOfMail = "Author: " + feedbackWithAuthorNameDTO.getUserName() +
@@ -43,7 +43,7 @@ public class EmailController {
                 textOfMail
         );
         log.info("Email {} has been sent!", feedbackWithAuthorNameDTO);
-        return null;
+        return feedbackWithAuthorNameDTO;
 
     }
 }
