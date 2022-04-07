@@ -1,16 +1,16 @@
-import {Component, Inject, OnInit} from "@angular/core";
-import {MAT_DIALOG_DATA} from "@angular/material/dialog";
-import {FormBuilder, FormGroup} from "@angular/forms";
-import {CandidateEvaluationService} from "../../shared/service/candidate-evaluation.service";
-import {TechQuestionService} from "../../shared/service/tech-question.service";
-import {CandidateService} from "../../shared/service/candidate.service";
-import {TechMarkService} from "../../shared/service/tech-mark.service";
-import {Subscription} from "rxjs/internal/Subscription";
-import {TechMark} from "../../shared/model/tech-mark";
-import {CandidateEvaluation} from "../../shared/model/candidate-evaluation";
-import {MatSnackBar} from "@angular/material/snack-bar";
-import {PreInterviewTestMarkService} from "../../shared/service/pre-interview-test-mark.service";
-import {PreInterviewTestMark} from "../../shared/model/pre-interview-test-mark";
+import { Component, Inject, OnInit } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { CandidateEvaluationService } from "../../shared/service/candidate-evaluation.service";
+import { TechQuestionService } from "../../shared/service/tech-question.service";
+import { CandidateService } from "../../shared/service/candidate.service";
+import { TechMarkService } from "../../shared/service/tech-mark.service";
+import { Subscription } from "rxjs/internal/Subscription";
+import { TechMark } from "../../shared/model/tech-mark";
+import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
+import { MatSnackBar } from "@angular/material/snack-bar";
+import { PreInterviewTestMarkService } from "../../shared/service/pre-interview-test-mark.service";
+import { PreInterviewTestMark } from "../../shared/model/pre-interview-test-mark";
 
 @Component({
   selector: "app-marks-modal",
@@ -35,7 +35,7 @@ export class MarksModalComponent implements OnInit {
     private techQuestionService: TechQuestionService,
     private candidateService: CandidateService,
     private techMarkService: TechMarkService,
-    private preInterviewTestMarkService : PreInterviewTestMarkService
+    private preInterviewTestMarkService: PreInterviewTestMarkService
   ) {}
 
   ngOnInit(): void {
@@ -44,10 +44,10 @@ export class MarksModalComponent implements OnInit {
     this.getTechMarksByCandidateId();
     this.getPreInterviewTestMarksByCandidateId();
     this.marksForm = this.formBuilder.group({
-      englishMark: [{value: this.data.englishMark, disabled: false}],
-      softSkillMark: [{value: this.data.softSkillMark, disabled: false}],
-      practiceMark: [{value: this.data.practiceMark, disabled: false}],
-      averageMark: [{value: this.data.averageMark, disabled: true}],
+      englishMark: [{ value: this.data.englishMark, disabled: false }],
+      softSkillMark: [{ value: this.data.softSkillMark, disabled: false }],
+      practiceMark: [{ value: this.data.practiceMark, disabled: false }],
+      averageMark: [{ value: this.data.averageMark, disabled: true }],
     });
   }
 
@@ -55,17 +55,20 @@ export class MarksModalComponent implements OnInit {
     return this.techMarkService
       .getTechMarksByCandidateId(this.data.candidate)
       .subscribe((res) => {
-        console.log(res)
+        console.log(res);
         this.marksArray = res;
       });
   }
+
   getPreInterviewTestMarksByCandidateId(): Subscription {
-    return this.preInterviewTestMarkService.getPreInterviewTestMarksByCandidateId(this.data.candidate)
+    return this.preInterviewTestMarkService
+      .getPreInterviewTestMarksByCandidateId(this.data.candidate)
       .subscribe((res) => {
         console.log(res);
         this.preInterviewTestMarks = res;
       });
   }
+
   getTechQuestions() {
     return this.techQuestionService.getAllTechQuestion().subscribe((res) => {
       console.log(res);

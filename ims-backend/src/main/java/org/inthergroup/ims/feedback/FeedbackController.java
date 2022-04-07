@@ -57,13 +57,14 @@ public class FeedbackController {
         Candidate candidate = candidateService.getById(feedbackDTO.getCandidateId());
         feedBack.setCandidate(candidate);
         feedbackService.save(feedBack);
-        log.info("Feedback for {} has been created!", candidate);
+        log.info("Feedback {} has been created!", candidate);
         return feedBack;
     }
 
     @DeleteMapping("/{id}")
     public String deleteFeedback(@PathVariable("id") String id) {
         feedbackService.delete(id);
+        log.info("Feedback {} has been deleted!",id);
         return null;
     }
 
@@ -76,6 +77,7 @@ public class FeedbackController {
         Candidate candidate = this.candidateService.getById(feedbackDTO.getCandidateId());
         feedback.setCandidate(candidate);
         feedbackService.save(feedback);
+        log.info("Feedback {} has been updated!", feedback);
         return feedback;
     }
 }
