@@ -1,110 +1,157 @@
+<div mat-dialog-title class="dialog-title">
+  <div>Results for internship:
+    <b>{{internship.projectName}}</b></div>
+  <div>
+  <a
+    [routerLink]="['/internship/' + internship.id + '/candidates']"
+    mat-stroked-button mat-dialog-close
+  >Candidates
+    <mat-icon> how_to_reg</mat-icon>
+    <mat-icon> group_add</mat-icon>
+  </a>
+  <button color="primary" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+  </div>
+</div>
 <mat-dialog-content>
-  <div class="dialog-title" mat-dialog-title>
-    <div>
-      Results for internship: <b>{{ internship.projectName }}</b>
-    </div>
-    <a
-      [routerLink]="['/internship/' + internship.id + '/candidates']"
-      color="primary"
-      mat-dialog-close
-      mat-stroked-button
-      >Candidates
-      <mat-icon> how_to_reg</mat-icon>
-      <mat-icon> group_add</mat-icon>
-    </a>
-    <button
-      aria-label="close dialog"
-      color="primary"
-      mat-dialog-close
-      mat-icon-button
-    >
-      <mat-icon>close</mat-icon>
-    </button>
+<div class="basic-container">
+  <div class="cdk-virtual-scroll-data-source-example">
+    <h2>Accepted Candidates</h2>
+    <mat-card class="card-accepted"
+              *ngFor="let accepted of internshipResults.acceptedCandidates;let i = index">
+      <mat-card-title>
+        <div>{{getCandidateName(accepted.candidateId)}}</div>
+        <button mat-fab color="primary">
+          {{accepted.averageInterviewMark | percent : '1.0-0'}}
+        </button>
+      </mat-card-title>
+      <mat-card-content>
+        <div class="flex-container">
+          <div>
+            <span>
+              <b> Interview: {{accepted.averageInterviewMark | number : '1.0-2'}}</b>
+              <br/></span>
+            <div>Soft skills: {{accepted.softSkillMark | number : '1.0-2'}}</div>
+            <div>English: {{accepted.englishMark | number : '1.0-2'}}</div>
+            <div>Technical skills: {{accepted.techMark | number : '1.0-2'}}</div>
+            <div>Practice: {{accepted.practiceMark | number : '1.0-2'}}</div>
+          </div>
+          <div>
+            <span>
+            <b>  Pre-Interview: {{accepted.averagePreInterviewMark / 100 | percent : '1.0-0'}}</b><br/></span>
+            <div *ngFor="let testMark of accepted.testMarks">
+              {{getCategoryObject(testMark.preInterviewTestName).value}}:
+              {{testMark.mark / 100 | percent : '1.0-0'}}
+            </div>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
   </div>
-  <div class="example-action-buttons">
-    <button (click)="accordion.openAll()" mat-button>Expand All</button>
-    <button (click)="accordion.closeAll()" mat-button>Collapse All</button>
+  <mat-divider></mat-divider>
+
+  <div class="cdk-virtual-scroll-data-source-example">
+    <h2>On Hold Candidates</h2>
+      <mat-card class="card-on-hold"
+                *ngFor="let onhold of internshipResults.onHoldCandidates;let i = index">
+        <mat-card-title>
+          <div>{{getCandidateName(onhold.candidateId)}}</div>
+          <button mat-fab color="primary">
+          {{onhold.averageInterviewMark | percent : '1.0-0'}}
+          </button>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="flex-container">
+            <div>
+            <span>
+              <b> Interview: {{onhold.averageInterviewMark}}</b>
+              <br/></span>
+              <div>Soft skills: {{onhold.softSkillMark | number : '1.0-2'}}</div>
+              <div>English: {{onhold.englishMark | number : '1.0-2'}}</div>
+              <div>Technical skills: {{onhold.techMark | number : '1.0-2'}}</div>
+              <div>Practice: {{onhold.practiceMark | number : '1.0-2'}}</div>
+            </div>
+            <div>
+            <span>
+              <b>Pre-Interview: {{onhold.averagePreInterviewMark / 100 | percent : '1.0-0'}}</b><br/></span>
+              <div *ngFor="let testMark of onhold.testMarks">
+                {{getCategoryObject(testMark.preInterviewTestName).value}}:
+                {{testMark.mark / 100 | percent : '1.0-0'}}
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
   </div>
-  <mat-accordion class="example-headers-align" multi>
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Accepted Candidates</mat-panel-title>
-        <mat-panel-description>
-          Good job Heroes!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <mat-icon color="primary">how_to_reg</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
+  <br>
+  <mat-divider></mat-divider>
 
-      <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
-        <input matInput />
-      </mat-form-field>
+  <div class="cdk-virtual-scroll-data-source-example">
+    <h2>New Candidates</h2>
+      <mat-card class="card-new"
+                *ngFor="let new of internshipResults.newCandidates;let i = index">
+        <mat-card-title>
+          <div>{{getCandidateName(new.candidateId)}}</div>
+          <button mat-fab color="primary">{{new.averageInterviewMark | percent : '1.0-0'}} </button>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="flex-container">
+            <div>
+            <span>
+             <b> Interview: {{new.averageInterviewMark | percent : '1.0-0'}}</b>
+              <br/></span>
+              <div>Soft skills: {{new.softSkillMark | number : '1.0-2'}}</div>
+              <div>English: {{new.englishMark | number : '1.0-2'}}</div>
+              <div>Technical skills: {{new.techMark | number : '1.0-2'}}</div>
+              <div>Practice: {{new.practiceMark | number : '1.0-2'}}</div>
+            </div>
+            <div>
+            <span>
+             <b> Pre-Interview: {{new.averagePreInterviewMark / 100 | percent : '1.0-0'}}</b><br/></span>
+              <div *ngFor="let testMark of new.testMarks">
+                {{getCategoryObject(testMark.preInterviewTestName).value}}:
+                {{testMark.mark / 100 | percent : '1.0-0'}}
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
+  <mat-divider></mat-divider>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Age</mat-label>
-        <input matInput min="1" type="number" />
-      </mat-form-field>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> On Hold Candidates</mat-panel-title>
-        <mat-panel-description>
-          Waiting decision!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <mat-icon color="primary">sync</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
-        <input matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Age</mat-label>
-        <input matInput min="1" type="number" />
-      </mat-form-field>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> New Candidates</mat-panel-title>
-        <mat-panel-description>
-          Welcome!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <mat-icon color="primary">sentiment_very_satisfied</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
-        <input matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Age</mat-label>
-        <input matInput min="1" type="number" />
-      </mat-form-field>
-    </mat-expansion-panel>
-
-    <mat-expansion-panel>
-      <mat-expansion-panel-header>
-        <mat-panel-title> Rejected Candidates</mat-panel-title>
-        <mat-panel-description>
-          Keep it
-          going!&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <mat-icon color="primary">star_border</mat-icon>
-        </mat-panel-description>
-      </mat-expansion-panel-header>
-
-      <mat-form-field appearance="outline">
-        <mat-label>First name</mat-label>
-        <input matInput />
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Age</mat-label>
-        <input matInput min="1" type="number" />
-      </mat-form-field>
-    </mat-expansion-panel>
-  </mat-accordion>
+  <div class="cdk-virtual-scroll-data-source-example">
+    <h2>Rejected Candidates</h2>
+      <mat-card class="card-rejected"
+                *ngFor="let rejected of internshipResults.rejectedCandidates;let i = index">
+        <mat-card-title>
+          <div>{{getCandidateName(rejected.candidateId)}}</div>
+          <button mat-fab color="primary">
+            {{rejected.averageInterviewMark | percent : '1.0-0'}}
+          </button>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="flex-container">
+            <div>
+            <span>
+               <b> Interview: {{rejected.averageInterviewMark | percent : '1.0-0'}}</b>
+              <br/></span>
+              <div>Soft skills: {{rejected.softSkillMark | number : '1.0-2'}}</div>
+              <div>English: {{rejected.englishMark | number : '1.0-2'}}</div>
+              <div>Technical skills: {{rejected.techMark | number : '1.0-2'}}</div>
+              <div>Practice: {{rejected.practiceMark | number : '1.0-2'}}</div>
+            </div>
+            <div>
+            <span>
+              <b> Pre-Interview: {{rejected.averagePreInterviewMark / 100 | percent : '1.0-0'}}</b> <br/></span>
+              <div *ngFor="let testMark of rejected.testMarks">
+                {{getCategoryObject(testMark.preInterviewTestName).value}}:
+                {{testMark.mark / 100 | percent : '1.0-0'}}
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+  </div>
+</div>
 </mat-dialog-content>

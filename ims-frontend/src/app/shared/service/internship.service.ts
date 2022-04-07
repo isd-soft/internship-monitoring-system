@@ -15,7 +15,9 @@ export class InternshipService {
   getAllInternships(): Observable<Internship[]> {
     return this.http.get<Internship[]>(`${environment.apiUrl}internships`);
   }
-
+  getInternshipById(id: string): Observable<Internship> {
+    return this.http.get<Internship>(`${environment.apiUrl}internships/${id}`);
+  }
   createInternship(internship: Internship): Observable<any> {
     return this.http.post(`${environment.apiUrl}internships`, internship);
   }

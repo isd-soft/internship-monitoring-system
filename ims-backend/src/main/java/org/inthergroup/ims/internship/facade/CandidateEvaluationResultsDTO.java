@@ -17,7 +17,8 @@ public class CandidateEvaluationResultsDTO {
     private Double englishMark;
     private Double softSkillMark;
     private Double practiceMark;
-    private Double averageMark;
-    private Double averagePreInterviewTestMark;
+    private Double techMark;
+    private Double averageInterviewMark;
+    private Double averagePreInterviewMark;
     private List<PreInterviewTestMarkDTO> testMarks;
 }

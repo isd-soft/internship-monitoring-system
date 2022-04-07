@@ -5,7 +5,8 @@ export class CandidateResults {
   englishMark: number;
   softSkillMark: number;
   practiceMark: number;
-  averageMark: number;
-  averagePreInterviewTestMark: number;
+  techMark: number;
+  averageInterviewMark: number;
+  averagePreInterviewMark: number;
   testMarks: PreInterviewTestMark[];
 }
