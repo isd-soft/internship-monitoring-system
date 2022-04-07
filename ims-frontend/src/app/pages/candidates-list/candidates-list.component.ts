@@ -13,6 +13,9 @@ import { CandidateEvaluationService } from "src/app/shared/service/candidate-eva
 import { CandidateEvaluation } from "../../shared/model/candidate-evaluation";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ConfirmCandidateDialogComponent } from "./confirm-dialog/confirm-dialog.component";
+import {InternshipResultsComponent} from "../../intership/internship-results/internship-results.component";
+import {InternshipService} from "../../shared/service/internship.service";
+import {Internship} from "../../shared/model/internship";
 
 @Component({
   selector: "app-candidates-list",
@@ -33,6 +36,7 @@ export class CandidatesListComponent implements OnInit {
   ];
   displayMode: "all" | "byInternship";
   internshipId: string;
+  internship: Internship;
 
   constructor(
     private candidateService: CandidateService,
@@ -40,7 +44,8 @@ export class CandidatesListComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private CandidateEvaluationSv: CandidateEvaluationService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private internshipService: InternshipService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +65,7 @@ export class CandidatesListComponent implements OnInit {
         this.dataSource = new MatTableDataSource(candidates);
       });
     });
+    this.getInternshipById();
   }
 
   updateCandidateModal(candidate: Candidate) {
@@ -161,5 +167,23 @@ export class CandidatesListComponent implements OnInit {
       this.dataSource = new MatTableDataSource(candidates);
     });
     return;
+  }
+  getInternshipById(){
+    this.internshipService.getInternshipById(this.internshipId).subscribe(
+      (internship)=> {
+        this.internship = internship;
+      }
+    )
+
+}
+
+  getInternshipResults(internship: Internship) {
+    this.dialog.open(InternshipResultsComponent, {
+      width: '90%',
+      height: '90%',
+      data: internship
+    }).afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+    });
   }
 }

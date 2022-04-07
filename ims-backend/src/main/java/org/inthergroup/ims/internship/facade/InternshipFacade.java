@@ -4,9 +4,8 @@ import org.inthergroup.ims.candidate.facade.CandidateDTO;
 import org.inthergroup.ims.candidate.facade.CandidateFacade;
 import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.candidate.model.CandidateStatus;
-import org.inthergroup.ims.candidate_evaluation.CandidateEvaluation;
-import org.inthergroup.ims.candidate_evaluation.CandidateEvaluationRepository;
 import org.inthergroup.ims.candidate_evaluation.CandidateEvaluationResponseDTO;
+import org.inthergroup.ims.candidate_evaluation.CandidateEvaluationService;
 import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.inthergroup.ims.login.model.User;
@@ -19,15 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.persistence.EntityNotFoundException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
-
-import static org.inthergroup.ims.candidate.model.CandidateStatus.*;
 
 @Service
 @Transactional
@@ -37,19 +30,20 @@ public class InternshipFacade {
     private final UserRepository userRepository;
     private final TechQuestionListRepository techQuestionListRepository;
     private final PreInterviewTestMarkFacade preInterviewTestMarkFacade;
-    private final CandidateEvaluationRepository candidateEvaluationRepository;
+    private final CandidateEvaluationService candidateEvaluationService;
     private final PreInterviewTestMarkRepository preInterviewTestMarkRepository;
 
     public InternshipFacade(InternshipService internshipService, CandidateFacade candidateFacade,
                             UserRepository userRepository, TechQuestionListRepository techQuestionListRepository,
                             PreInterviewTestMarkFacade preInterviewTestMarkFacade,
-                            CandidateEvaluationRepository candidateEvaluationRepository, PreInterviewTestMarkRepository preInterviewTestMarkRepository) {
+                            CandidateEvaluationService candidateEvaluationService,
+                            PreInterviewTestMarkRepository preInterviewTestMarkRepository) {
         this.internshipService = internshipService;
         this.candidateFacade = candidateFacade;
         this.userRepository = userRepository;
         this.techQuestionListRepository = techQuestionListRepository;
         this.preInterviewTestMarkFacade = preInterviewTestMarkFacade;
-        this.candidateEvaluationRepository = candidateEvaluationRepository;
+        this.candidateEvaluationService = candidateEvaluationService;
         this.preInterviewTestMarkRepository = preInterviewTestMarkRepository;
     }
 
@@ -165,19 +159,19 @@ public class InternshipFacade {
         List<CandidateEvaluationResultsDTO> onHoldCandidates = new ArrayList<>();
         List<CandidateEvaluationResultsDTO> rejectedCandidates = new ArrayList<>();
         List<Candidate> internshipCandidates = internshipService.getAllCandidatesByInternshipId(internshipId);
+        Comparator<CandidateEvaluationResultsDTO> compareByResult =
+                Comparator.comparingDouble(CandidateEvaluationResultsDTO::getAverageInterviewMark).reversed();
         internshipCandidates.forEach(candidate -> {
-            CandidateEvaluation candidateInterviewEvaluation =
-                    candidateEvaluationRepository.getCandidateEvaluationByCandidateId(candidate.getId())
-                            .orElseThrow(() -> new EntityNotFoundException(
-                                    String.format("Not Found for Candidate [%s] [%s] evaluation results",
-                                            candidate.getName(), candidate.getSurname())));
+            CandidateEvaluationResponseDTO candidateInterviewEvaluation =
+                    candidateEvaluationService.getByCandidateId(candidate.getId());
             CandidateEvaluationResultsDTO candidateResults = CandidateEvaluationResultsDTO.builder()
                     .candidateId(candidate.getId())
                     .englishMark(candidateInterviewEvaluation.getEnglishMark())
                     .softSkillMark(candidateInterviewEvaluation.getSoftSkillMark())
                     .practiceMark(candidateInterviewEvaluation.getPracticeMark())
-                    .averageMark(candidateEvaluationRepository.avg(candidate.getId()))
-                    .averagePreInterviewTestMark(preInterviewTestMarkRepository.testAvg(candidate.getId()))
+                    .techMark(candidateInterviewEvaluation.getAverageMark())
+                    .averageInterviewMark(candidateInterviewEvaluation.getAverageCandidateEvaluation())
+                    .averagePreInterviewMark(preInterviewTestMarkRepository.testAvg(candidate.getId()))
                     .testMarks(preInterviewTestMarkFacade.getPreInterviewTestMarksByCandidateId(candidate.getId()))
                     .build();
             CandidateStatus candidateStatus = candidate.getStatus();
@@ -198,6 +192,10 @@ public class InternshipFacade {
                     newCandidates.add(candidateResults);
             }
         });
+        newCandidates.sort(compareByResult);
+        acceptedCandidates.sort(compareByResult);
+        onHoldCandidates.sort(compareByResult);
+        rejectedCandidates.sort(compareByResult);
         return InternshipResultsDTO.builder()
                 .newCandidates(newCandidates)
                 .acceptedCandidates(acceptedCandidates)
