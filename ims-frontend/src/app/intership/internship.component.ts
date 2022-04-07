@@ -160,6 +160,14 @@ export class InternshipComponent implements AfterViewInit {
   openPresentation() {
   }
 
+  getURL(url: string) {
+    if(url.startsWith('http://') || url.startsWith('https://')){
+      return url;
+    }else {
+      return 'https://' + url;
+    }
+  };
+
   filterLoggedUserInternships(myInternships: boolean) {
     if (!myInternships) {
       this.getAllInternships();

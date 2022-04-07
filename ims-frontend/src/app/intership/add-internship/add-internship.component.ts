@@ -130,13 +130,13 @@ export class AddInternshipComponent implements OnInit {
     }
   }
 
-  public getAllTechQuestionLists() {
+   getAllTechQuestionLists() {
     this.techQuestionListService.getAllTechQuestionList().subscribe((res) => {
       this.techQuestionsList = res;
     });
   }
 
-  public getAllMentors() {
+   getAllMentors() {
     this.userService.getAll().subscribe((res: User[]) => {
       this.mentors = res;
     });
@@ -159,7 +159,8 @@ export class AddInternshipComponent implements OnInit {
       !this.form.internshipForm.get(field).valid &&
       this.internshipForm.get(field).touched
     );
-  }
+  };
+
 
   createInternship() {
     if (!this.editData) {
