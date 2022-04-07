@@ -37,6 +37,7 @@ public class CandidateController {
     @PostMapping
     public ResponseEntity<Void> createCandidate(@RequestBody @Valid final CandidateDTO candidateDTO) {
         candidateFacade.create(candidateDTO);
+        log.info("Candidate {} has been created!",candidateDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
@@ -44,12 +45,14 @@ public class CandidateController {
     public ResponseEntity<Void> updateCandidate(@PathVariable("id") final String candidateId,
                                                 @RequestBody @Valid final CandidateDTO candidateDTO) {
         candidateFacade.update(candidateDTO);
+        log.info("Candidate {} has been updated!",candidateDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCandidate(@PathVariable final String id) {
         candidateFacade.delete(id);
+        log.info("Candidate {} has been deleted!", id);
         return ResponseEntity.ok().build();
     }
 
