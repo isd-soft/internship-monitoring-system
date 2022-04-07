@@ -193,13 +193,13 @@
 <mat-menu #menu="matMenu">
   <ng-template let-aliasMenuItems="element" matMenuContent>
     <div *ngIf="aliasMenuItems.gitHubUrl" mat-menu-item>
-      <a href="{{ aliasMenuItems.gitHubUrl }}" target="_blank">GitHub</a>
+      <a href="{{ getURL(aliasMenuItems.gitHubUrl) }}" target="_blank">GitHub</a>
     </div>
     <div *ngIf="aliasMenuItems.trelloBoardUrl" mat-menu-item>
-      <a href="{{ aliasMenuItems.trelloBoardUrl }}" target="_blank">Trello</a>
+      <a href="{{ getURL(aliasMenuItems.trelloBoardUrl) }}" target="_blank">Trello</a>
     </div>
     <div *ngIf="aliasMenuItems.deployedAppUrl" mat-menu-item>
-      <a href="{{ aliasMenuItems.deployedAppUrl }}" target="_blank"
+      <a href="{{ getURL(aliasMenuItems.deployedAppUrl) }}" target="_blank"
       >Deployed App</a
       >
     </div>
