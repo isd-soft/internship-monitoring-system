@@ -1,9 +1,9 @@
 <div mat-dialog-title class="dialog-title">
   <div>Candidate Evaluation:
     <b>{{ candidates.name + " " + candidates.surname }}</b></div>
-    <button color="primary" mat-icon-button aria-label="close dialog" mat-dialog-close>
-      <mat-icon>close</mat-icon>
-    </button>
+  <button color="primary" mat-icon-button aria-label="close dialog" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
 </div>
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="Pre-Interview">
@@ -18,7 +18,8 @@
         class="example-full-width"
       >
         <mat-label>{{ testMark.preInterviewTestName}}</mat-label>
-        <input [(ngModel)]="testMark.mark" [name]="testMark.preInterviewTestName" matInput/>
+        <input type="text" [(ngModel)]="testMark.mark"  [name]="testMark.preInterviewTestName"
+               matInput/>
       </mat-form-field>
     </form>
     <button (click)="submitPreInterviewForm()" color="primary" mat-raised-button>Save</button>

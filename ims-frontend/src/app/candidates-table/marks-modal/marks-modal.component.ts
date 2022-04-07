@@ -23,6 +23,9 @@ export class MarksModalComponent implements OnInit {
   marksForm: FormGroup = new FormGroup({});
   marksArray: TechMark[] = [];
   preInterviewTestMarks: PreInterviewTestMark[] = [];
+  public min : number = 0;
+  public max : number = 100;
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: CandidateEvaluation,
@@ -118,5 +121,9 @@ export class MarksModalComponent implements OnInit {
     });
 
     this._snackBar.open("Saved successfully", "Ok!");
+  }
+
+  validateValue($event: any) {
+
   }
 }

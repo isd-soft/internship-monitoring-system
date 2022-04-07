@@ -55,6 +55,11 @@ import { InternshipResultsComponent } from './intership/internship-results/inter
 import {ConfirmCandidateDialogComponent} from "./pages/candidates-list/confirm-dialog/confirm-dialog.component";
 import {MatListModule} from "@angular/material/list";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {MatCardModule} from "@angular/material/card";
+import {ScrollingModule} from "@angular/cdk/scrolling";
+import {NgApexchartsModule} from "ng-apexcharts";
+import { PercentageMaskDirective } from "./percentage-mask.directive";
+
 
 @NgModule({
   declarations: [
@@ -83,7 +88,8 @@ import {MatExpansionModule} from "@angular/material/expansion";
     CandidatesListComponent,
     ConfirmDialogComponent,
     ConfirmCandidateDialogComponent,
-    InternshipResultsComponent
+    InternshipResultsComponent,
+    PercentageMaskDirective
   ],
   imports: [
     BrowserModule,
@@ -114,7 +120,10 @@ import {MatExpansionModule} from "@angular/material/expansion";
     MatCheckboxModule,
     MatTabsModule,
     MatListModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatCardModule,
+    ScrollingModule,
+    NgApexchartsModule
   ],
   providers: [
     { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 1500 } },
