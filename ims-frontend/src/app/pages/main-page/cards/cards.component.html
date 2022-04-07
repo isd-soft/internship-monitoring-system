@@ -7,23 +7,50 @@
     <div>
       <h3 class="title">{{ internshipCard.projectName }}</h3>
       <div *ngIf="activeCardId === internshipCard.id" class="requirements">
-         <span>Period: {{internshipCard.periodFrom | date}} -
-           {{internshipCard.periodTo | date}} </span>
-        <br/>
-        <span> status:  {{getStatusObject(internshipCard.internshipStatus) }}</span>
-        <br/>
-        <a [href]="internshipCard.gitHubUrl"> <i class="fa fa-github fa-3x"></i> </a>
-        <br/>
-        <a [href]="internshipCard.deployedAppUrl"><i class="fa fa-cloud fa-3x"></i></a>
-        <br/>
-        <span *ngIf="internshipCard.mentorsId.length">Mentors: <br/></span>
-        <div *ngFor="let mentor of internshipCard.mentorsId">
-          {{mentorNameFromArray(mentor)}}
-        </div>
-        <br/>
-        <span *ngIf="allCandidatesByInternship.length">Candidates: <br/></span>
-        <div *ngFor="let candidateByInternship of allCandidatesByInternship">
-          {{ candidateByInternship.name + " " + candidateByInternship.surname }}
+        <span
+          >Date: {{ internshipCard.periodFrom | date }} -
+          {{ internshipCard.periodTo | date }}
+        </span>
+        <br />
+        <mat-chip-list aria-label="Status">
+          <mat-chip
+            [ngClass]="{
+              orangeBtnColor: internshipCard.internshipStatus === status.NEW,
+              yellowBtnColor:
+                internshipCard.internshipStatus === status.INTERVIEWING,
+              greenBtnColor:
+                internshipCard.internshipStatus === status.IN_PROGRESS,
+              redBtnColor: internshipCard.internshipStatus === status.DONE
+            }"
+            >{{ internshipCard.internshipStatus }}
+          </mat-chip>
+        </mat-chip-list>
+        <br />
+
+        <a [href]="internshipCard.gitHubUrl">
+          <i class="fa fa-github fa-3x"></i>
+        </a>
+        <a [href]="internshipCard.deployedAppUrl"
+          ><i class="fa fa-cloud fa-3x"></i
+        ></a>
+        <br />
+        <div class="flex-container">
+          <div>
+            <span *ngIf="internshipCard.mentorsId">Mentors: <br /></span>
+            <div *ngFor="let mentor of internshipCard.mentorsId">
+              {{ mentorNameFromArray(mentor) }}
+            </div>
+          </div>
+          <div>
+            <span *ngIf="allCandidatesByInternship">Candidates: <br /></span>
+            <div
+              *ngFor="let candidateByInternship of allCandidatesByInternship"
+            >
+              {{
+                candidateByInternship.name + " " + candidateByInternship.surname
+              }}
+            </div>
+          </div>
         </div>
       </div>
       <div class="circle">
@@ -38,6 +65,3 @@
     </div>
   </div>
 </div>
-
-
-

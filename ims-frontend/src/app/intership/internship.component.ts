@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, ViewChild} from '@angular/core';
 import {InternshipService} from "../shared/service/internship.service";
-import {Category, Internship, Status} from "../shared/model/internship";
+import {Category, Internship, StatusEnum} from "../shared/model/internship";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatPaginator} from "@angular/material/paginator";
 import {MatSort} from "@angular/material/sort";
@@ -34,7 +34,7 @@ export class InternshipComponent implements AfterViewInit {
   dataSource: MatTableDataSource<Internship>;
   closeResult: string;
   mentors: User[] = [];
-  status = Status;
+  status = StatusEnum;
   statuses: { name: string; value: string }[];
   category = Category;
   categories: { name: string; value: string }[];

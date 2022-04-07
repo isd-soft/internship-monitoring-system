@@ -1,6 +1,3 @@
-import {User} from "./user";
-import {Candidate} from "./candidate";
-
 export class Internship {
   id: string;
   projectName: string;
@@ -8,7 +5,7 @@ export class Internship {
   mentorsId: string []; // mentors id
   periodFrom: Date;
   periodTo: Date;
-  internshipStatus: Status;
+  internshipStatus: StatusEnum;
   preInterviewTestList: string[]; // review PreinterviewTest class
   techQuesListId: string;
   gitHubUrl: string;
@@ -18,20 +15,21 @@ export class Internship {
   candidatesId: string []
 }
 
-export enum Status {
-  NEW = "New",
-  INTERVIEWING = "Interviewing",
-  IN_PROGRESS = "In process",
-  DONE = "Done"
+export enum StatusEnum {
+  NEW = "NEW",
+  INTERVIEWING = "INTERVIEWING",
+  IN_PROGRESS = "IN_PROGRESS",
+  DONE = "DONE"
 }
 
-export enum Category{
-  JAVA="Java",
+export enum Category {
+  JAVA = "Java",
   C_SHARP = "C#",
   PLC = "PLC"
 }
-export enum PreInterviewTest{
-  ENGLISH ="English",
+
+export enum PreInterviewTest {
+  ENGLISH = "English",
   LOGIC = "Logic",
   JAVA = "Java",
   SQL = "SQL"
