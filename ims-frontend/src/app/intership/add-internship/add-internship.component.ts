@@ -13,7 +13,7 @@ import {
 import {
   Category,
   PreInterviewTest,
-  Status,
+  StatusEnum,
 } from "../../shared/model/internship";
 import { User } from "../../shared/model/user";
 import { TechQuestionList } from "../../shared/model/techQuestionList";
@@ -30,9 +30,9 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 export class AddInternshipComponent implements OnInit {
   internshipForm: FormGroup = new FormGroup({});
   actionBtn: string = "Save";
-  status = Status;
+  status = StatusEnum;
   statuses: { name: string; value: string }[];
-  defaultStatus = { name: Status.NEW, value: "New" };
+  defaultStatus = { name: StatusEnum.NEW, value: "New" };
   category = Category;
   categories: { name: string; value: string }[];
   mentors: User[];

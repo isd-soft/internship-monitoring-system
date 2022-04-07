@@ -51,7 +51,7 @@
 
       <ng-container matColumnDef="userName">
         <th *matHeaderCellDef mat-header-cell> User name</th>
-        <td *matCellDef="let element" mat-cell> {{element.userName}} </td>
+        <td *matCellDef="let element" mat-cell> {{element.name + " " + element.surname}} </td>
       </ng-container>
       <!-- Position Column -->
       <ng-container matColumnDef="feedback">
