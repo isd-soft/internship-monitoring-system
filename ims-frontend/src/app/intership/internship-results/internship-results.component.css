@@ -4,9 +4,95 @@
   align-items: center;
   align-content: space-between;
   flex-direction: row;
+  overflow: auto;
 }
 
-.example-headers-align .mat-expansion-panel-header-title,
-.example-headers-align .mat-expansion-panel-header-description {
-  flex-basis: 0;
+.mat-h2{
+  padding: 0px;
 }
+.cdk-virtual-scroll-data-source-example .example-viewport {
+  height: 200px;
+  width: 100%;
+}
+
+/*.cdk-virtual-scroll-data-source-example .example-viewport .cdk-virtual-scroll-content-wrapper {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*}*/
+
+/*.cdk-virtual-scroll-data-source-example .example-item {*/
+/*  width: 50px;*/
+/*  height: 100%;*/
+/*  writing-mode: vertical-lr;*/
+/*}*/
+
+.card-accepted {
+  margin-bottom: 8px;
+  display: inline-block;
+  margin-left: 10px;
+  width: 25%;
+  background: #53629b;
+  background: -webkit-linear-gradient(top, #53629b, #ffffff);
+  background: -moz-linear-gradient(top, #53629b, #ffffff);
+  background: linear-gradient(to bottom, #53629b, #ffffff);
+}
+.card-on-hold {
+  margin-bottom: 8px;
+  display: inline-block;
+  margin-left: 10px;
+  width: 25%;
+  background: #99ccff;
+  background: -webkit-linear-gradient(top, #99ccff, #ffffff);
+  background: -moz-linear-gradient(top, #99ccff, #ffffff);
+  background: linear-gradient(to bottom, #99ccff, #ffffff);
+}
+.card-new {
+  margin-bottom: 8px;
+  display: inline-block;
+  margin-left: 10px;
+  width: 25%;
+  background: #ffd24d;
+  background: -webkit-linear-gradient(top, #ffd24d, #ffffff);
+  background: -moz-linear-gradient(top, #ffd24d, #ffffff);
+  background: linear-gradient(to bottom, #ffd24d, #ffffff);
+}
+.card-rejected {
+  margin-bottom: 8px;
+  display: inline-block;
+  margin-left: 10px;
+  width: 25%;
+  background: #ff8566;
+  background: -webkit-linear-gradient(top, #ff8566, #ffffff);
+  background: -moz-linear-gradient(top, #ff8566, #ffffff);
+  background: linear-gradient(to bottom, #ff8566, #ffffff);
+}
+.basic-container {
+  padding: 5px;
+  height: 100%;
+}
+
+
+.mat-card-title{
+  width: 90%;
+  font-size: medium;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.mat-card-subtitle, .mat-card-content {
+  display: block;
+  margin-bottom: 2px;
+}
+.flex-container {
+  display: flex;
+}
+
+.flex-container > div {
+  margin: 10px;
+}
+
+.mat-stroked-button{
+margin-right: 2rem;
+  border: none!important;
+}
+

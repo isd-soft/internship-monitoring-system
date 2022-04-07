@@ -5,10 +5,11 @@
     class="card"
   >
     <div>
+      <br />
       <h3 class="title">{{ internshipCard.projectName }}</h3>
       <div *ngIf="activeCardId === internshipCard.id" class="requirements">
         <span
-          >Date: {{ internshipCard.periodFrom | date }} -
+          >{{ internshipCard.periodFrom | date }} -
           {{ internshipCard.periodTo | date }}
         </span>
         <br />

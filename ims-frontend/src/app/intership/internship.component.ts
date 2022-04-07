@@ -50,7 +50,8 @@ export class InternshipComponent implements AfterViewInit {
     private internshipService: InternshipService,
     private userService: AccountService,
     private dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngAfterViewInit(): void {
     this.getAllInternships();
@@ -74,7 +75,7 @@ export class InternshipComponent implements AfterViewInit {
     }
   }
 
-  public getAllInternships() {
+  getAllInternships() {
     this.internshipService.getAllInternships().subscribe({
       next: (result) => {
         console.log(result);
@@ -87,21 +88,21 @@ export class InternshipComponent implements AfterViewInit {
     });
   }
 
-  public getMentorById(id: string) {
+  getMentorById(id: string) {
     return this.mentors.find((mentor: any) => mentor.id === id);
   }
 
-  public getMentors() {
+  getMentors() {
     this.userService.getAll().subscribe((res: User[]) => {
       this.mentors = res;
     });
   }
 
-  public getStatusObject(enumType: any) {
+  getStatusObject(enumType: any) {
     return this.statuses.find((status) => status.name === enumType);
   }
 
-  public getCategoryObject(enumType: any) {
+  getCategoryObject(enumType: any) {
     return this.categories.find((category) => category.name === enumType);
   }
 
@@ -156,7 +157,8 @@ export class InternshipComponent implements AfterViewInit {
     });
   }
 
-  openPresentation() {}
+  openPresentation() {
+  }
 
   filterLoggedUserInternships(myInternships: boolean) {
     if (!myInternships) {
@@ -168,11 +170,12 @@ export class InternshipComponent implements AfterViewInit {
 
   getInternshipResults(row: Internship) {
     this.dialog.open(InternshipResultsComponent, {
-      width: '75%',
+      width: '90%',
+      height: '90%',
       data: row
     }).afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-        this.getAllInternships();
+      this.getAllInternships();
     });
   }
 }

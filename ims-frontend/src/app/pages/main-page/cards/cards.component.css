@@ -38,9 +38,8 @@
 .card:hover {
   transform: translateY(-20px);
   transition: 0.4s ease-out;
-  /*width: 1250px;*/
-  min-width: 450px;
-  height: 600px;
+  min-width: 350px;
+  height: 500px;
 }
 
 .card:hover ~ .card {
@@ -105,7 +104,7 @@
 }
 
 .card:hover .circle {
-  transform: translateY(300px);
+  transform: translateY(200px);
   transition: 0.4s ease-in-out;
 }
 
