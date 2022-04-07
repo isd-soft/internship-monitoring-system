@@ -1,5 +1,6 @@
 package org.inthergroup.ims.email;
 
+import lombok.extern.slf4j.Slf4j;
 import org.inthergroup.ims.candidate.service.CandidateService;
 import org.inthergroup.ims.feedback.FeedbackWithAuthorNameDTO;
 import org.inthergroup.ims.internship.service.InternshipService;
@@ -8,9 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.mail.internet.AddressException;
-
+@Slf4j
 @RestController
 
 
@@ -42,7 +42,8 @@ public class EmailController {
                 "Internship interview feedback for: " + subject,
                 textOfMail
         );
-        return "Message sent";
+        log.info("Email {} has been sent!", feedbackWithAuthorNameDTO);
+        return null;
 
     }
 }

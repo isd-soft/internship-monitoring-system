@@ -1,12 +1,11 @@
 package org.inthergroup.ims.internship.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.inthergroup.ims.candidate.facade.CandidateDTO;
 import org.inthergroup.ims.candidate.facade.CandidateFacade;
-import org.inthergroup.ims.candidate.model.Candidate;
 import org.inthergroup.ims.internship.facade.InternshipDTO;
 import org.inthergroup.ims.internship.facade.InternshipFacade;
 import org.inthergroup.ims.internship.facade.InternshipResultsDTO;
-import org.inthergroup.ims.internship.model.Internship;
 import org.inthergroup.ims.internship.service.InternshipService;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,8 +20,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
+@Slf4j
 @RestController
 @RequestMapping(value = "/api/internships", produces = MediaType.APPLICATION_JSON_VALUE)
 public class InternshipController {
@@ -60,6 +59,7 @@ public class InternshipController {
     @PostMapping
     public ResponseEntity<Void> createInternship(@RequestBody @Valid final InternshipDTO internship) {
         internshipFacade.create(internship);
+        log.info("Internship {} has been created!", internship);
         return ResponseEntity.ok().build();
     }
 
@@ -67,12 +67,14 @@ public class InternshipController {
     public ResponseEntity<Void> updateInternship(@PathVariable("id") final String id,
                                                  @RequestBody @Valid final InternshipDTO internshipDTO) {
         internshipFacade.update(id, internshipDTO);
+        log.info("Internship {} has been updated!", internshipDTO);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInternship(@PathVariable("id") final String id) {
         internshipFacade.delete(id);
+        log.info("Internship {} has been deleted!", id);
         return ResponseEntity.noContent().build();
     }
 }
